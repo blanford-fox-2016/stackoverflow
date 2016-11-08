@@ -70,7 +70,9 @@ const Question = new Schema({
     content: {
         type: String,
         required: true
-    }
+    },
+    upvote: Number,
+    downvote: Number
 })
 ```
 
@@ -86,7 +88,9 @@ const Answer = new Schema({
     content: {
         type: String,
         required: true
-    }
+    },
+    upvote: Number,
+    downvote: Number
 })
 ```
 
