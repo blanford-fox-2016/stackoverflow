@@ -170,3 +170,25 @@ const User = new Schema({
 | api/answer/delete/:questionId   | DELETE    | Delete Answer By answerId   |
 | api/answer/put/:questionId      | PUT       | Update Answer By answerId   |
 
+## Client
+
+### Install bower
+
+```
+npm install bower -g
+bower init
+```
+
+### Make bowerrc
+
+```
+{
+    "directory": "lib/"
+}
+```
+
+### Install bootstrap
+
+```
+bower install bootstrap --save
+```
