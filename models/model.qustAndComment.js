@@ -18,8 +18,8 @@ var questionSchema = new Schema({
   }],
   vote:[{
     type: Schema.Types.ObjectId,
-    ref: 'users'
-    // unique: true
+    ref: 'users',
+    unique: true
   }]
 },{
 timestamps : true

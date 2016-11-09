@@ -2,7 +2,7 @@ const users = require('../models/model.users')
 
 module.exports = {
   /* get all data user */
-  getAllUser : function(req, res, next){
+  addNewUser : function(req, res, next){
     var newUsers = new users({
       username : req.body.username,
       password : req.body.password ,
