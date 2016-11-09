@@ -46,35 +46,25 @@ User = {
 ### Question
 ```js
 Question = {
-  quest_id : {
-    type : Number,
-    required : true,
-    unique: true
+  question_id : {
+    type : Number, required : true, unique: true
   },
   author : {
-    type: Schema.Types.ObjectId,
-    ref : 'User'
+    type: Schema.Types.ObjectId, ref : 'User', required: true
   },
   title : {
-    type : String,
-    required : true
-  },
+    type : String, required : true
+  },  
   content : {
-    type : String,
-    required: true
+    type : String, required: true
   },
   comments : [{
-    type: String,
-    comment_id : Number,
-    commentator : {
-      type : Schema.Types.ObjectId,
-      ref : 'User'
-    }
+    comment: { type :String, required : true},
+    comment_id : { type: Number, required : true, unique: true},
+    commentator : { type : Schema.Types.ObjectId, ref : 'User'}
   }],
   votes : [{
-    type : Schema.Types.ObjectId,
-    ref : 'User',
-    unique : true
+    type : Schema.Types.ObjectId, ref : 'User', unique : true
   }]
 }
 ```
@@ -94,30 +84,30 @@ Question = {
 
 #### Question
 
-| Method   |            Routes          |       Description      |
-|----------|:--------------------------:|-----------------------:|
-| GET      |  /api/questions            | get all questions      |
-| POST     |  /api/questions            | post single question   |
-| PUT      |  /api/questions/:quest_id  | edit single question   |
-| DELETE   |  /api/questions/:quest_id  | delete single question |
-| GET      |  /api/questions/:quest_id  | find single question   |
+| Method   |              question_id Routes          |       Description      |
+|----------|:-----------------------------:|-----------------------:|
+| GET      |  /api/questions               | get all questions      |
+| POST     |  /api/questions               | post single question   |
+| PUT      |  /api/questions/:question_id  | edit single question   |
+| DELETE   |  /api/questions/:question_id  | delete single question |
+| GET      |  /api/questions/:question_id  | find single question   |
 
 #### Comment
 
-| Method   |                Routes                         |       Description     |
-|----------|:---------------------------------------------:|----------------------:|
-| GET      |  /api/questions/:quest_id/comments            | get all comments      |
-| POST     |  /api/questions/:quest_id/comments            | post single comment   |
-| PUT      |  /api/questions/:quest_id/comments/:c_id      | edit single comment   |
-| DELETE   |  /api/questions/:quest_id/comments/:c_id      | delete single comment |
-| GET      |  /api/questions/:quest_id/comments/:c_id      | find single comment   |
+| Method   |                         Routes                         |       Description     |
+|----------|:------------------------------------------------------:|----------------------:|
+| GET      |  /api/questions/:question_id/comments                  | get all comments      |
+| POST     |  /api/questions/:question_id/comments                  | post single comment   |
+| PUT      |  /api/questions/:question_id/comments/:comment_id      | edit single comment   |
+| DELETE   |  /api/questions/:question_id/comments/:comment_id      | delete single comment |
+| GET      |  /api/questions/:question_id/comments/:comment_id      | find single comment   |
 
 
 #### Vote
 
-|  Method   |                Routes              |       Description     |
-|-----------|:----------------------------------:|----------------------:|
-| POST      |  /api/questions/:quest_id/votes     | post the vote         |
-| DELETE    |  /api/questions/:quest_id/votes     | delete the vote       |
+|  Method   |                    question_idRoutes              |       Description     |
+|-----------|:--------------------------------------:|----------------------:|
+| POST      |  /api/questions/:question_id/votes     | post the vote         |
+| DELETE    |  /api/questions/:question_id/votes     | delete the vote       |
 
 ## Copyright

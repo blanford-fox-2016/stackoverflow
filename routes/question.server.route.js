@@ -3,22 +3,22 @@
 const express = require('express');
 const router = express.Router();
 
-const QuestController = require('../controllers/question.server.controller')
+const QuestionController = require('../controllers/question.server.controller')
 
 /* GET All Users */
-router.get('/questions', QuestController.list)
+router.get('/questions', QuestionController.list)
 
 /* POST new user. */
-router.post('/questions', QuestController.create)
+router.post('/questions', QuestionController.create)
 
 /* PUT User by his/ her username*/
-router.put('/questions/:quest_id', QuestController.update)
+router.put('/questions/:question_id', QuestionController.update)
 
 /* DELETE User by his/ her username*/
-router.delete('/questions/:quest_id', QuestController.delete)
+router.delete('/questions/:question_id', QuestionController.delete)
 
 /* GET User by his/ her username*/
-router.get('/questions/:quest_id', QuestController.find)
+router.get('/questions/:question_id', QuestionController.find)
 
 
 
