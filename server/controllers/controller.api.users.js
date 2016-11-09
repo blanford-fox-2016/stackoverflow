@@ -31,7 +31,7 @@ let addUser = (req, res) => {
   console.log(`ini masuk`);
   console.log(req.body);
   User.register({
-    userId   : req.body.userId,
+    userId   : 1,
     username : req.body.username
     // arcticle id add here
   }, req.body.password, (err, new_user) => {
