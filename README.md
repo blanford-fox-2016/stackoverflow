@@ -117,7 +117,7 @@ Question = {
 
 |  Method   |                Routes              |       Description     |
 |-----------|:----------------------------------:|----------------------:|
-| POST      |  /api/questions/quest_id/votes     | post the vote         |
-| DELETE    |  /api/questions/quest_id/votes     | delete the vote       |
+| POST      |  /api/questions/:quest_id/votes     | post the vote         |
+| DELETE    |  /api/questions/:quest_id/votes     | delete the vote       |
 
 ## Copyright
