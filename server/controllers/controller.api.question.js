@@ -4,17 +4,12 @@ module.exports = {
     seedQuestion: function (req, res) {
         const dataQuestion = [
             {
+                createdBy:1,
                 title: 'title a',
                 content: 'content a',
                 votes: [],
                 answer: []
 
-            },
-            {
-                title: 'title a',
-                content: 'content a',
-                votes: [],
-                answer: []
             }
         ]
 
@@ -42,6 +37,7 @@ module.exports = {
 
     addQuestion: function (req, res) {
         const question = {
+            createdBy: req.body.createdBy,
             title: req.body.title,
             content: req.body.content,
             votes: [],

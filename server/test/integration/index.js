@@ -122,7 +122,7 @@ describe("Test for Question", function () {
 //     //SET UP BEFORE TESTING QUESTION
     beforeEach(function (done) {
         chai.request(app)
-            .get('api/question/seed')
+            .get('/api/question/seed')
             .end(function (err, res) {
                 console.log("Question seeded")
                 done()
@@ -131,7 +131,7 @@ describe("Test for Question", function () {
 
     afterEach(function (done) {
         chai.request(app)
-            .delete('api/question')
+            .delete('/api/question')
             .end(function (err, res) {
                 console.log("All question deleted")
                 done()
@@ -146,66 +146,79 @@ describe("Test for Question", function () {
                 .end(function (err, res) {
                     expect(res).to.have.status(200)
                     expect(res.body[0].title).to.equal('title a')
+                    expect(res.body[0].content).to.equal('content a')
                     done()
                 })
         })
     })
 
-//     describe("Test if create question working", function () {
-//
-//         it("Expect to return question that has been created", function (done) {
-//             chai.request(app)
-//                 .post('/api/question')
-//                 .send({
-//                     questionId: 88,
-//                     title: 'title create',
-//                     content: 'content create',
-//                     votes: [],
-//                     answer: []
-//                 })
-//                 .end(function (err, res) {
-//                     expect(res).to.have.status(200)
-//                     expect(res.body[0].questionId).to.equal(88)
-//                     expect(res.body[0].title).to.equal('title create')
-//                     expect(res.body[0].content).to.equal('content create')
-//                     done()
-//                 })
-//         })
-//     })
-//
-//     describe("Test if delete question working", function () {
-//
-//         it("Expect to return true if delete question working", function (done) {
-//             chai.request(app)
-//                 .delete('/api/question/:questionId')
-//                 .end(function (err, res) {
-//                     expect(res).to.have.status(200)
-//                     expect(res.body[0].name).to.equal('title a')
-//                     done()
-//                 })
-//         })
-//     })
-//
-//     describe("Test if update question working", function () {
-//
-//         it("Expect to return question that has been updated", function (done) {
-//             chai.request(app)
-//                 .put('/api/question/:questionId')
-//                 .send({
-//                     questionId: 88,
-//                     title: 'title update',
-//                     content: 'content update',
-//                     votes: [],
-//                     answer: []
-//                 })
-//                 .end(function (err, res) {
-//                     expect(res).to.have.status(200)
-//                     expect(res.body[0].questionId).to.equal(88)
-//                     expect(res.body[0].title).to.equal('title update')
-//                     expect(res.body[0].content).to.equal('content update')
-//                     done()
-//                 })
-//         })
-//     })
+    describe("Test if create question working", function () {
+
+        it("Expect to return question that has been created", function (done) {
+            chai.request(app)
+                .post('/api/question')
+                .send({
+                    createdBy: 1,
+                    title: 'title create',
+                    content: 'content create',
+                    votes: [],
+                    answer: []
+                })
+                .end(function (err, res) {
+                    Question.findOne({
+                        title: res.body.title
+                    }, function (err, data) {
+                        console.log(">>>>>>>>>>>>", data)
+                        expect(res).to.have.status(200)
+                        expect(res.body.questionId).to.equal(data.questionId)
+                        expect(res.body.title).to.equal(data.title)
+                        expect(res.body.content).to.equal(data.content)
+                        done()
+                    })
+                })
+        })
+    })
+
+    describe("Test if delete question working", function () {
+
+        it("Expect to return true if delete question working", function (done) {
+
+            Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
+                chai.request(app)
+                    .delete(`/api/question/${data.questionId}`)
+                    .end(function (err, res) {
+                        expect(res).to.have.status(200)
+                        expect(res.body.title).to.equal(data.title)
+                        expect(res.body.content).to.equal(data.content)
+                        done()
+                    })
+            })
+        })
+    })
+
+    describe("Test if update question working", function () {
+
+        it("Expect to return question that has been updated", function (done) {
+
+            let input = {
+                title: 'title update',
+                content: 'content update',
+                votes: [],
+                answer: []
+            }
+
+            Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
+                chai.request(app)
+                    .put(`/api/question/${data.questionId}`)
+                    .send(input)
+                    .end(function (err, res) {
+                        expect(res).to.have.status(200)
+                        expect(res.body.title).to.equal(input.title)
+                        expect(res.body.content).to.equal(input.content)
+                        done()
+                    })
+            })
+        })
+    })
 })
 

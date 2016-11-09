@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
+var incrementQuestion = require('mongoose-increment');
 const Schema = mongoose.Schema
 
 const Question = new Schema({
     createdBy: Number,
-    questionId: Number,
     title: {
         type: String,
         required: true
@@ -37,5 +37,10 @@ const Question = new Schema({
         }
     ]
 })
+
+Question.plugin(incrementQuestion, {
+    modelName: 'Question',
+    fieldName: 'questionId',
+});
 
 module.exports = mongoose.model('Question', Question)
