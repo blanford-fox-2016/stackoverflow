@@ -81,5 +81,21 @@ module.exports = {
             if (err) res.json(err)
             else res.json(data)
         })
+    },
+
+    addVoteQuestion: function (req, res) {
+        Question.findOneAndUpdate({
+            questionId: req.params.questionId
+        }, {
+            $push: {
+                userId: req.body.userId
+            }
+        }, {
+            new: true,
+            upsert: true
+        }, function (err, data) {
+            if (err) res.json(err)
+            else res.json(data)
+        })
     }
 }
