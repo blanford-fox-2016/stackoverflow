@@ -44,7 +44,8 @@ let questionsSchema = new Schema({
   }, //type: should be like this --> Schema.Types.ObjectId
   slug: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
 },
 {

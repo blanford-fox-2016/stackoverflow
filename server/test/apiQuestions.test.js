@@ -1,10 +1,8 @@
 'use strict'
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const slug = require('slug');
 chai.use(chaiHttp);
 const should = chai.should();
-// const article = require('../models/questions');
 
 describe('post new question', function() {
   it('should store a new question to the database, and return the data back', function(done) {
