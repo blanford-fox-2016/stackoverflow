@@ -6,20 +6,12 @@ const should = chai.should()
 const url = 'http://localhost:3000'
 
 /*
-  * will test POST /api/users/login
-  * should return (200) status code
-  ** must be in format JSON
-  ** respond content body should be same with the new content value that sent (POST)
-*/
-
-
-/*
   * will test POST /api/users
   * should return (200) status code
   ** must be in format JSON
   ** respond content body should be same with the content value that sent (POST)
 */
-describe.skip('Add a new user into database', function(){
+describe('Add a new user into database', function(){
   it('it should add new user', function(done){
     chai.request(url)
       .post('/api/users')
@@ -27,7 +19,30 @@ describe.skip('Add a new user into database', function(){
         "userId"   : 123,
         "username" : "admin", // username is unique
         "password" : "admin"
-        // add article put here
+      })
+      .end(function(err, res){
+        console.log(res.body);
+        res.should.be.json
+        res.should.have.status(200)
+        res.body.username.should.equal("admin")
+        done()
+      })
+  })
+})
+
+/*
+  * will test POST /api/users/login
+  * should return (200) status code
+  ** must be in format JSON
+  ** respond should be same with the user login data (POST)
+*/
+describe('Login user', function(){
+  it('it should login user and return user login data', function(done){
+    chai.request(url)
+      .post('/api/users/login')
+      .send({
+        "username" : "admin",
+        "password" : "admin"
       })
       .end(function(err, res){
         console.log(res.body);
@@ -45,7 +60,7 @@ describe.skip('Add a new user into database', function(){
   ** must be in format JSON
   ** respond content body should be same with the content value that sent (PUT)
 */
-describe.skip('Updated a specific user based on id', function(){
+describe('Updated a specific user based on id', function(){
   it('it should update a specific user', function(done){
     chai.request(url)
       .put('/api/users/' + 1)
@@ -56,7 +71,6 @@ describe.skip('Updated a specific user based on id', function(){
         res.should.be.json
         res.should.have.status(200)
         res.body.username.should.equal("admin123")
-        // res.body.password.should.equal("admin123")
         done()
       })
   })
@@ -68,7 +82,7 @@ describe.skip('Updated a specific user based on id', function(){
   ** must be in format JSON
   ** respond content body should be same with the content value that deleted (DELETE)
 */
-describe.skip('Deleted a specific user based on id', function(){
+describe('Deleted a specific user based on id', function(){
   it('it should delete a specific user', function(done){
     chai.request(url)
       .delete('/api/users/' + 1)
