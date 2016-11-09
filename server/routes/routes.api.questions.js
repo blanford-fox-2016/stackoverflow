@@ -21,22 +21,22 @@ router.delete('/:questid', controller.deleteQuestion);
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // comments
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-/* Process New comment. */
-router.post('/:questid/comments/', controller.addComment);
-
-/* Process Edit a comment. */
-router.put('/:questid/comments/:commentid', controller.editComment);
-
-/* Process Delete a comment. */
-router.delete('/:questid/comments/:commentid', controller.deleteComment);
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// votes
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-/* Process New vote. */
-router.post('/:questid/comments/', controller.addVote);
-
-/* Process Delete a vote. */
-router.delete('/:questid/comments/:commentid', controller.deleteVote);
+// /* Process New comment. */
+// router.post('/:questid/comments/', controller.addComment);
+//
+// /* Process Edit a comment. */
+// router.put('/:questid/comments/:commentid', controller.editComment);
+//
+// /* Process Delete a comment. */
+// router.delete('/:questid/comments/:commentid', controller.deleteComment);
+//
+// // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// // votes
+// // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// /* Process New vote. */
+// router.post('/:questid/comments/', controller.addVote);
+//
+// /* Process Delete a vote. */
+// router.delete('/:questid/comments/:commentid', controller.deleteVote);
 
 module.exports = router;

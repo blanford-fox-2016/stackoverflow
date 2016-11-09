@@ -6,8 +6,7 @@ const passportLocalMongoose = require('passport-local-mongoose')
 
 const Schema = mongoose.Schema
 
-
-let UserSchema = new Schema({
+let UsersSchema = new Schema({
   username : {
     type      : String,
     requires  : true

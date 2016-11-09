@@ -7,25 +7,15 @@ const url = 'http://localhost:3000'
 
 let add_data = {
   content     : "Why you choose node.js rather than PHP?",
-  author      : "admin",
-  comment     : [{
-      content   : "It's asynchronous",
-      author: 1
-  }],
-  votes   : [1, 2]
+  comment     : [],
+  votes   : []
 }
 
 /*
   * only edit content's question
 */
 let edit_data = {
-  content     : "Why you choose node.js rather than JSP?",
-  author      : "admin",
-  comment     : [{
-      content   : "It's asynchronous",
-      author: 1
-  }],
-  votes   : [1, 2]
+  content     : "Why you choose node.js rather than JSP?"
 }
 
 /*
@@ -42,7 +32,10 @@ describe('Add a new question into database', function(){
       .end(function(err, res){
         res.should.be.json
         res.should.have.status(200)
-        res.body.should.equal(add_data)
+        res.body.questionId.should.equal(1)
+        res.body.content.should.equal(add_data.content)
+        res.body.comment.length.should.equal(0)
+        res.body.votes.length.should.equal(0)
         done()
       })
   })
@@ -59,9 +52,13 @@ describe('Select 1 question with comments', function(){
     chai.request(url)
       .get('/api/questions/1')
       .end(function(err, res){
+        console.log(res.body);
         res.should.be.json
         res.should.have.status(200)
-        res.body.should.equal(add_data)
+        res.body.questionId.should.equal(1)
+        res.body.content.should.equal(add_data.content)
+        res.body.comment.length.should.equal(0)
+        res.body.votes.length.should.equal(0)
         done()
       })
   })
@@ -79,9 +76,12 @@ describe('Updated a specific question based on questionId', function(){
       .put('/api/questions/1')
       .send(edit_data)
       .end(function(err, res){
+        console.log(res.body);
         res.should.be.json
-        res.should.have.status(200)
-        res.body.should.equal(edit_data)
+        res.body.questionId.should.equal(1)
+        res.body.content.should.equal(edit_data.content)
+        res.body.comment.length.should.equal(0)
+        res.body.votes.length.should.equal(0)
         done()
       })
   })
@@ -100,7 +100,10 @@ describe('Deleted a specific question based on questionId', function(){
       .end(function(err, res){
         res.should.be.json
         res.should.have.status(200)
-        res.body.should.equal(edit_data)
+        res.body.questionId.should.equal(1)
+        res.body.content.should.equal(edit_data.content)
+        res.body.comment.length.should.equal(0)
+        res.body.votes.length.should.equal(0)
         done()
       })
   })
