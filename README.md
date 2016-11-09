@@ -82,7 +82,7 @@ let QuestionSchema = {
     voteId : 1,
     userId : 123213123123
   },{
-    voteId : 1,
+    voteId : 2,
     userid : 100000
   }]
 }
@@ -113,7 +113,8 @@ Default development port and host : http://localhost:3000/
 #### Votes
 | Routes | HTTP | Description |
 |--------|------|-------------|
-| /api/questions/:questid/comments/:commentid/votes/:id | PUT | edit a vote |
+| /api/questions/:questid/comments/:commentid/votes/ | POST | add 1 vote |
+| /api/questions/:questid/comments/:commentid/votes/ | DELETE | remove 1 vote |
 
 ## File Structure
 ```
