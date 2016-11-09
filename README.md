@@ -71,26 +71,33 @@ const Question = new Schema({
         type: String,
         required: true
     },
-    upvote: Number,
-    downvote: Number
-})
-```
-
-### answers
-
-```
-const Answer = new Schema({
-    answerId: Number,
-    title: {
-        type: String,
-        required: true
-    },
-    content: {
-        type: String,
-        required: true
-    },
-    upvote: Number,
-    downvote: Number
+    votes: [
+        {
+            type: Number,
+            foreignField: 'userId',
+            ref: 'users'
+        }
+    ],
+    answer: [
+        {
+            answerId: Number,
+            title: {
+                type: String,
+                required: true
+            },
+            content: {
+                type: String,
+                required: true
+            },
+            vote: [
+                {
+                    type: Number,
+                    foreignField: 'userId',
+                    ref: 'users'
+                }
+            ]
+        }
+    ]
 })
 ```
 
