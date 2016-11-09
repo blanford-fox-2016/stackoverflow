@@ -112,7 +112,7 @@ describe("Test for User", function () {
     })
 })
 
-//TESTIN FOR QUESTION
+//TESTING FOR QUESTION
 describe("Test for Question", function () {
     //SET UP BEFORE TESTING QUESTION
     beforeEach(function (done) {
@@ -207,3 +207,4 @@ describe("Test for Question", function () {
         })
     })
 })
+
