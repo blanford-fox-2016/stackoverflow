@@ -2,6 +2,42 @@
 
 TanyaSaja is a simple QA WebApps, it's similar to StackExchange site but simpler, and you are free to ask anything. But still, you have to keep your attitude everytime you ask a question or give an answer.
 
+## Dependencies
+```
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "test":"mocha"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.1",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "jade": "~1.11.0",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.6.6",
+    "morgan": "~1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2"
+  }
+}
+```
+
+To install all dependencies, simply run `npm i` command.
+
 ## Database Models
 
 Generally, there are two models in this apps, first is `Users`, and the second one is `Questions`.
