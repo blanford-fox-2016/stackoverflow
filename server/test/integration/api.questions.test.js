@@ -6,35 +6,30 @@ const should = chai.should()
 const url = 'http://localhost:3000'
 
 let add_data = {
-  "questionId" : 1,
-  "quest_content" : "How are you today?",
+  "content" : "How are you today?",
   "answer"  : {
-    "answerId" : 1,
     "userId"    : 123213123123,
-    "answer_content" : "I'm fine"
+    "content" : "I'm fine"
   },
   "votes" : [{
-    "voteId" : 1,
     "userId" : 123213123123
   },{
-    "voteId" : 2,
     "userid" : 100000
   }]
 }
 
+/*
+  * only edit content's question
+*/
 let edit_data = {
-  "questionId" : 1,
-  "quest_content" : "How are you tommorow?",
+  "content" : "How are you tommorow?",
   "answer"  : {
-    "answerId" : 1,
     "userId"    : 123213123123,
     "answer_content" : "I'm fine"
   },
   "votes" : [{
-    "voteId" : 1,
     "userId" : 123213123123
   },{
-    "voteId" : 2,
     "userid" : 100000
   }]
 }
