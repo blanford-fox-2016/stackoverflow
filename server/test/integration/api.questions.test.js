@@ -100,7 +100,7 @@ describe('Deleted a specific question based on questionId', function(){
       .end(function(err, res){
         res.should.be.json
         res.should.have.status(200)
-        res.body.questionId.should.equal(1)
+        res.body.should.equal(edit_data)
         done()
       })
   })

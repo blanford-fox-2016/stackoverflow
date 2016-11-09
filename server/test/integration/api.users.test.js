@@ -16,7 +16,7 @@ describe('Add a new user into database', function(){
     chai.request(url)
       .post('/api/users')
       .send({
-        "userId"   : 123,
+        // "userId"   : 123,
         "username" : "admin", // username is unique
         "password" : "admin"
       })
@@ -60,10 +60,10 @@ describe('Login user', function(){
   ** must be in format JSON
   ** respond content body should be same with the content value that sent (PUT)
 */
-describe('Updated a specific user based on id', function(){
+describe('Updated a specific user based on userId', function(){
   it('it should update a specific user', function(done){
     chai.request(url)
-      .put('/api/users/' + 1)
+      .put('/api/users/1')
       .send({
         "username" : "admin123"
       })
@@ -82,10 +82,10 @@ describe('Updated a specific user based on id', function(){
   ** must be in format JSON
   ** respond content body should be same with the content value that deleted (DELETE)
 */
-describe('Deleted a specific user based on id', function(){
+describe('Deleted a specific user based on userId', function(){
   it('it should delete a specific user', function(done){
     chai.request(url)
-      .delete('/api/users/' + 1)
+      .delete('/api/users/1')
       .end(function(err, res){
         res.should.be.json
         res.should.have.status(200)

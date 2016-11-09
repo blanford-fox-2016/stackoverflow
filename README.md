@@ -24,6 +24,7 @@ Develop mini QA App using node.js & mongodb - mongoose
 #### Users
 ```
 let UserSchema = {
+  userId  : Number,
   username : {
     type      : String,
     requires  : true
@@ -71,6 +72,7 @@ let QuestionSchema = {
 #### Users
 ```
 {
+  userId    : 1,
   username  : "admin",
   password  : "admin"
 }
@@ -115,8 +117,8 @@ Default development port and host : http://localhost:3000/
 #### Votes
 | Routes | HTTP | Description |
 |--------|------|-------------|
-| /api/questions/:questid/comments/:commentid/votes/ | POST | add 1 vote |
-| /api/questions/:questid/comments/:commentid/votes/ | DELETE | remove 1 vote |
+| /api/questions/:questid/votes/ | POST | add 1 vote |
+| /api/questions/:questid/votes/ | DELETE | remove 1 vote |
 
 ## File Structure
 ```
