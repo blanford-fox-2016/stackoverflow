@@ -22,7 +22,4 @@ router.get('/questions/:question_id/comments/comment_id', CommentController.find
 
 
 
-
-
-
 module.exports = router;
