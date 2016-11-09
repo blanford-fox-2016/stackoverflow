@@ -90,3 +90,22 @@ describe('find by slug, get the id, then update', function() {
       })
   })
 })
+
+describe('find by slug, get the id, then delete', function() {
+  let slug = 'tanya-dong-123';
+  it('should return status ok 1, n 1', function(done) {
+    chai.request('http://localhost:3000')
+      .get('/api/question/'+slug)
+      .end(function (err, res) {
+        chai.request('http://localhost:3000')
+          .delete('/api/question/'+res.body._id)
+          .end(function (err, res){
+            res.should.be.json;
+            res.should.have.status(200);
+            res.body.ok.should.equal(1);
+            res.body.n.should.equal(1);
+            done();
+          })
+      })
+  })
+})
