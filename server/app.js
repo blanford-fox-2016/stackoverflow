@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const routes = require('./routes/index');
-const question = require('./routes/question');
+const question = require('./routes/apiQuestions');
 
 const app = express();
 

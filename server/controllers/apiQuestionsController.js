@@ -1,4 +1,5 @@
-const Questions = require('./models/Questions');
+const Questions = require('../models/Questions');
+const slug = require('slug');
 
 let getAll = (req, res, next) => {
   Questions.find({},
@@ -31,7 +32,8 @@ let addNew = (req, res, next) => {
     answers: req.body.answers,
     up: req.body.up,
     down: req.body.down,
-    author: req.body.author
+    author: req.body.author,
+    slug: slug(req.body.title).toLowerCase()
   }, (err, question) => {
     if (err) {
       console.log(err);
@@ -50,12 +52,13 @@ let updateById = (req, res, next) => {
     answers: req.body.answers,
     up: req.body.up,
     down: req.body.down,
-    author: req.body.author
+    author: req.body.author,
+    slug: slug(req.body.title).toLowerCase()
   }, (err, updated) => {
     if (err) {
       console.log(err);
     } else {
-      res.json(question);
+      res.json(updated);
     }
   })
 }
@@ -63,11 +66,19 @@ let updateById = (req, res, next) => {
 let deleteById = (req, res, next) => {
   Questions.remove({
     _id: req.params.id
-  } (err, deleted) => {
+  }, (err, deleted) => {
     if (err) {
       console.log(err);
     } else {
       res.json(deleted);
     }
   })
+}
+
+module.exports = {
+  getAll: getAll,
+  getOneBySlug: getOneBySlug,
+  addNew: addNew,
+  updateById: updateById,
+  deleteById: deleteById
 }

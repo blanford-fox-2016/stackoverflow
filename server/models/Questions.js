@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let questionsSchema = new mongoose.Schema({
+let questionsSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -20,25 +21,33 @@ let questionsSchema = new mongoose.Schema({
         required: true
       },
       author:{
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: 'Users'
-      }
+      }  //type: should be like this --> Schema.Types.ObjectId
+    },
+    {
       timestamps: true
     }
   ],
   up: [
     {
-      type: Schema.Types.ObjectId, ref: 'Users'
-    }
+      type: String, ref: 'Users'
+    } //type: should be like this --> Schema.Types.ObjectId
   ],
   down: [
     {
-      type: Schema.Types.ObjectId, ref: 'Users'
-    }
+      type: String, ref: 'Users'
+    } //type: should be like this --> Schema.Types.ObjectId
   ],
   author: {
-    type: Schema.Types.ObjectId, ref: 'Users'
-  },
+    type: String, ref: 'Users'
+  }, //type: should be like this --> Schema.Types.ObjectId
+  slug: {
+    type: String,
+    required: true
+  }
+},
+{
   timestamps: true
 });
 

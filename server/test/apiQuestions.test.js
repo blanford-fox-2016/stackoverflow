@@ -17,11 +17,11 @@ describe('post new question', function() {
         answers: [],
         up: [],
         down: [],
-        slug: slug(this.title).toLowerCase(),
+        // slug: 'tanya-dong',
         createdAt: new Date(),
         updatedAt: new Date()
       })
-      .end( function (err, res) {
+      .end(function (err, res) {
         res.should.be.json;
         res.should.have.status(200);
         res.body.title.should.equal('Tanya Dong');
@@ -49,7 +49,7 @@ describe('get one question based on by slug', function() {
   let slug = 'tanya-dong';
   it('should return the right question based on slug', function(done) {
     chai.request('http://localhost:3000')
-      .get('/api/question' + slug)
+      .get('/api/question/' + slug)
       .end(function (err, res) {
         res.should.be.json;
         res.should.have.status(200);
@@ -74,7 +74,7 @@ describe('find by slug, get the id, then update', function() {
             answers: [],
             up: [],
             down: [],
-            slug: slug(this.title).toLowerCase(),
+            // slug: 'tanya-dong-123',
             createdAt: new Date(),
             updatedAt: new Date()
           })
