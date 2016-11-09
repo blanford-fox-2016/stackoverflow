@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
+const increment = require('mongoose-increment');
 
-const userSchema = new Schema({
+
+
+const userSchema = new mongoose.Schema({
+    userId: {
+        type: Number,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -13,7 +20,7 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
     email: {
         type: String,
         required: true,
@@ -21,21 +28,26 @@ const userSchema = new Schema({
             validator: function(email) {
                 return /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(email)
             },
-            message: ''
-            Wrong email format
+            message: 'Wrong email format'
         }
     },
     question: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'question'
     }],
     answer: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'answer'
     }]
 }, {
     timestamps: true
 })
+
+userSchema.plugin(increment, {
+    modelName: 'User',
+    fieldName: 'userId'
+});
+
 
 userSchema.plugin(passportLocalMongoose)
 

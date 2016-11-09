@@ -32,13 +32,15 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors())
 app.use(cookieParser());
+app.use(cors())
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // -----------------------------------------------------------------------------
 // ROUTE AND PASSPORT CONFIGURATION
 // -----------------------------------------------------------------------------
+app.use(passport.initialize())
 
 app.use(session({
     secret: 'secret',
@@ -46,7 +48,6 @@ app.use(session({
     saveUninitialized: false,
 }))
 
-app.use(passport.initialize())
 app.use(passport.session())
 
 

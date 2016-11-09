@@ -1,7 +1,8 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const increment = require('mongoose-increment');
 
 const answerSchema = new mongoose.Schema({
-    questionId: {
+    answerId: {
         type: String,
         required: true
     },
@@ -15,6 +16,11 @@ const answerSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true
+});
+
+answerSchema.plugin(increment, {
+    modelName: 'Answer',
+    fieldName: 'answerId'
 });
 
 module.exports = mongoose.model('Answer', answerSchema);

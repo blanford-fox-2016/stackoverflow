@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
+    author: {
+        type: String,
+        required: true,
+        ref: 'user'
+    },
     title: {
         type: String,
         required: true
@@ -10,8 +15,7 @@ const questionSchema = new mongoose.Schema({
         required: true
     },
     answer: [{
-        type: Schema.Types.ObjectId,
-        ref: 'answer'
+        type: String
     }],
     votes: [{
         type: Schema.Types.ObjectId,
