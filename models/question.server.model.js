@@ -9,6 +9,10 @@ const questionSchema = new Schema({
     required : true,
     unique: true
   },
+  author : {
+    type: Schema.Types.ObjectId,
+    ref : 'User'
+  },
   title : {
     type : String,
     required : true
@@ -18,15 +22,18 @@ const questionSchema = new Schema({
     required: true
   },
   comments : [{
-    comment : {
-      type: String,
-      comment_id : Number,
-      required : true
+    type: String,
+    comment_id : Number,
+    commentator : {
+      type : Schema.Types.ObjectId,
+      ref : 'User'
     }
   }],
-  votes : {
-    type : Number
-  }
+  votes : [{
+    type : Schema.Types.ObjectId,
+    ref : 'User',
+    unique : true
+  }]
 })
 
 module.exports = mongoose.model('Question', questionSchema)
