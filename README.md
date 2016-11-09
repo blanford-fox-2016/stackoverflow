@@ -62,6 +62,7 @@ npm install chai-http --save
 
 ```
 const Question = new Schema({
+    createdBy: Number,
     questionId: Number,
     title: {
         type: String,
@@ -81,6 +82,7 @@ const Question = new Schema({
     answers: [
         {
             answerId: Number,
+            createdBy: Number,
             title: {
                 type: String,
                 required: true
@@ -127,21 +129,7 @@ const User = new Schema({
             },
             message: ''Wrong email format
         }
-    },
-    questions: [
-        {
-            type: Number,
-            foreignField: 'questionId',
-            ref: 'questions'
-        }
-    ],
-    answers: [
-        {
-            type: Number,
-            foreignField: 'answerId',
-            ref: 'answers'
-        }
-    ]
+    }
 })
 ```
 
