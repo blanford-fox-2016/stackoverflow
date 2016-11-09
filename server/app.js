@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -10,6 +12,8 @@ var app = express();
 
 var routes_api_users = require('./routes/routes.api.users');
 var routes_api_questions = require('./routes/routes.api.questions');
+var routes_api_comments = require('./routes/routes.api.votes');
+var routes_api_votes = require('./routes/routes.api.votes');
 
 // mongoose
 const mongoose = require('mongoose')
