@@ -45,7 +45,6 @@ module.exports = {
                 console.log(err);
                 res.json({ message: `Error : ${err}` })
             } else {
-                console.log(data);
                 res.json({
                     author: data.author,
                     title: data.title,
@@ -56,33 +55,34 @@ module.exports = {
         })
     },
     editQuestion: function(req, res, next) {
-        Question.update({
-            questionId: req.params.questionId
-        }, {
-            author: req.body.author,
-            title: req.body.title,
-            content: req.body.content
-        }, function(err, data) {
+        Question.findOneAndUpdate({
+            questionId: req.params.id
+        }, req.body, { new: true }, function(err, data) {
             if (err) {
                 console.log(err);
                 res.json({ message: `Error : ${err}` })
             } else {
-                res.json(data)
+                res.json({
+                    author: data.author,
+                    title: data.title,
+                    content: data.content,
+                    message: `Question title updated to ${data.title}`
+                })
             }
         })
 
     },
     removeQuestion: function(req, res, next) {
-        Question.remove({
-            questionId: req.params.questionId
+        Question.findOneAndRemove({
+            questionId: req.params.id
         }, function(err, data) {
             if (err) {
                 console.log(err);
                 res.json({ message: `Error: ${err}` })
             } else {
+                console.log(data);
                 res.json({
-                    data: data,
-                    message: `Question ID ${req.params.questionId} has been deleted`
+                    message: `Question has been deleted`
                 })
             }
         })
