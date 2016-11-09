@@ -78,7 +78,7 @@ const answerSchema = new mongoose.Schema({
 ### User
 
 ```js
-const User = new Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         required: true
