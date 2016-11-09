@@ -92,7 +92,7 @@ let QuestionSchema = {
 Default development port and host : http://localhost:3000/
 #### Users
 | Routes | HTTP | Description |
-|-       |-     |-            |
+|--------|------|-------------|
 | /api/signup | POST | signup user |
 | /api/login | POST | login user |
 | /api/users | POST | process new user |
@@ -100,20 +100,20 @@ Default development port and host : http://localhost:3000/
 | /api/users/:id | DELETE | delete a user |
 #### Questions
 | Routes | HTTP | Description |
-|-       |-     |-            |
+|--------|------|-------------|
 | /api/questions | POST | process new question |
 | /api/questions/:questid | GET | process show a question & post's comment |
 | /api/questions/:questid | PUT  | edit a question |
 | /api/questions/:questid | DELETE | delete a question |
 #### Comments
 | Routes | HTTP | Description |
-|-       |-     |-            |
+|--------|------|-------------|
 | /api/questions/:questid/comments/ | POST | process new comment |
 | /api/questions/:questid/comments/:commentid | PUT  | edit a comment |
 | /api/questions/:questid/comments/:commentid | DELETE | delete a comment |
 #### Votes
 | Routes | HTTP | Description |
-|-       |-     |-            |
+|--------|------|-------------|
 | /api/votes/:id | PUT | edit a vote |
 
 ## File Structure
