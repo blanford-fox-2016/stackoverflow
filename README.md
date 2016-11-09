@@ -35,6 +35,10 @@ User = {
       isEmail: true,
     }
     required : true
+  },
+  password : {
+    type : String,
+    required : true
   }
 }
 ```
@@ -65,6 +69,9 @@ Question = {
           required : true
         }  
       }]
+  },
+  votes : {
+    type : Number
   }
 }
 ```
