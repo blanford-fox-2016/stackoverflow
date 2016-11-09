@@ -18,6 +18,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://127.0.0.1/test-blog', (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Database connected!');
+  }
+});
+
 app.use('/', routes);
 app.use('/users', users);
 
