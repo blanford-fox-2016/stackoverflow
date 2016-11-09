@@ -15,7 +15,7 @@ And then run `npm install` to finish installing your `node_modules`
 ## Extra Dependencies Configuration
 Install more dependencies for database, routing, authentication process and testing
 ```sh
-npm install -S mongodb mongoose dotenv cors passport passport-local passport-local-mongoose express-session
+npm install -S mongodb mongoose mongoose-increment dotenv cors passport passport-local passport-local-mongoose express-session
 chai chai-http
 
 
