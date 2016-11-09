@@ -5,16 +5,10 @@ module.exports = {
     seedUser: function (req, res) {
         const dataUser = [
             {
-                name: 'name a',
-                username: 'username a',
+                name: 'name xyz',
+                username: 'username xyz',
                 password: 'passworda',
-                email: 'aaa@gmail.com'
-            },
-            {
-                name: 'name b',
-                username: 'username b',
-                password: 'passwordb',
-                email: 'bbb@gmail.com'
+                email: 'xyz@gmail.com',
             }
         ]
 

@@ -1,12 +1,19 @@
+require('dotenv').config()
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const session = require('express-session')
+const User = require('./models/user')
 
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE)
+
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
 
 // var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -23,7 +30,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  cookie: {
+    maxAge: 6000000
+  }
+}))
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+passport.use(new LocalStrategy(User.authenticate()))
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // app.use('/', routes);
 app.use('/api/user', users);
