@@ -20,7 +20,7 @@ const userSchema = new Schema({
     required : true
   },
   email : {
-    type: mongoose.SchemaTypes.Email
+    type: mongoose.SchemaTypes.Email,
     required :true,
     unique: true
   },

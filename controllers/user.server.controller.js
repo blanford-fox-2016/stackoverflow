@@ -18,7 +18,7 @@ module.exports = {
       username : req.body.username,
       name : req.body.name,
       email: req.body.email,
-      password: req,body.password
+      password: req.body.password
     }
 
     User.create(userData)
@@ -28,9 +28,16 @@ module.exports = {
 
   // update user by his/her username
   update: (req, res) => {
+    // updating stuff
+    let userUpdate = {
+      name : req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    }
+
     User.findOneAndUpdate({
       username: req.params.username
-    })
+    }, userUpdate, { new: true, upsert: true})
       .then(user => res.json(user))
       .catch(err => res.json(err))
   },
