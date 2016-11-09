@@ -1,6 +1,12 @@
 var mongoose = require('mongoose');
+const increment = require('mongoose-increment');
+
 
 const questionSchema = new mongoose.Schema({
+    questionId: {
+        type: Number,
+        required: true
+    },
     author: {
         type: String,
         required: true,
@@ -14,15 +20,22 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    answer: [{
-        type: String
-    }],
-    votes: [{
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-    }]
+    answer: {
+        type: Array,
+        default: []
+    },
+    votes: {
+        type: Array,
+        default: []
+    }
 }, {
     timestamps: true
 });
+
+questionSchema.plugin(increment, {
+    modelName: 'Question',
+    fieldName: 'questionId'
+});
+
 
 module.exports = mongoose.model('Question', questionSchema);

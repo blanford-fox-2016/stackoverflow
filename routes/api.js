@@ -10,7 +10,7 @@ const answer_controller = require('../controller/answer.controller.js');
 /* GET users listing. */
 
 router.post('/register', user_controller.registerProcess)
-    // router.post('/login', passport.authenticate('local'), user_controller.loginProcess)
+router.post('/login', passport.authenticate('local'), user_controller.loginProcess)
 
 router.get('/user/seed', user_controller.seedUser)
 router.get('/user', user_controller.getAllUser)

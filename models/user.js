@@ -31,13 +31,13 @@ const userSchema = new mongoose.Schema({
             message: 'Wrong email format'
         }
     },
-    question: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'question'
-    }],
+    question: {
+        type: Array,
+        default: []
+    },
     answer: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'answer'
+        type: Array,
+        default: []
     }]
 }, {
     timestamps: true

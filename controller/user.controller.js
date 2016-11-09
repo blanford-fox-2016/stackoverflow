@@ -1,5 +1,11 @@
+'use strict'
+
+const ModelUser = require('../models/user');
+
 module.exports = {
-    registerProcess: function(req, res, next) {},
+    registerProcess: function(req, res, next) {
+        user.register()
+    },
     loginProcess: function(req, res, next) {},
     seedUser: function(req, res, next) {},
     getAllUser: function(req, res, next) {},
