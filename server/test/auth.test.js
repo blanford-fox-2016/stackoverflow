@@ -30,7 +30,7 @@ describe('register a new user', function() {
 })
 
 describe.skip('user login', function() {
-  it('should authenticate user, save a session if username and password correct according to database', function(done) {
+  it('should authenticate user, send a jwt if username and password correct according to database', function(done) {
     chai.request('http://localhost:3000')
       .post('/api/user/login')
       .send({
