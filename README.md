@@ -78,7 +78,7 @@ const Question = new Schema({
             ref: 'users'
         }
     ],
-    answer: [
+    answers: [
         {
             answerId: Number,
             title: {
@@ -89,7 +89,7 @@ const Question = new Schema({
                 type: String,
                 required: true
             },
-            vote: [
+            votes: [
                 {
                     type: Number,
                     foreignField: 'userId',
@@ -128,16 +128,18 @@ const User = new Schema({
             message: ''Wrong email format
         }
     },
-    question: [
+    questions: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'question'
+            type: Number,
+            foreignField: 'questionId',
+            ref: 'questions'
         }
     ],
-    answer: [
+    answers: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'answer'
+            type: Number,
+            foreignField: 'answerId',
+            ref: 'answers'
         }
     ]
 })
