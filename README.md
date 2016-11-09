@@ -98,26 +98,26 @@ Question = {
 |----------|:--------------------------:|-----------------------:|
 | GET      |  /api/questions            | get all questions      |
 | POST     |  /api/questions            | post single question   |
-| PUT      |  /api/questions/:id        | edit single question   |
-| DELETE   |  /api/questions/:id        | delete single question |
-| GET      |  /api/questions/:id        | find single question   |
+| PUT      |  /api/questions/:quest_id  | edit single question   |
+| DELETE   |  /api/questions/:quest_id  | delete single question |
+| GET      |  /api/questions/:quest_id  | find single question   |
 
 #### Comment
 
-| Method   |                Routes                   |       Description     |
-|----------|:---------------------------------------:|----------------------:|
-| GET      |  /api/questions/:id/comments            | get all comments      |
-| POST     |  /api/questions/:id/comments            | post single comment   |
-| PUT      |  /api/questions/:id/comments/:c_id      | edit single comment   |
-| DELETE   |  /api/questions/:id/comments/:c_id      | delete single comment |
-| GET      |  /api/questions/:id/comments/:c_id      | find single comment   |
+| Method   |                Routes                         |       Description     |
+|----------|:---------------------------------------------:|----------------------:|
+| GET      |  /api/questions/:quest_id/comments            | get all comments      |
+| POST     |  /api/questions/:quest_id/comments            | post single comment   |
+| PUT      |  /api/questions/:quest_id/comments/:c_id      | edit single comment   |
+| DELETE   |  /api/questions/:quest_id/comments/:c_id      | delete single comment |
+| GET      |  /api/questions/:quest_id/comments/:c_id      | find single comment   |
 
 
 #### Vote
 
-|  Method   |                Routes                   |       Description     |
-|-----------|:---------------------------------------:|----------------------:|
-| POST      |  /api/questions/questions/:id/votes     | post the vote         |
-| DELETE    |  /api/questions/questions/:id/votes     | delete the vote       |
+|  Method   |                Routes              |       Description     |
+|-----------|:----------------------------------:|----------------------:|
+| POST      |  /api/questions/quest_id/votes     | post the vote         |
+| DELETE    |  /api/questions/quest_id/votes     | delete the vote       |
 
 ## Copyright
