@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1/test-blog', (err) => {
+mongoose.connect('mongodb://127.0.0.1/tanyasaja', (err) => {
   if (err) {
     console.log(err);
   } else {
