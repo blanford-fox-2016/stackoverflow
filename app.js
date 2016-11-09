@@ -6,7 +6,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const mongoose = require('mongoose');
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
@@ -14,12 +14,13 @@ const session = require('express-session')
 const routes = require('./routes/index');
 const api = require('./routes/api');
 
-const ModelUser = require('./models/user');
 const app = express();
+const ModelUser = require('./models/user');
+
 
 // MONGODB AND MONGOOSE
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/stackoverflow')
+mongoose.connect(process.env.DATABASE)
 
 
 // view engine setup
@@ -31,8 +32,23 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors())
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// -----------------------------------------------------------------------------
+// ROUTE AND PASSPORT CONFIGURATION
+// -----------------------------------------------------------------------------
+
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 app.use('/', routes);
 app.use('/api', api);

@@ -30,8 +30,8 @@ router.get('/answer/seed', answer_controller.seedAnswer)
 router.get('/answer', answer_controller.getAllAnswer)
 router.post('/answer', answer_controller.createAnswer)
 router.put('/answer/:id', answer_controller.editAnswer)
-router.delete('/answer/:id', answer_controller.removeAllAnswer)
-router.delete('/answer', answer_controller.removeAllQuestion)
+router.delete('/answer/:id', answer_controller.removeAnswer)
+router.delete('/answer', answer_controller.removeAllAnswer)
 
 
 module.exports = router;
