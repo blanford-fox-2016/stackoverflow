@@ -8,7 +8,7 @@ let QuestionSchema = new Schema({
   questionId  : Number,
   content     : {
     type      : String,
-    requires  : true
+    required  : true
   },
   author: {
     type  : Schema.Types.ObjectId,
@@ -18,7 +18,7 @@ let QuestionSchema = new Schema({
       commentId: Number,
       content : {
         type      : String,
-        requires  : true
+        required  : true
       },
       author: {
         type  : Schema.Types.ObjectId,

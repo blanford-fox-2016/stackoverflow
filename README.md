@@ -27,11 +27,11 @@ let UserSchema = {
   userId  : Number,
   username : {
     type      : String,
-    requires  : true
+    required  : true
   },
   password : {
     type      : String,
-    requires  : true,
+    required  : true,
     lowercase : true,
     trim      : true
   }
@@ -44,7 +44,7 @@ let QuestionSchema = {
   questionId  : Number,
   content     : {
     type      : String,
-    requires  : true
+    required  : true
   },
   author: {
     type  : Schema.Types.ObjectId,
@@ -54,7 +54,7 @@ let QuestionSchema = {
       commentId: Number,
       content : {
         type      : String,
-        requires  : true
+        required  : true
       },
       author: {
         type  : Schema.Types.ObjectId,

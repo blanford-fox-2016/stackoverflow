@@ -32,7 +32,7 @@ let showQuestion = (req, res) => {
 
 let editQuestion = (req, res) => {
   console.log(`edit question`);
-  console.log(res.body);
+  console.log(req.body);
   Question.findOneAndUpdate({
     questionId : req.params.questid
   }, req.body, {
