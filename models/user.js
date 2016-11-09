@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 const increment = require('mongoose-increment');
 
-
-
 const userSchema = new mongoose.Schema({
     userId: {
         type: Number,

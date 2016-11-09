@@ -2,12 +2,6 @@
 
 const Question = require('../models/question');
 
-// author
-// title
-// content
-// answer
-// votes
-
 module.exports = {
     seedQuestion: function(req, res, next) {
         Question.create({
@@ -32,7 +26,12 @@ module.exports = {
                 console.log(err);
                 res.json({ message: `Error: ${err}` })
             } else {
-                res.json(data)
+                res.json({
+                    author: data[0].author,
+                    title: data[0].title,
+                    content: data[0].content,
+                    message: `This is all list of question`
+                })
             }
         })
     },
@@ -46,8 +45,11 @@ module.exports = {
                 console.log(err);
                 res.json({ message: `Error : ${err}` })
             } else {
+                console.log(data);
                 res.json({
-                    data: data,
+                    author: data.author,
+                    title: data.title,
+                    content: data.content,
                     message: `New Question has been made by ${req.body.author}`
                 })
             }
