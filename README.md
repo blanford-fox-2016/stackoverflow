@@ -83,11 +83,7 @@ const Question = new Schema({
         {
             answerId: Number,
             createdBy: Number,
-            title: {
-                type: String,
-                required: true
-            },
-            content: {
+            answer: {
                 type: String,
                 required: true
             },
