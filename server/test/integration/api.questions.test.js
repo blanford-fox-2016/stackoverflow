@@ -6,32 +6,26 @@ const should = chai.should()
 const url = 'http://localhost:3000'
 
 let add_data = {
-  "content" : "How are you today?",
-  "answer"  : {
-    "userId"    : 123213123123,
-    "content" : "I'm fine"
-  },
-  "votes" : [{
-    "userId" : 123213123123
-  },{
-    "userid" : 100000
-  }]
+  content     : "Why you choose node.js rather than PHP?",
+  author      : "admin",
+  comment     : [{
+      content   : "It's asynchronous",
+      author: 1
+  }],
+  votes   : [1, 2]
 }
 
 /*
   * only edit content's question
 */
 let edit_data = {
-  "content" : "How are you tommorow?",
-  "answer"  : {
-    "userId"    : 123213123123,
-    "content" : "I'm fine"
-  },
-  "votes" : [{
-    "userId" : 123213123123
-  },{
-    "userid" : 100000
-  }]
+  content     : "Why you choose node.js rather than JSP?",
+  author      : "admin",
+  comment     : [{
+      content   : "It's asynchronous",
+      author: 1
+  }],
+  votes   : [1, 2]
 }
 
 /*
