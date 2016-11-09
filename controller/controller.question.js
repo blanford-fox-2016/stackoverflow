@@ -1,0 +1,76 @@
+'use strict'
+
+const express = require('express');
+const mongoose = require('mongoose');
+const Question = require('../models/models.question');
+
+let create = (req,res) => {
+console.log(req.body);
+    Question.create({
+      questionId: req.body.questionId,
+      userId: req.body.userId,
+      title: req.body.title,
+      answers: [],
+      votes: []
+    }, (err,data) => {
+      if (err) {
+        res.status(404)
+      } else {
+        res.json(data)
+      }
+    })
+
+}
+
+let showAll = (req,res) => {
+console.log(req.body);
+  Question.find({}, (err,data) => {
+    if (err) {
+      res.status(404)
+    } else {
+      res.json(data)
+    }
+  })
+
+}
+
+let deleteQuestion = (req,res) => {
+console.log("ini delete");
+  Question.findOneAndRemove({questionId:req.params.id},(err,data) => {
+    if (err) {
+      res.status(404)
+    } else {
+      res.json(data)
+    }
+  })
+
+}
+
+let update = (req,res) => {
+
+console.log("ini update");
+
+  Question.findOneAndUpdate({postId:req.params.id},
+
+    {
+      title:req.body.title,
+      content: req.body.content
+    },(err,question) => {
+    if (err) {
+      res.status(404)
+    }else {
+      console.log(question);
+      res.json(question)
+    }
+  })
+
+}
+
+module.exports = ({
+
+  create:create,
+  showAll:showAll,
+  update:update,
+  deleteQuestion:deleteQuestion
+
+})
