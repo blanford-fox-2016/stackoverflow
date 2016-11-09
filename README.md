@@ -51,6 +51,10 @@ Question = {
     required : true,
     unique: true
   },
+  author : {
+    type: Schema.Types.ObjectId,
+    ref : 'User'
+  },
   title : {
     type : String,
     required : true
@@ -60,15 +64,18 @@ Question = {
     required: true
   },
   comments : [{
-    comment : {
-      type: String,
-      comment_id : Number,
-      required : true
+    type: String,
+    comment_id : Number,
+    commentator : {
+      type : Schema.Types.ObjectId,
+      ref : 'User'
     }
   }],
-  votes : {
-    type : Number
-  }
+  votes : [{
+    type : Schema.Types.ObjectId,
+    ref : 'User',
+    unique : true
+  }]
 }
 ```
 
@@ -105,5 +112,12 @@ Question = {
 | DELETE   |  /api/questions/:id/comments/:c_id      | delete single comment |
 | GET      |  /api/questions/:id/comments/:c_id      | find single comment   |
 
+
+#### Vote
+
+|  Method   |                Routes                   |       Description     |
+|-----------|:---------------------------------------:|----------------------:|
+| POST      |  /api/questions/questions/:id/votes     | post the vote         |
+| DELETE    |  /api/questions/questions/:id/votes     | delete the vote       |
 
 ## Copyright
