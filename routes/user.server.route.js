@@ -18,7 +18,7 @@ router.put('/users/:username', UserController.update)
 router.delete('/users/:username', UserController.delete)
 
 /* GET User by his/ her username*/
-router.delete('/users/:username', UserController.find)
+router.get('/users/:username', UserController.find)
 
 
 
