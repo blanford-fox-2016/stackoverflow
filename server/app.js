@@ -5,10 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
+const cors = require('cors')
 var app = express();
+
+var routes_api_users = require('./routes/routes.api.users');
+var routes_api_questions = require('./routes/routes.api.questions');
+
+// mongoose
+const mongoose = require('mongoose')
+mongoose.connect(process.env.MONGODB_URI)
+mongoose.Promise = global.Promise
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,9 +27,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/api/users', routes_api_users);
+app.use('/api/questions', routes_api_questions);
+app.use('/api/comments', routes_api_comments);
+app.use('/api/votes', routes_api_votes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
