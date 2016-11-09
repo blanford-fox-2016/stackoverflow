@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const cors = require('cors')
 const session = require('express-session')
 const User = require('./models/user')
 
@@ -31,7 +32,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(cors())
 app.use(session({
   secret: process.env.SESSION_SECRET,
   cookie: {
