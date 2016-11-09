@@ -220,5 +220,30 @@ describe("Test for Question", function () {
             })
         })
     })
+
+    describe("Test if vote question working", function () {
+
+        it("Expect to return vote that has been inserted", function (done) {
+
+            let input = {
+                userId: 1
+            }
+
+            Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
+                chai.request(app)
+                    .put(`/api/question/vote/${data.questionId}`)
+                    .send(input)
+                    .end(function (err, res) {
+
+                        Question.find(function (err2, data2) {
+                            console.log(data2)
+                            expect(res).to.have.status(200)
+                            expect(res.body.votes[res.body.votes.length - 1]).to.equal(input.userId)
+                            done()
+                        })
+                    })
+            })
+        })
+    })
 })
 

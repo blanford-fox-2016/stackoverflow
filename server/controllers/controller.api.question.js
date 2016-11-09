@@ -7,7 +7,7 @@ module.exports = {
                 createdBy:1,
                 title: 'title a',
                 content: 'content a',
-                votes: [],
+                votes: [2],
                 answer: []
 
             }
@@ -88,11 +88,11 @@ module.exports = {
             questionId: req.params.questionId
         }, {
             $push: {
-                userId: req.body.userId
+                votes: req.body.userId
             }
         }, {
             new: true,
-            upsert: true
+            upsert: false
         }, function (err, data) {
             if (err) res.json(err)
             else res.json(data)

@@ -27,7 +27,7 @@ const Question = new Schema({
                 type: String,
                 required: true
             },
-            votes: [
+            answer_votes: [
                 {
                     type: Number,
                     foreignField: 'userId',
