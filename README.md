@@ -49,27 +49,23 @@ Question = {
   quest_id : {
     type : Number,
     required : true,
-    unique : true
-  }
+    unique: true
+  },
   title : {
     type : String,
     required : true
   },
-  post : {
+  content : {
     type : String,
-    required : true,
-    comments : [{
-        comment_id : {
-          type : Number,
-          required : true,
-          unique : true
-        },
-        comment : {
-          type : String,
-          required : true
-        }  
-      }]
+    required: true
   },
+  comments : [{
+    comment : {
+      type: String,
+      comment_id : Number,
+      required : true
+    }
+  }],
   votes : {
     type : Number
   }
