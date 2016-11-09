@@ -6,7 +6,8 @@ module.exports = {
 
   // get all users
   list: (req, res) => {
-    User.find()
+    User
+      .find()
       .then(users => res.json(users))
       .catch(err => res.json(err))
   },
@@ -21,7 +22,8 @@ module.exports = {
       password: req.body.password
     }
 
-    User.create(userData)
+    User
+      .create(userData)
       .then(user => res.json(user))
       .catch(err => res.json(err))
   },
@@ -35,9 +37,18 @@ module.exports = {
       password: req.body.password
     }
 
-    User.findOneAndUpdate({
-      username: req.params.username
-    }, userUpdate, { new: true, upsert: true})
+    let selection = {
+      username : req.params.username
+    }
+
+    let option = {
+      new : true,
+      upsert : true
+    }
+
+    // user update
+    User
+      .findOneAndUpdate( selection, userUpdate, option)
       .then(user => res.json(user))
       .catch(err => res.json(err))
   },
@@ -45,17 +56,16 @@ module.exports = {
   // delete user by his/her username
 
   delete: (req, res) => {
-    User.findOneAndRemove({
-      username : req.params.username
-    })
+    User
+      .findOneAndRemove({ username : req.params.username })
       .then(() => res.json({message : `${req.params.username} has been deleted` }))
       .catch(err => res.json(err))
   },
 
+  // FInd user by his or her id
   find: (req, res) => {
-    User.findOne({
-      username: req.params.username
-    })
+    User
+      .findOne({ username: req.params.username })
       .then(user => res.json(user))
       .catch(err => res.json(err))
   }
