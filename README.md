@@ -93,8 +93,7 @@ Default development port and host : http://localhost:3000/
 #### Users
 | Routes | HTTP | Description |
 |--------|------|-------------|
-| /api/signup | POST | signup user |
-| /api/login | POST | login user |
+| /api/users/login | POST | login user |
 | /api/users | POST | process new user |
 | /api/users/:id | PUT  | edit a user |
 | /api/users/:id | DELETE | delete a user |
@@ -114,7 +113,7 @@ Default development port and host : http://localhost:3000/
 #### Votes
 | Routes | HTTP | Description |
 |--------|------|-------------|
-| /api/votes/:id | PUT | edit a vote |
+| /api/questions/:questid/comments/:commentid/votes/:id | PUT | edit a vote |
 
 ## File Structure
 ```
