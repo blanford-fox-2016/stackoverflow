@@ -245,5 +245,58 @@ describe("Test for Question", function () {
             })
         })
     })
+
+    describe("Test if add answer working", function () {
+
+        it("Expect to return answers that has been inserted", function (done) {
+
+            let input = {
+                createdBy: 1,
+                answer: "testing answer"
+            }
+
+            Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
+                chai.request(app)
+                    .put(`/api/question/answer/${data.questionId}`)
+                    .send(input)
+                    .end(function (err, res) {
+
+                        Question.find(function (err2, data2) {
+                            console.log(res.body)
+                            expect(res).to.have.status(200)
+                            expect(res.body.answers[res.body.answers.length - 1].answer).to.equal(input.answer)
+                            expect(res.body.answers[res.body.answers.length - 1].createdBy).to.equal(input.createdBy)
+                            done()
+                        })
+                    })
+            })
+        })
+    })
+
+    describe("Test if vote answer working", function () {
+
+        it("Expect to return vote answer that has been inserted", function (done) {
+
+            let input = {
+                userId: 4
+            }
+
+            Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
+                chai.request(app)
+                    .put(`/api/question/answer/vote/${data.questionId}`)
+                    .send(input)
+                    .end(function (err, res) {
+
+                        Question.find(function (err2, data2) {
+                            console.log(res.body)
+                            console.log(data2[0].answers)
+                            expect(res).to.have.status(200)
+                            // expect(res.body.votes[res.body.votes.length - 1]).to.equal(input.userId)
+                            done()
+                        })
+                    })
+            })
+        })
+    })
 })
 

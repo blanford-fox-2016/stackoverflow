@@ -10,5 +10,7 @@ router.delete('/', questionController.deleteAllQuestion)
 router.delete('/:questionId', questionController.deleteQuestionByQuestionId)
 router.put('/:questonId', questionController.updateQuestion)
 router.put('/vote/:questionId', questionController.addVoteQuestion)
+router.put('/answer/:questionId', questionController.addAnswer)
+router.put('/answer/vote/:questionId', questionController.voteAnswer)
 
 module.exports = router;

@@ -8,7 +8,13 @@ module.exports = {
                 title: 'title a',
                 content: 'content a',
                 votes: [2],
-                answer: []
+                answers: [
+                    {
+                        createdBy: 1,
+                        answer: "test answer from seeder",
+                        answerVotes: []
+                    }
+                ]
 
             }
         ]
@@ -89,6 +95,41 @@ module.exports = {
         }, {
             $push: {
                 votes: req.body.userId
+            }
+        }, {
+            new: true,
+            upsert: false
+        }, function (err, data) {
+            if (err) res.json(err)
+            else res.json(data)
+        })
+    },
+
+    addAnswer: function (req, res) {
+        Question.findOneAndUpdate({
+            questionId: req.params.questionId
+        }, {
+            $push: {
+                answers: {
+                    createdBy: req.body.createdBy,
+                    answer: req.body.answer
+                }
+            }
+        }, {
+            new: true,
+            upsert: false
+        }, function (err, data) {
+            if (err) res.json(err)
+            else res.json(data)
+        })
+    },
+
+    voteAnswer: function (req, res) {
+        Question.findOneAndUpdate({
+            questionId: req.params.questionId
+        }, {
+            $push: {
+                answerVotes: req.body.userId
             }
         }, {
             new: true,

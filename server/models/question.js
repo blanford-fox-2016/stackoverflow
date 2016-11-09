@@ -21,13 +21,12 @@ const Question = new Schema({
     ],
     answers: [
         {
-            answerId: Number,
             createdBy: Number,
             answer: {
                 type: String,
                 required: true
             },
-            answer_votes: [
+            answerVotes: [
                 {
                     type: Number,
                     foreignField: 'userId',
