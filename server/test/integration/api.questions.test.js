@@ -25,7 +25,7 @@ let edit_data = {
   "content" : "How are you tommorow?",
   "answer"  : {
     "userId"    : 123213123123,
-    "answer_content" : "I'm fine"
+    "content" : "I'm fine"
   },
   "votes" : [{
     "userId" : 123213123123

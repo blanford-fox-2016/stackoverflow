@@ -41,21 +41,28 @@ let UserSchema = {
 ```
 let QuestionSchema = {
   questionId  : Number,
-  quest_content : {
+  content     : {
     type      : String,
     requires  : true
   },
-  answer : [{
-      answerId : Number,
-      userId : Number,
-      answer_content : {
+  author: {
+    type  : Schema.Types.ObjectId,
+    ref   : 'Users'
+  },
+  comment : [{
+      commentId: Number,
+      content : {
         type      : String,
         requires  : true
+      },
+      author: {
+        type  : Schema.Types.ObjectId,
+        ref   : 'Users'
       }
   }],
   votes : [{
-      voteId : Number,
-      userId : Number,
+    type  : Schema.Types.ObjectId,
+    ref   : 'Users'
     }]
 }
 ```
@@ -71,20 +78,15 @@ let QuestionSchema = {
 #### Questions
 ```
 {
-  questionId : 1,
-  quest_content : "How are you today?",
-  answer : {
-    answerId : 1,
-    userId    : 123213123123,
-    answer_content : "I'm fine"
-  },
-  votes : [{
-    voteId : 1,
-    userId : 123213123123
-  },{
-    voteId : 2,
-    userid : 100000
-  }]
+  questionId  : 1,
+  content     : "Why you choose node.js rather than PHP?",
+  author      : "admin",
+  comment     : [{
+      commentId : 1,
+      content   : "It's asynchronous",
+      author: 1
+  }],
+  votes   : [1, 2]
 }
 ```
 
