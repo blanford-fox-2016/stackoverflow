@@ -140,35 +140,35 @@ const User = new Schema({
 
 ### API User
 
-| Endpoint                      | HTTP      | Description               |
-| ----------                    | -----     | ------------              |
-| api/register                  | POST      | Register User             |
-| api/login                     | POST      | Login User                |
-| api/user/seed                 | GET       | Create Dummy User Data    |
-| api/user                      | GET       | Get All User              |
-| api/user/delete               | DELETE    | Delete All User           |
-| api/user/delete/:userId       | DELETE    | Delete User By userId     |
-| api/user/put/:userId          | PUT       | Update User By userId     |
+| Endpoint          | HTTP      | Description               |
+| ----------        | -----     | ------------              |
+| api/register      | POST      | Register User             |
+| api/login         | POST      | Login User                |
+| api/user/seed     | GET       | Create Dummy User Data    |
+| api/user          | GET       | Get All User              |
+| api/user          | DELETE    | Delete All User           |
+| api/user/:userId  | DELETE    | Delete User By userId     |
+| api/user/:userId  | PUT       | Update User By userId     |
 
 ### API Question
 
-| Endpoint                          | HTTP      | Description                       |
-| ----------                        | -----     | ------------                      |
-| api/question/seed                 | GET       | Create Dummy Question Data        |
-| api/question                      | GET       | Get All Question                  |
-| api/question/delete               | DELETE    | Delete All Question               |
-| api/question/delete/:questionId   | DELETE    | Delete Question By questionId     |
-| api/question/put/:questionId      | PUT       | Update Question By questionId     |
+| Endpoint                  | HTTP      | Description                       |
+| ----------                | -----     | ------------                      |
+| api/question/seed         | GET       | Create Dummy Question Data        |
+| api/question              | GET       | Get All Question                  |
+| api/question              | DELETE    | Delete All Question               |
+| api/question/:questionId  | DELETE    | Delete Question By questionId     |
+| api/question/:questionId  | PUT       | Update Question By questionId     |
 
 ### API Answer
 
-| Endpoint                        | HTTP      | Description                 |
-| ----------                      | -----     | ------------                |
-| api/answer/seed                 | GET       | Create Dummy Answer Data    |
-| api/answer                      | GET       | Get All Answer              |
-| api/answer/delete               | DELETE    | Delete All Answer           |
-| api/answer/delete/:questionId   | DELETE    | Delete Answer By answerId   |
-| api/answer/put/:questionId      | PUT       | Update Answer By answerId   |
+| Endpoint                  | HTTP      | Description                 |
+| ----------                | -----     | ------------                |
+| api/answer/seed           | GET       | Create Dummy Answer Data    |
+| api/answer                | GET       | Get All Answer              |
+| api/answer                | DELETE    | Delete All Answer           |
+| api/answer/:questionId    | DELETE    | Delete Answer By answerId   |
+| api/answer/:questionId    | PUT       | Update Answer By answerId   |
 
 ## Client
 
