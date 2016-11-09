@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const routes = require('./routes/index');
-const users = require('./routes/users');
+const question = require('./routes/question');
 
 const app = express();
 
@@ -30,7 +30,7 @@ mongoose.connect('mongodb://127.0.0.1/tanyasaja', (err) => {
 });
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/api/question', question);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
