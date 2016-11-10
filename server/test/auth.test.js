@@ -10,7 +10,7 @@ describe('register a new user', function() {
   mydob.toISOString()
   it('should store a new user data to database and return a session', function(done) {
     chai.request('http://localhost:3000')
-      .post('/api/user')
+      .post('/auth/register')
       .send({
         name: 'Septian Adhi Tama',
         email: 'tama@tamatamvan.web.id',
@@ -21,6 +21,7 @@ describe('register a new user', function() {
       .end(function(err, res) {
         res.should.be.json;
         res.should.have.status(200);
+        // console.log(res);
         res.body.name.should.equal('Septian Adhi Tama');
         res.body.email.should.equal('tama@tamatamvan.web.id');
         res.body.username.should.equal('tamatamvan');
@@ -29,10 +30,10 @@ describe('register a new user', function() {
   })
 })
 
-describe.skip('user login', function() {
+describe('user login', function() {
   it('should authenticate user, send a jwt if username and password correct according to database', function(done) {
     chai.request('http://localhost:3000')
-      .post('/api/user/login')
+      .post('/auth/login')
       .send({
         username: 'tamatamvan',
         password: 'tamatamvan'
@@ -40,6 +41,9 @@ describe.skip('user login', function() {
       .end(function(err, res) {
         res.should.be.json;
         res.should.have.status(200);
+        res.body.name.should.equal('Septian Adhi Tama');
+        res.body.email.should.equal('tama@tamatamvan.web.id');
+        res.body.username.should.equal('tamatamvan');
         done();
       })
   })

@@ -6,8 +6,14 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+const Users = require('./models/Users');
+
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
 const routes = require('./routes/index');
 const question = require('./routes/apiQuestions');
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -29,8 +35,18 @@ mongoose.connect('mongodb://127.0.0.1/tanyasaja', (err) => {
   }
 });
 
+//LOCAL STRATEGY
+passport.use(new LocalStrategy(Users.authenticate()));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', routes);
 app.use('/api/question', question);
+app.use('/auth', auth);
+
+passport.serializeUser(Users.serializeUser());
+passport.deserializeUser(Users.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

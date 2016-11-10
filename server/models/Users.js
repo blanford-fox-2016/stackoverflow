@@ -1,5 +1,7 @@
+'use strict'
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
 
 let usersSchema = new Schema({
   name: {
@@ -15,8 +17,7 @@ let usersSchema = new Schema({
       required: true
     },
     password: {
-      type: String,
-      required: true
+      type: String
     },
     dob: {
       type: Date,
@@ -25,10 +26,12 @@ let usersSchema = new Schema({
     photo: {
       type: String
     },
+},
 {
   timestamps: true
 });
 
-let users = mongoose.model('users', usersSchema)
+usersSchema.plugin(passportLocalMongoose)
+let Users = mongoose.model('Users', usersSchema)
 
-module.exports = users;
+module.exports = Users;

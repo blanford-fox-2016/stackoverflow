@@ -1,5 +1,4 @@
 const Users = require('../models/Users');
-const slug = require('slug');
 
 let getAll = (req, res, next) => {
 
