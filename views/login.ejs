@@ -8,3 +8,15 @@
 
   </body>
 </html>
+<div class="container" id = "${data[i]._id}">
+    <div class="form-group" >
+      <div class="form-group">
+        <br>
+        <h1 style="text-align:center"> Title : ${data[i].title}</h1>
+      </div>
+      <label for="exampleTextarea"> </label>
+      <textarea class="form-control" name = "question" id="question" rows="3">${data[i].question}</textarea>
+    </div>
+    <button type="button" class="btn btn-primary"  onclick="deleteQuestion(${data[i]._id})">Delete</button>
+    <button type="button" class="btn btn-primary"  onclick="updateQuestion(${data[i]._id})">Update</button>
+  </div>`

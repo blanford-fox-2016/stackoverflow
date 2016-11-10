@@ -50,10 +50,12 @@ console.log(req.body);
 
 let deleteQuestion = (req,res) => {
 console.log("ini delete");
-  Question.findOneAndRemove({questionId:req.params.id},(err,data) => {
+console.log(req.params.id);
+  Question.findByIdAndRemove(req.params.id,(err,data) => {
     if (err) {
       res.status(404)
     } else {
+      console.log(data);
       res.json(data)
     }
   })
