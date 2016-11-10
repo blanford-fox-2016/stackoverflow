@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1.ui.header Login
+  form.ui.form(method='POST' action='/login')
+    .field
+      label Username
+      input(name='username', placeholder='Username', type='text')
+    .field
+      label Password
+      input(name='password', placeholder='Password', type='password')
+      -if(alert)
+        .ui.pointing.red.basic.label #{alert}
+    button.ui.inverted.purple.button(type='submit') Submit

@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1.ui.header Register
+  form.ui.form(method='POST' action='/register')
+    .field
+      label Name
+      input(name='name', placeholder='Name', type='text')
+    .field
+      label Username
+      input(name='username', placeholder='Username', type='text')
+    .field
+      label Email
+      input(name='email', placeholder='E-mail', type='email')
+    .field
+      label Password
+      input(name='password', placeholder='Password', type='password')
+    .field
+      label Confirm Password
+      input(name='confirmpassword', placeholder='Confirm Password', type='password')
+      -if(alert)
+        .ui.pointing.red.basic.label #{alert}
+    button.ui.inverted.blue.button(type='submit') Submit

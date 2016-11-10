@@ -13,12 +13,14 @@ html
       a.item
         | Login
       .right.menu
+      -if(user)
         .item
           .ui.icon.input
             input(placeholder='Search...', type='text')
             i.search.link.icon
         a.ui.item
           | Logout
-    block content
+    .ui.segment
+      block content
   script(src='/javascripts/semantic.min.js')
   script(src='/javascripts/semantic.min.js')

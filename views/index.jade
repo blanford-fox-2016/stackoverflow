@@ -1,5 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  -if(!user)
+    h2.ui.center.aligned.icon.header
+      i.lock.icon
+      .content
+        | Stuck Overflow is Locked
+        .sub.header Please Register or Login to Ask or Find Documentation
+            br
+            .ui.segment
+              .ui.buttons
+                a.ui.teal.button(role='button' href='/register') Register
+                .or
+                a.ui.purple.button(role='button' href='/login') Login
+  -else
+    h2.ui.center.aligned.icon.header
+      i.unlock.alternate.icon
+      .content
+        | Congratulation ! Content is Unlocked
+        .sub.header You are viewing this page because YOU are in the SESSION
+      .ui.reg.segment
+        i.massive.hand.peace.icon
+        p NOW you're locked in this page and cannot go to other page unless you click the logout button
