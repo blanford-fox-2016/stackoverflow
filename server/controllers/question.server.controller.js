@@ -12,6 +12,7 @@ module.exports = {
 
   // creating question
   create: (req, res) => {
+    console.log(req.body);
     let questionData = {
       question_id : req.body.question_id,
       //author : ?

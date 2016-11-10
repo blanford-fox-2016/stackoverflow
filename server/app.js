@@ -8,7 +8,7 @@ var cors = require('cors');
 
 // require mongoose and create global promise
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/stackverflow')
+mongoose.connect('mongodb://localhost/stackoverflow')
 mongoose.Promise = global.Promise;
 
 // requiring routes
