@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    title= title
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel="stylesheet", type="text/css", href="materialize-css/dist/css/materialize.min.css")
+    link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    //- link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    // Dropdown Structure
+    ul#dropdown1.dropdown-content
+      li
+        a(href='#!') Profile
+      li.divider
+      li
+        a(href='#!') Log Out
+    nav
+      .container
+        .nav-wrapper
+          a.brand-logo(href='#!') ? - TanyaSaja!
+          ul.right.hide-on-med-and-down
+            li
+              a(href='/') Questions
+            li
+              a(href='/auth') Sign Up / Login
+            // Dropdown Trigger
+            li
+              a.dropdown-button(href='#!', data-activates='dropdown1')
+                | User
+                i.material-icons.right arrow_drop_down
+  block content
+    
+  script(src="jquery/dist/jquery.min.js")
+  script(src="javascripts/questions.js")
+  script(src="javascripts/users.js")
+  script(src="materialize-css/dist/js/materialize.min.js")
+  script(src="javascripts/display.js")
+  footer.page-footer
+    .container
+      .row
+        .col.l6.s12
+          h5.white-text TanyaSaja!
+          p.grey-text.text-lighten-4 TanyaSaja is a simple QA Apps, it's just like StackOverflow, but  just simpler!
+        .col.l4.offset-l2.s12
+          h5.white-text Links
+    .footer-copyright
+      .container
+        | © 2016 All Rights Reserved
+        a.grey-text.text-lighten-4.right(href='#!') More Links

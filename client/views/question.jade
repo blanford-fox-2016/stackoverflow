@@ -1,0 +1,50 @@
+extends layout
+block content
+  .container
+    .valign-wrapper
+      h3.valign Question
+    .col.s12
+      .card
+        .card-content
+          span.card-title.activator.grey-text.text-darken-4 Question's Title
+          p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .card-action
+          //- a(href="#") Delete
+          a(href="#") Answer
+      
+    .valign-wrapper
+      h4.valign Answers
+    
+    .col.s12
+      .card
+        .card-content
+          span.card-title.activator.grey-text.text-darken-4 Answer's Title
+          p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .card-action
+          //- //- a(href="#") Delete
+          //- a(href="#") Answer
+
+      .card
+        .card-content
+          span.card-title.activator.grey-text.text-darken-4 Answer's Title
+          p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .card-action
+          
+      #newanswer
+        .valign-wrapper
+          h4.valign Answer this question
+        .col.s12
+          form.col.s12
+            .row
+              .input-field.col.s12
+                input#titleAnswer.validate(type='text')
+                label(for='titleAnswer') Title
+            .row
+              .input-field.col.s12
+                textarea#contentAnswer.materialize-textarea
+                label(for='contentAnswer') Answer
+            .row
+              .input-field.col.s12
+                button.btn.waves-effect.waves-light(type='button', name='action')
+                  | Submit
+                  i.material-icons.right send

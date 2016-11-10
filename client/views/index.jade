@@ -1,0 +1,30 @@
+extends layout
+
+block content              
+  .container
+    .valign-wrapper
+      h3.valign All Questions
+      
+    // Modal Trigger
+    a.modal-trigger.waves-effect.waves-light.btn(href='#modal1') Ask something
+
+    ul#questions.collapsible(data-collapsible='accordion')
+    
+    // Modal Structure
+    #modal1.modal.modal-fixed-footer
+      .modal-content
+        h4 Ask Something
+        form.col.s12
+          .row
+            .input-field.col.s12
+              input#titleQuestion.validate(type='text')
+              label(for='title') Title
+          .row
+            .input-field.col.s12
+              textarea#contentQuestion.materialize-textarea
+              label(for='textarea1') Content
+      .modal-footer
+        .input-field.col.s12
+          button#submitQuestion.btn.waves-effect.waves-light(type='button', name='action')
+            | Submit
+            i.material-icons.right send

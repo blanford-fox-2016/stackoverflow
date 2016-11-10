@@ -1,0 +1,52 @@
+extends layout
+
+block content
+    .row
+      .container
+        ul.tabs
+          li.tab.col.s3
+            a(href='#signup') Sign Up
+          li.tab.col.s3
+            a.active(href='#signin') Sign In
+      #signup.col.s12
+        .container
+          form.col.s12
+            .row
+              .input-field.col.s12
+                input#name.validate(type='text')
+                label(for='name') Name
+            .row
+              .input-field.col.s12
+                input#email.validate(type='email')
+                label(for='email') Email
+            .row
+              .input-field.col.s12
+                input#username.validate(type='text')
+                label(for='username') Username
+            .row
+              .input-field.col.s12
+                input#password.validate(type='password')
+                label(for='password') Password
+            .row
+              .input-field.col.s12
+                button.btn.waves-effect.waves-light(type='button', name='action')
+                  | Sign Up
+                  i.material-icons.right input
+
+      #signin.col.s12
+        .container
+          form.col.s12
+            .row
+              .input-field.col.s12
+                input#username.validate(type='text')
+                label(for='username') Username
+            .row
+              .input-field.col.s12
+                input#password.validate(type='password')
+                label(for='password') Password
+            .row
+              .input-field.col.s12
+                button.btn.waves-effect.waves-light(type='button', name='action')
+                  | Sign In
+                  i.material-icons.right input
+        
