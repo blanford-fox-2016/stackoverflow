@@ -23,7 +23,21 @@ let getOneByUsername = (req, res, next) => {
 }
 
 let updateById = (req, res, next) => {
-
+  Users.update({
+    _id: req.params.id
+  }, {
+      name: req.body.name,
+      email: req.body.email,
+      username: req.body.username,
+      dob: req.body.dob,
+      photo: req.body.photo
+  }, (err, edited) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(edited);
+    }
+  })
 }
 
 let deleteById = (req, res, next) => {
