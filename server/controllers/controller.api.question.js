@@ -4,18 +4,9 @@ module.exports = {
     seedQuestion: function (req, res) {
         const dataQuestion = [
             {
-                createdBy:1,
+                createdBy: '58242dc607c8741ccfc21206',
                 title: 'title a',
-                content: 'content a',
-                votes: [2],
-                answers: [
-                    {
-                        createdBy: 1,
-                        answer: "test answer from seeder",
-                        answerVotes: []
-                    }
-                ]
-
+                content: 'content a'
             }
         ]
 
@@ -42,8 +33,9 @@ module.exports = {
     },
 
     addQuestion: function (req, res) {
+        // req.body.user = "58242e4b9cbbe11ceaf48906"
         const question = {
-            createdBy: req.body.createdBy,
+            createdBy: req.body.user,
             title: req.body.title,
             content: req.body.content,
             votes: [],
@@ -123,6 +115,51 @@ module.exports = {
             else res.json(data)
         })
     },
+
+    deleteAnswer: function (req, res) {
+        Question.findOneAndUpdate({
+            questionId: req.params.questionId
+        }, {
+            $pull: {
+                answers: {
+                    _id: req.params.id
+                }
+            }
+        }, {
+            new: true,
+            upsert: false
+        }, function (err, data) {
+            if (err) res.json(err)
+            else res.json(data)
+        })
+    },
+
+    editAnswer: function (req, res) {
+        Question.findOne({
+            questionId: req.params.questionId,
+            'answers._id': req.params.id
+        }, function (err, data) {
+            console.log(data)
+            if (err) res.json(err)
+            else res.json(data)
+        })
+    },
+
+    updateAnswer: function (req, res) {
+        Question.findOneAndUpdate({
+            questionId: req.params.questionId,
+            'answers._id': req.params.id
+        }, {
+            'answers.$.answer': req.body.answer
+        }, {
+            new: true,
+            upsert: false
+        }, function (err, data) {
+            if (err) res.json(err)
+            else res.json(data)
+        })
+    },
+
 
     voteAnswer: function (req, res) {
         Question.findOneAndUpdate({

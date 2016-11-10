@@ -3,7 +3,10 @@ var incrementQuestion = require('mongoose-increment');
 const Schema = mongoose.Schema
 
 const Question = new Schema({
-    createdBy: Number,
+    createdBy: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    },
     title: {
         type: String,
         required: true
@@ -14,23 +17,24 @@ const Question = new Schema({
     },
     votes: [
         {
-            type: Number,
-            foreignField: 'userId',
-            ref: 'users'
+            type: Schema.ObjectId,
+            ref: 'User'
         }
     ],
     answers: [
         {
-            createdBy: Number,
+            createdBy: {
+                type: Schema.ObjectId,
+                ref: 'User'
+            },
             answer: {
                 type: String,
                 required: true
             },
             answerVotes: [
                 {
-                    type: Number,
-                    foreignField: 'userId',
-                    ref: 'users'
+                    type: Schema.ObjectId,
+                    ref: 'User'
                 }
             ]
         }
@@ -41,5 +45,17 @@ Question.plugin(incrementQuestion, {
     modelName: 'Question',
     fieldName: 'questionId',
 });
+
+Question.pre('find', function (next) {
+    this.populate('createdBy', 'name')
+    // this.populate('answers.createdBy', 'name')
+    next()
+})
+
+Question.pre('findOne', function (next) {
+    // this.populate('createdBy', 'name')
+    // this.populate('answers.createdBy', 'name')
+    next()
+})
 
 module.exports = mongoose.model('Question', Question)

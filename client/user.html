@@ -33,70 +33,32 @@
     </div>
 </nav>
 
-<!--MODAL CREATE QUESTION-->
-<div class="modal fade" id="formQuestion" role="dialog">
+<!--MODAL EDIT USER-->
+<div class="modal fade" id="formEditUser" role="dialog">
     <div class="modal-dialog">
 
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create Question</h4>
+                <h4 class="modal-title">Edit User</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Title:</label>
+                        <label class="control-label col-sm-2">Name:</label>
                         <div class="col-sm-10">
-                            <input id="inputTitle" name="title" type="text" class="form-control">
+                            <input name="name" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Content:</label>
+                        <label class="control-label col-sm-2">Email:</label>
                         <div class="col-sm-10">
-                            <textarea name="content" id="inputContent" rows="5" class="form-control"></textarea>
+                            <input name="email" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button id="submitQuestion" type="submit" class="btn btn-default">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<!--MODAL EDIT QUESTION-->
-<div class="modal fade" id="formEditQuestion" role="dialog">
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Question</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Title:</label>
-                        <div class="col-sm-10">
-                            <input id="inputEditTitle" name="titleEdit" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Content:</label>
-                        <div class="col-sm-10">
-                            <textarea id="inputEditContent" name="contentEdit" rows="5" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button id="submitEditQuestion" type="submit" class="btn btn-default">Submit</button>
+                            <button id="submitEditUser" type="submit" class="btn btn-default">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -114,11 +76,28 @@
 
     <div class="row">
         <h1 class="text-center">Stack<b>overscramble</b></h1>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#formQuestion">Create Question</button>
     </div>
 
-    <div id="rowOfQuestion">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
 
+                    <tbody id="rowOfUser">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -128,6 +107,107 @@
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script>
+
+    <!--GET ALL QUESTION-->
+    $(document).ready(function () {
+        var rowOfUser = $('#rowOfUser')
+        $.ajax({
+            url: "http://localhost:3000/api/user",
+            success: function (data) {
+                let user = []
+                for (var i = 0; i < data.length; i++) {
+                    user.push(`
+                        <tr id="rowUser${data[i].userId}">
+                            <td>${data[i].name}</td>
+                            <td>${data[i].username}</td>
+                            <td>${data[i].email}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editUser('${data[i].userId}')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteUser('${data[i].userId}')">Delete</button>
+                            </td>
+                        </tr>
+                                        `)
+                }
+
+                rowOfUser.append(user.join(""))
+            }
+
+        })
+    })
+
+    function deleteUser(userId) {
+        $.ajax({
+            url: `http://localhost:3000/api/user/${userId}`,
+            method: "delete",
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                userId: userId
+            },
+            success: function () {
+                $("#rowOfUser").find(`#rowUser${userId}`).remove()
+            }
+        })
+    }
+
+    function editUser(userId) {
+        $.ajax({
+            url: `http://localhost:3000/api/user/${userId}`,
+            method: "get",
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                userId: userId
+            },
+            success: function (data) {
+                $('#formEditUser').modal('show');
+                $('input[name="name"]').val(data.name)
+                $('input[name="email"]').val(data.email)
+
+                var temp = $("input[name='userId']").val()
+                if ( typeof temp != "undefined") {
+                    $("input[name='userId']").replaceWith(`<input type='hidden' name='userId' value='${data.userId}'>`)
+                }
+                else {
+                    $("#formEditUser").append(`<input type='hidden' class='form-control' name='userId' value='${data.userId}'>`)
+                }
+            }
+        })
+    }
+
+    $(document).on('click', 'button[id="submitEditUser"]', function(e) {
+        e.preventDefault()
+        let userId = $('input[name="userId"]').val()
+        let name = $('input[name="name"]').val()
+        let email = $('input[name="email"]').val()
+
+        $.ajax({
+            url: `http://localhost:3000/api/user/${userId}`,
+            method: "put",
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                name: name,
+                email: email
+            },
+            success: function (data) {
+                console.log(data)
+                let html = `
+                        <tr id="rowUser${data.userId}">
+                            <td>${data.name}</td>
+                            <td>${data.username}</td>
+                            <td>${data.email}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editUser('${data.userId}')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteUser('${data.userId}')">Delete</button>
+                            </td>
+                        </tr>
+                                `
+
+                $(`#rowUser${data.userId}`).replaceWith(html)
+                $('input[name="name"]').val("")
+                $('input[name="email"]').val("")
+                $('#formEditUser').modal('hide');
+            }
+        })
+    });
 
 </script>
 

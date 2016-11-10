@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
-var increment = require('mongoose-increment');
+var increment = require('mongoose-sequence');
 const Schema = mongoose.Schema
 const passportLocalMongoose = require('passport-local-mongoose')
 
 const User = new Schema({
-
     name: {
         type: String,
         required: true
@@ -28,10 +27,7 @@ const User = new Schema({
     }
 })
 
-User.plugin(increment, {
-    modelName: 'User',
-    fieldName: 'userId',
-});
+User.plugin(increment, {inc_field: 'userId'});
 
 User.plugin(passportLocalMongoose)
 module.exports = mongoose.model('User', User)

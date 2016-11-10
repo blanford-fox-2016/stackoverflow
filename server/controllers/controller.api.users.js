@@ -74,11 +74,10 @@ module.exports = {
             userId: req.params.userId
         }, {
             name: req.body.name,
-            username: req.body.username,
             email: req.body.email
         }, {
             new: true,
-            upsert: true
+            upsert: false
         }, function (err, data) {
             if (err) res.json(err)
             else res.json(data)
@@ -86,6 +85,11 @@ module.exports = {
     },
 
     loginUser: function (req, res) {
-
+        User.findOne({
+            username: req.body.username
+        }, function (err, data) {
+            if (err) res.json(err)
+            else res.json(data)
+        })
     }
 }
