@@ -3,7 +3,10 @@ html
   head
     title= title
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(rel="stylesheet", type="text/css", href="materialize-css/dist/css/materialize.min.css")
+    -if(breadcrumbs != 'first')
+      link(rel="stylesheet", type="text/css", href="../materialize-css/dist/css/materialize.min.css")  
+    -if(breadcrumbs == 'first')
+      link(rel="stylesheet", type="text/css", href="materialize-css/dist/css/materialize.min.css")
     link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     //- link(rel='stylesheet', href='/stylesheets/style.css')
   body
@@ -29,13 +32,23 @@ html
                 | User
                 i.material-icons.right arrow_drop_down
   block content
-    
-  script(src="jquery/dist/jquery.min.js")
-  script(src="javascripts/questions.js")
-  script(src="javascripts/users.js")
-  script(src="javascripts/auth.js")
-  script(src="materialize-css/dist/js/materialize.min.js")
-  script(src="javascripts/display.js")
+  -if(page == 'question')
+    script(type='text/javascript').
+      var inislug = '#{slug}'  
+  -if(breadcrumbs != 'first')
+    script(src="../jquery/dist/jquery.min.js")
+    script(src="../javascripts/questions.js")
+    script(src="../javascripts/users.js")
+    script(src="../javascripts/auth.js")
+    script(src="../materialize-css/dist/js/materialize.min.js")
+    script(src="../javascripts/display.js")
+  -if(breadcrumbs == 'first')
+    script(src="jquery/dist/jquery.min.js")
+    script(src="javascripts/questions.js")
+    script(src="javascripts/users.js")
+    script(src="javascripts/auth.js")
+    script(src="materialize-css/dist/js/materialize.min.js")
+    script(src="javascripts/display.js")
   footer.page-footer
     .container
       .row
