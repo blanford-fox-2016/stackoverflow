@@ -6,16 +6,26 @@ const controller = require('../controllers/controller.api.questions')
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // questions
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-/* Process New question. */
+
+/* Show All Questions. */
+router.get('/', controller.showAllQuestion);
+
+/* Process New Question. */
 router.post('/', controller.addQuestion);
 
-/* Show a question. */
+/* Process Seeding Question. */
+router.post('/seed', controller.seedQuestion);
+
+/* Process Delete All Questions. */
+router.delete('/seed', controller.deleteAllQuestion);
+
+/* Show a Question. */
 router.get('/:questid', controller.showQuestion);
 
-/* Process Edit a question. */
+/* Process Edit a Question. */
 router.put('/:questid', controller.editQuestion);
 
-/* Process Delete a question. */
+/* Process Delete a Question. */
 router.delete('/:questid', controller.deleteQuestion);
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
