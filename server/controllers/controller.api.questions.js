@@ -96,6 +96,70 @@ let deleteAllQuestion = (req, res) => {
   // Question.db.db.dropCollection('questions', (err) => {console.log(err);})
 }
 
+let addComment = (req, res) => {
+  Question.findOne({
+    questionId : req.params.questid
+  }, (err, one_data) => {
+    // console.log(one_data.comment.length);
+
+    Question.update({
+      questionId : req.params.questid
+    }, {
+      $push : {
+        comment : {
+          commentId : one_data.comment.length+1,
+          content : req.body.comment
+        }
+      }
+    }, (err, new_comment) => {
+      if (err) {
+        console.log(err);
+        res.json(err)
+      }else{
+          console.log(new_comment);
+          res.json(new_comment)
+      }
+    })
+  })
+}
+
+let editComment = (req, res) => {
+  Question.update({
+    "questionId" : req.params.questid,
+    "comment.commentId" : req.params.commentid
+  }, {
+    $set : {
+      comment : {
+        commentId : 1,
+        content : req.body.comment
+      }
+    }
+  }, (err, new_comment) => {
+    if (err) {
+      console.log(err);
+      res.json(err)
+    }else{
+        console.log(new_comment);
+        res.json(new_comment)
+    }
+  })
+}
+
+let deleteComment = (req, res) => {
+  Question.update({
+    "questionId" : req.params.questid,
+    "comment.commentId" : req.params.commentid
+  }, {
+    $pull : {
+      comment : {
+        commentId : req.params.commentid
+      }
+    }
+  }, (err, deleted_data) => {
+    res.json(deleted_data)
+  })
+}
+
 module.exports = {
   showAllQuestion,
   addQuestion,
@@ -103,13 +167,12 @@ module.exports = {
   editQuestion,
   deleteQuestion,
   seedQuestion,
-  deleteAllQuestion
+  deleteAllQuestion,
+  addComment,
+  editComment,
+  deleteComment
 }
 /*
-,
-addComment : addComment,
-editComment : editComment,
-deleteComment : deleteComment,
 addVote : addVote,
 deleteVote: deleteVote
 */

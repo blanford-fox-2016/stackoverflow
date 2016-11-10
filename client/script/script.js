@@ -28,7 +28,7 @@ function show_all(){
           </td>
           <td>
             <button type="button" class="btn btn-warning" onclick="submitEditButton('${all_data[i].questionId}')">Edit</button>
-            <button type="button" class="btn btn-danger"onclick="submitDeleteButton('${all_data[i].questionId}')">Delete</button>
+            <button type="button" class="btn btn-danger" onclick="submitDeleteButton('${all_data[i].questionId}')">Delete</button>
           </td>
         </tr>
         `
