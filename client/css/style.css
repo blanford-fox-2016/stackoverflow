@@ -1,0 +1,16 @@
+nav {
+  font-size: 1.3em;
+}
+
+.question-summary {
+  margin-left: 20px;
+}
+
+.question h2 {
+
+  color: red;
+}
+
+.voting {
+  border: 1px solid black;
+}

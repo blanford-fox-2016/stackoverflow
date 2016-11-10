@@ -1,19 +1,22 @@
 'use strict'
 $(document).ready(() => {
   list()
+
+  //$('.something').append(result)
 })
 
 
-// global variable
-const URL = 'http://localhost:3000/api/questions'
+//  global variable
+const URL = 'http://localhost:3000/api/'
 
 let list = () => {
   $.ajax({
-    url: URL,
+    url: URL + 'questions',
     success: (data) => {
-      // transforming from javascript to html via class
-      // please provide html container contains it
-      $('some class or id').append('html result yo')
+      var html = data.map(datum => `
+        <h3> ${datum.title} </h3> <br><p> ${datum.content}</p><br>  `)
+      console.log(data);
+      $('.question-summary').append(html)
     }
   })
 }

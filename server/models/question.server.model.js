@@ -17,8 +17,8 @@ const questionSchema = new Schema({
     type : String, required: true
   },
   comments : [{
-    comment: { type :String, required : true},
-    comment_id : { type: Number, required : true, unique: true},
+    comment: { type :String},
+    comment_id : { type: Number},
     commentator : { type : Schema.Types.ObjectId, ref : 'User'}
   }],
   votes : [{
