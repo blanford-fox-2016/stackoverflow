@@ -11,7 +11,6 @@ module.exports = router
 
 //main routes
 router.get('/', mainController.showHome)
-router.get('/forum', mainController.showForum)
 
 //show all questions
 router.get('/questions', dataController.showQuestions)

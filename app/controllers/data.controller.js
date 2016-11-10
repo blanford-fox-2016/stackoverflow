@@ -100,6 +100,7 @@ function voteAnswerDown (req,res) {
       req.checkBody('title', 'Title is required').notEmpty()
       req.checkBody('content', 'Content is required').notEmpty()
       req.checkBody('email', 'Email address is required').notEmpty()
+      req.checkBody('email', 'Email address is not the right format').isEmail()
 
       //if there are errors, redirect and save errors to flash
       const errors = req.validationErrors()
