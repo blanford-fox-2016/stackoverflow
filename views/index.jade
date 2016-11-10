@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  -if(!user)
     h2.ui.center.aligned.icon.header
       i.lock.icon
       .content
@@ -13,12 +12,17 @@ block content
                 a.ui.teal.button(role='button' href='/register') Register
                 .or
                 a.ui.purple.button(role='button' href='/login') Login
-  -else
     h2.ui.center.aligned.icon.header
-      i.unlock.alternate.icon
+      i.comment.outline.icon(id='userId' rel='1')
       .content
-        | Congratulation ! Content is Unlocked
-        .sub.header You are viewing this page because YOU are in the SESSION
-      .ui.reg.segment
-        i.massive.hand.peace.icon
-        p NOW you're locked in this page and cannot go to other page unless you click the logout button
+        | Ask a Question
+        .sub.header Or find a documentation that suit your need
+    .ui.segment
+      form.ui.form(id='form_question' method='POST' action='/api/question')
+        .field
+          label Title
+          input(name='title', id='field_title',placeholder='Question Title', type='text')
+        .field
+          label Content
+          textarea(name='content', id='field_content', placeholder='Details your question here...', type='text')
+        button.ui.inverted.blue.button(id='btn-question' type='submit') Submit Question

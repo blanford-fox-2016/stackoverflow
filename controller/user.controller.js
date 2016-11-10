@@ -20,6 +20,7 @@ module.exports = {
                             return next(err)
                         console.log(result);
                         res.json({
+                            id: result._id,
                             userId: result.userId,
                             name: result.name,
                             username: result.username,
