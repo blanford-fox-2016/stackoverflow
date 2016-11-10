@@ -8,6 +8,7 @@ const should = chai.should()
 const url = 'http://localhost:3000'
 
 let add_data = {
+  title       : "URGENT !",
   content     : "Why you choose node.js rather than PHP?",
   comment     : [],
   votes   : []
@@ -17,6 +18,7 @@ let add_data = {
   * only edit content's question
 */
 let edit_data = {
+  title       : "URGENT !",
   content     : "Why you choose node.js rather than JSP?"
 }
 

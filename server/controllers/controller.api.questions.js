@@ -19,6 +19,7 @@ let addQuestion = (req, res) => {
   // console.log(req.body.content);
   Question.create({
     // questionId : 1,
+    title: req.body.title,
     content: req.body.content
     // author : req.user._id,
     // comment : [],
@@ -76,7 +77,8 @@ let deleteQuestion = (req, res) => {
 let seedQuestion = (req, res) => {
   // console.log('aaa',seeder);
   Question.create([{
-    content : "How to migrate in Sequelize?"
+    title       : "need help!",
+    content : "How to learn node.js?"
   }], (err, seeder_data) => {
     console.log('aaa', seeder_data)
     if(err) res.status(400).json({'error': err})
