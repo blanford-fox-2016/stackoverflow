@@ -61,14 +61,17 @@ let deletePost = (obj_id) => {
   })
 }
 
-// let find = () => {
-//   $.ajax({
-//     url: URL + 'questions/'+ req.params.id,
-//     success: (data) => {
-//       var html = data.map(datum => `
-//         <h3> ${datum.title} </h3> <br><p> ${datum.content}</p><br>  `)
-//       console.log(data);
-//       $('.question-summary').append(html)
-//     }
-//   })
-// }
+let updatePost = (obj_id) => {
+  $.ajax({
+    url: URL + 'questions/' + obj_id,
+    type: 'put',
+    data: {
+      title: 'Ini udah keganti',
+      content: 'Keganti lagi'
+    },
+    success: (data) => {
+      $('.question-summary').html('')
+      list()
+    }
+  })
+}

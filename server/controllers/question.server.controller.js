@@ -43,7 +43,7 @@ module.exports = {
       upsert : true
     }
     Question
-      .findOneAndUpdate(selection, updateData, option)
+      .findOneAndUpdate(selection, updatedData, option)
       .then(question => res.json(question))
       .catch(err => res.json(err))
   },
