@@ -9,7 +9,7 @@ let showAllQuestion = (req, res) => {
     .find({}, (err, all_data) => {
       if(err) res.status(400).json({'error': 'Error: ${err}'})
       if(!all_data) res.status(404).json({'message': 'Failed to show all questions'})
-
+      console.log(all_data);
       res.status(200).json(all_data)
     }).sort({_id: -1})
 }
@@ -20,10 +20,10 @@ let addQuestion = (req, res) => {
   Question.create({
     // questionId : 1,
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
     // author : req.user._id,
-    // comment : [],
-    // votes : []
+    comment : [],
+    votes : []
   }, (err, new_data) => {
     console.log(new_data);
     if(err) res.status(400).json({'error': err})
@@ -76,7 +76,10 @@ let deleteQuestion = (req, res) => {
 */
 let seedQuestion = (req, res) => {
   // console.log('aaa',seeder);
-  Question.create(seeder, (err, seeder_data) => {
+  Question.create({
+    title : "title seed",
+    content : "content seed"
+  }, (err, seeder_data) => {
     console.log('aaa', seeder_data)
     if(err) res.status(400).json({'error': err})
     if(!seeder_data) res.status(404).json({'message': 'Failed to seed'})
@@ -100,17 +103,19 @@ let addComment = (req, res) => {
   Question.findOne({
     questionId : req.params.questid
   }, (err, one_data) => {
-    // console.log(one_data.comment.length);
+    console.log(one_data.comment.length);
 
-    Question.update({
+    Question.findOneAndUpdate({
       questionId : req.params.questid
     }, {
       $push : {
         comment : {
           commentId : one_data.comment.length+1,
-          content : req.body.comment
+          content : req.body.content
         }
       }
+    }, {
+      new: true
     }, (err, new_comment) => {
       if (err) {
         console.log(err);
@@ -124,17 +129,21 @@ let addComment = (req, res) => {
 }
 
 let editComment = (req, res) => {
-  Question.update({
+  Question.findOneAndUpdate({
     "questionId" : req.params.questid,
     "comment.commentId" : req.params.commentid
   }, {
-    $set : {
-      comment : {
-        commentId : 1,
-        content : req.body.comment
-      }
-    }
-  }, (err, new_comment) => {
+    // $set : {
+    //   comment : {
+    //     commentId : req.params.commentid,
+    //     content : req.body.content
+    //   }
+    //   // "comment.content" : req.body.content
+    // }
+    'comment.$.content' : req.body.content
+  }, {
+    new: true
+  },(err, new_comment) => {
     if (err) {
       console.log(err);
       res.json(err)
@@ -146,7 +155,7 @@ let editComment = (req, res) => {
 }
 
 let deleteComment = (req, res) => {
-  Question.update({
+  Question.findOneAndUpdate({
     "questionId" : req.params.questid,
     "comment.commentId" : req.params.commentid
   }, {
@@ -155,8 +164,10 @@ let deleteComment = (req, res) => {
         commentId : req.params.commentid
       }
     }
+  }, {
+    new: true
   }, (err, deleted_data) => {
-    res.json(deleted_data)
+    res.json({message : "deleted"})
   })
 }
 
