@@ -2,6 +2,23 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='/stylesheets/semantic.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    .ui.secondary.menu
+      a.item
+        | Home
+      a.item
+        | Register
+      a.item
+        | Login
+      .right.menu
+        .item
+          .ui.icon.input
+            input(placeholder='Search...', type='text')
+            i.search.link.icon
+        a.ui.item
+          | Logout
     block content
+  script(src='/javascripts/semantic.min.js')
+  script(src='/javascripts/semantic.min.js')
