@@ -11,7 +11,7 @@ let showAllQuestion = (req, res) => {
       if(!all_data) res.status(404).json({'message': 'Failed to show all questions'})
 
       res.status(200).json(all_data)
-    })
+    }).sort({_id: -1})
 }
 
 let addQuestion = (req, res) => {

@@ -27,28 +27,43 @@
     <!-- end navbar -->
 
     <div class="container">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <h4 id="title"></h1>
+      </div>
       <!-- votes -->
       <div class="col-sm-1">
-        <button type="button" class="btn btn-default btn-sm" id="up_vote">
-          <span class="glyphicon glyphicon-chevron-up"></span>
-        </button>
-        <span id="vote_total" style="margin-left:10px;"></span>
-        <button type="button" class="btn btn-default btn-sm" id="down_vote">
-          <span class="glyphicon glyphicon-chevron-down"></span>
-        </button>
+        <a class="glyphicon glyphicon-chevron-up" id="up_vote" style="width:25px; cursor:pointer;"></a>
+
+        <span id="vote_total"></span>
+
+        <a class="glyphicon glyphicon-chevron-down" id="down_vote" style="width:25px; cursor:pointer;"></a>
       </div>
       <!-- end votes -->
 
       <!-- content -->
-      <div class="col-sm-10">
+      <div class="col-sm-11">
         <div class="panel panel-default">
           <div class="panel-body">
             <span id="content"></span>
           </div>
         </div>
       </div>
-    </div>
     <!-- end content -->
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
+      <!-- input comment -->
+      <form id="form_new_comment" method="post">
+        <div class="form-group">
+          <label for="content">Input your comment :</label>
+          <textarea class="form-control" id="content" style="resize:none;"></textarea>
+        </div>
+        <button type="button" class="btn btn-success" id="btn_add">Submit</button>
+      </form>
+      <!-- end input comment -->
+    </div>
+
+  </div>
 </body>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/purl/2.3.1/purl.js"></script>
@@ -59,6 +74,7 @@
         url : 'http://localhost:3000/api/questions/'+questionId,
         success : function(one_data){
           console.log(one_data)
+          $('#title').text(one_data.title)
           $('#vote_total').text(one_data.votes.length)
           $('#content').text(one_data.content)
         }

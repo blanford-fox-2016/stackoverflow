@@ -27,12 +27,28 @@
     <!-- end navbar -->
 
     <div class="container">
+      <button type="button" id="show_form_add" class="btn btn-warning">Ask Question</button>
+      <button type="button" id="show_form_hide" class="btn btn-warning">Hide</button>
+      <form id="form_new_question" method="post">
+        <div class="form-group">
+          <label for="title">Title :</label>
+          <input type="text" id="title" class="form-control">
+        </div>
+         <div class="form-group">
+           <label for="content">Input your question :</label>
+           <textarea class="form-control" id="content" style="resize:none;"></textarea>
+         </div>
+         <button type="button" class="btn btn-success" id="btn_add">Submit</button>
+         <button type="button" class="btn btn-warning" id="btn_update">Update</button>
+     </form>
+
       <!-- table list questions -->
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="col-sm-6">Info</th>
-            <th class="col-sm-6">Name</th>
+            <th class="col-sm-4">Info</th>
+            <th class="col-sm-4">Name</th>
+            <th class="col-sm-4">Action</th>
           </tr>
         </thead>
         <tbody id="body_table"></tbody>
@@ -42,27 +58,7 @@
     </div>
 </body>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-   <script>
-     $.ajax({
-       url : 'http://localhost:3000/api/questions',
-       success : function(all_data){
-         console.log(all_data)
-         let data_HTML = ``
-         for(var i = 0 ; i < all_data.length ; i++){
-           data_HTML += `
-           <tr id=${all_data[i].questionId}>
-             <td>
-               ${all_data[i].votes.length} votes | ${all_data[i].comment.length} comments
-             </td>
-             <td>
-               <a href="questions.html?id=${all_data[i].questionId}">${all_data[i].title}</a>
-             </td>
-           </tr>
-           `
-         }
-         $('#body_table').append(data_HTML)
-       }
-     })
+   <script src ="script/script.js">
    </script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
