@@ -35,13 +35,13 @@ module.exports = {
       name : req.body.name,
       email: req.body.email,
       password: req.body.password
-    }
+    },
 
-    let selection = {
+    selection = {
       username : req.params.username
-    }
+    },
 
-    let option = {
+    option = {
       new : true,
       upsert : true
     }
