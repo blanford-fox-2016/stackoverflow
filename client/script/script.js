@@ -1,5 +1,6 @@
 'use strict'
 $(document).ready(() => {
+  $('#update-question').hide()
   $('#big-question-form').submit((event) => {
     create()
     event.preventDefault();
@@ -62,16 +63,19 @@ let deletePost = (obj_id) => {
 }
 
 let updatePost = (obj_id) => {
+  //console.log(req.body);
   $.ajax({
     url: URL + 'questions/' + obj_id,
-    type: 'put',
-    data: {
-      title: 'Ini udah keganti',
-      content: 'Keganti lagi'
-    },
+    method: 'get',
     success: (data) => {
-      $('.question-summary').html('')
-      list()
+      $('#title-form').val(data.title)
+      $('#question-form').val(data.content)
+      //console.log(data);
+      // //console.log(edited);
+      // console.log(edited);
+      // $('.question-summary').html('')
+      // //$('#title-form').val(edited.title)
+      // list()
     }
   })
 }
