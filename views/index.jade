@@ -13,7 +13,13 @@ block content
                 .or
                 a.ui.purple.button(role='button' href='/login') Login
     h2.ui.center.aligned.icon.header
-      i.comment.outline.icon(id='userId' rel='1')
+      i.stack.overflow.icon
+      .content
+        | Welcome to Stuck Overflow
+        .sub.header Enjoy asking or find documentation !
+            br
+    h2.ui.center.aligned.icon.header
+      i.comment.outline.icon
       .content
         | Ask a Question
         .sub.header Or find a documentation that suit your need
@@ -26,3 +32,6 @@ block content
           label Content
           textarea(name='content', id='field_content', placeholder='Details your question here...', type='text')
         button.ui.inverted.blue.button(id='btn-question' type='submit') Submit Question
+    .ui.segments(id='all_question')
+      .ui.segment
+        h1.ui.center.aligned.header Find a Documentation

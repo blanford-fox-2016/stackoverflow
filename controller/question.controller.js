@@ -26,12 +26,11 @@ module.exports = {
                 console.log(err);
                 res.json({ message: `Error: ${err}` })
             } else {
-                res.json({
-                    author: data[0].author,
-                    title: data[0].title,
-                    content: data[0].content,
-                    message: `This is all list of question`
-                })
+                let arrQuestion = []
+                for (var i = 0; i < data.length; i++) {
+                    arrQuestion.push(data[i])
+                }
+                res.json(data)
             }
         })
     },
