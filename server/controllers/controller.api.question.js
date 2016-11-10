@@ -50,6 +50,8 @@ module.exports = {
             answer: []
         }
 
+        console.log(question)
+
         Question.create(question, function (err, data) {
             if (err) res.json(err)
             else res.json(data)
@@ -77,12 +79,10 @@ module.exports = {
             questionId: req.params.questionId
         }, {
             title: req.body.title,
-            content: req.body.content,
-            votes: [],
-            answer: []
+            content: req.body.content
         }, {
             new: true,
-            upsert: true
+            upsert: false
         }, function (err, data) {
             if (err) res.json(err)
             else res.json(data)

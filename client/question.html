@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Stackoverflow</title>
+    <title>Stack Overscramble</title>
 
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
@@ -17,21 +17,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <a class="navbar-brand" href="index.html">Stack<b>overscramble</b></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Page 1-1</a></li>
-                        <li><a href="#">Page 1-2</a></li>
-                        <li><a href="#">Page 1-3</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Page 2</a></li>
-                <li><a href="#">Page 3</a></li>
+                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="#">Question</a></li>
+                <li><a href="#">User</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -45,67 +37,17 @@
     <div class="row">
         <div class="col-sm-12">
 
-            <div id="question1" class="row">
-                <h3 class="col-sm-11 col-sm-offset-1">Question Title</h3>
-                <hr class="col-sm-12">
-                <div class="col-sm-1 text-center">
-                    <div><i class="glyphicon glyphicon-arrow-up"></i></div>
-                    <div>200</div>
-                    <div><i class="glyphicon glyphicon-arrow-down"></i></div>
-                    <br>
-                    <div><i class="glyphicon glyphicon-star"></i></div>
-                    <div>100</div>
-                </div>
-                <div class="col-sm-11">
-                    <div class="panel panel-default answer">
-                        <div class="panel-body">
-                            Answer jandkjsankd ajndkajndkjad ksnadnakdn
-                        </div>
-                    </div>
-                </div>
+            <div id="rowOfQuestion">
+
             </div>
 
+            <hr>
             <h4 class="col-sm-11 col-sm-offset-1">Answer</h4>
+            <div id="rowOfAnswer">
 
-            <hr class="col-sm-12">
-
-            <div id="answer1" class="row">
-                <div class="col-sm-1 text-center">
-                    <div><i class="glyphicon glyphicon-arrow-up"></i></div>
-                    <div>200</div>
-                    <div><i class="glyphicon glyphicon-arrow-down"></i></div>
-                    <br>
-                    <div><i class="glyphicon glyphicon-star"></i></div>
-                    <div>100</div>
-                </div>
-                <div class="col-sm-11">
-                    <div class="panel panel-default answer">
-                        <div class="panel-body">
-                            Answer jandkjsankd ajndkajndkjad ksnadnakdn
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <hr class="col-sm-12">
 
-            <div id="answer2" class="row">
-                <div class="col-sm-1 text-center">
-                    <div><i class="glyphicon glyphicon-arrow-up"></i></div>
-                    <div>200</div>
-                    <div><i class="glyphicon glyphicon-arrow-down"></i></div>
-                    <br>
-                    <div><i class="glyphicon glyphicon-star"></i></div>
-                    <div>100</div>
-                </div>
-                <div class="col-sm-11">
-                    <div class="panel panel-default answer">
-                        <div class="panel-body">
-                            Answer jandkjsankd ajndkajndkjad ksnadnakdn
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <hr class="col-sm-12">
 
@@ -130,6 +72,65 @@
 </body>
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/purl/purl.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="script.js"></script>
+<script>
+    $(document).ready(function () {
+        let id = $.url().param('id');
+        let rowOfQuestion = $('#rowOfQuestion')
+        let rowOfAnswer = $('#rowOfAnswer')
+        $.ajax({
+            url: `http://localhost:3000/api/question/${id}`,
+            success: function (data) {
+                let html = `
+                <div id="question1" class="row">
+                    <h3 class="col-sm-11 col-sm-offset-1">${data.title}</h3>
+                    <hr class="col-sm-12">
+                    <div class="col-sm-1 text-center">
+                        <div><i class="glyphicon glyphicon-arrow-up"></i></div>
+                        <div>${data.votes.length}</div>
+                        <div><i class="glyphicon glyphicon-arrow-down"></i></div>
+                        <br>
+                        <div><i class="glyphicon glyphicon-star"></i></div>
+                        <div>100</div>
+                    </div>
+                    <div class="col-sm-11">
+                        <div class="panel panel-default answer">
+                            <div class="panel-body">
+                                ${data.content}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        `
+
+                let answer = []
+                for (var i = 0; i < data.answers.length; i++) {
+                    answer.push(`
+                    <div id="answer1" class="row">
+                        <div class="col-sm-1 text-center">
+                            <div><i class="glyphicon glyphicon-arrow-up"></i></div>
+                            <div>200</div>
+                            <div><i class="glyphicon glyphicon-arrow-down"></i></div>
+                            <br>
+                            <div><i class="glyphicon glyphicon-star"></i></div>
+                            <div>100</div>
+                        </div>
+                        <div class="col-sm-11">
+                            <div class="panel panel-default answer">
+                                <div class="panel-body">
+                                    ${data.answers[i].answer}
+                                </div>
+                            </div>
+                        </div>
+                    </div>`)
+                }
+
+                rowOfQuestion.append(html)
+                rowOfAnswer.append(answer)
+            }
+
+        })
+    })
+</script>
 </html>
