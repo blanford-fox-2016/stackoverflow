@@ -6,11 +6,11 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     .ui.secondary.menu
-      a.item
+      a.item(role='button' href='/')
         | Home
-      a.item
+      a.item(role='button' href='/register')
         | Register
-      a.item
+      a.item(role='button' href='/login')
         | Login
       .right.menu
       -if(user)
@@ -18,7 +18,7 @@ html
           .ui.icon.input
             input(placeholder='Search...', type='text')
             i.search.link.icon
-        a.ui.item
+        a.ui.item(role='button' href='/logout')
           | Logout
     .ui.segment
       block content
