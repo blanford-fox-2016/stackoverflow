@@ -20,8 +20,7 @@ let usersSchema = new Schema({
       type: String
     },
     dob: {
-      type: Date,
-      required: true
+      type: Date
     },
     photo: {
       type: String

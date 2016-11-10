@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  // console.log(inititle);
   //NEW DATA ITEM
   $("#submitQuestion").click(function() {
     $.ajax({
@@ -18,19 +19,18 @@ $(document).ready(function() {
         newHTML += `<li>
                       <div class="collapsible-header"><i class="material-icons">live_help</i>${data.title}<span data-badge-caption="answers" class="new badge">${data.answers.length}</span></div>
                       <div class="collapsible-body">
-                        <p>${data.content}<a href="#">Details</a></p>
+                        <p>${data.content}<a href="/question/${data.slug}">Details</a></p>
                       </div>
                     </li>`;
         $( '#inputQuestions' ).each(function(){
             this.reset();
         });
         $("#questions").append(newHTML);
-        $(".modal-overlay").hide();
-        $(".modal").hide();
+        // $(".modal-overlay").hide();
+        // $(".modal").hide();
       }
     });
   });
-})
 
   // GET ALL DATA ITEM
   $.ajax({
@@ -44,14 +44,35 @@ $(document).ready(function() {
         dataHTML += `<li>
                       <div class="collapsible-header"><i class="material-icons">live_help</i>${data[i].title}<span data-badge-caption="answers" class="new badge">${data[i].answers.length}</span></div>
                       <div class="collapsible-body">
-                        <p>${data[i].content}<a href="#">Details</a></p>
+                        <p>${data[i].content}<a href="/question/${data[i].slug}">Details</a></p>
                       </div>
                     </li>`
       }
       $("#questions").append(dataHTML);
     }
   })
+})
 
+//   // GET ALL DATA ITEM
+//   $.ajax({
+//     type: "GET",
+//     url: "http://localhost:3000/api/question/",
+//     dataType: "json",
+//     contentType: 'application/x-www-form-urlencoded',
+//     success: function(data) {
+//       var dataHTML = '';
+//       for (var i = 0; i < data.length; i++) {
+//         dataHTML += `<li>
+//                       <div class="collapsible-header"><i class="material-icons">live_help</i>${data[i].title}<span data-badge-caption="answers" class="new badge">${data[i].answers.length}</span></div>
+//                       <div class="collapsible-body">
+//                         <p>${data[i].content}<a href="#">Details</a></p>
+//                       </div>
+//                     </li>`
+//       }
+//       $("#questiondetail").append(dataHTML);
+//     }
+//   })
+// })
 //
 // function editItem(id) {
 //   var title = document.getElementById('detArticleTitle'+id).innerHTML;

@@ -10,26 +10,26 @@ block content
             a.active(href='#signin') Sign In
       #signup.col.s12
         .container
-          form.col.s12
+          form#regform.col.s12
             .row
               .input-field.col.s12
-                input#name.validate(type='text')
+                input#regname.validate(type='text')
                 label(for='name') Name
             .row
               .input-field.col.s12
-                input#email.validate(type='email')
+                input#regemail.validate(type='email')
                 label(for='email') Email
             .row
               .input-field.col.s12
-                input#username.validate(type='text')
+                input#regusername.validate(type='text')
                 label(for='username') Username
             .row
               .input-field.col.s12
-                input#password.validate(type='password')
+                input#regpassword.validate(type='password')
                 label(for='password') Password
             .row
               .input-field.col.s12
-                button.btn.waves-effect.waves-light(type='button', name='action')
+                button#submitRegister.btn.waves-effect.waves-light(type='button', name='action')
                   | Sign Up
                   i.material-icons.right input
 

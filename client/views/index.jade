@@ -2,6 +2,7 @@ extends layout
 
 block content              
   .container
+    //- - var inititle = title
     .valign-wrapper
       h3.valign All Questions
       
@@ -25,6 +26,6 @@ block content
               label(for='textarea1') Content
       .modal-footer
         .input-field.col.s12
-          button#submitQuestion.btn.waves-effect.waves-light(type='button', name='action')
+          button#submitQuestion.btn.waves-effect.waves-light.modal-action.modal-close(type='button', name='action')
             | Submit
             i.material-icons.right send
