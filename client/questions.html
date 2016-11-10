@@ -10,7 +10,7 @@
  <!-- Optional theme -->
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-  <title>QA - stackoverflow</title>
+  <title>Document</title>
 </head>
 <body>
   <!-- navbar -->
@@ -27,42 +27,42 @@
     <!-- end navbar -->
 
     <div class="container">
-      <!-- table list questions -->
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th class="col-sm-6">Info</th>
-            <th class="col-sm-6">Name</th>
-          </tr>
-        </thead>
-        <tbody id="body_table"></tbody>
-      </table>
-      <!-- end table list questions -->
+      <!-- votes -->
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-default btn-sm" id="up_vote">
+          <span class="glyphicon glyphicon-chevron-up"></span>
+        </button>
+        <span id="vote_total" style="margin-left:10px;"></span>
+        <button type="button" class="btn btn-default btn-sm" id="down_vote">
+          <span class="glyphicon glyphicon-chevron-down"></span>
+        </button>
+      </div>
+      <!-- end votes -->
 
+      <!-- content -->
+      <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <span id="content"></span>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- end content -->
 </body>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/purl/2.3.1/purl.js"></script>
    <script>
-     $.ajax({
-       url : 'http://localhost:3000/api/questions',
-       success : function(all_data){
-         console.log(all_data)
-         let data_HTML = ``
-         for(var i = 0 ; i < all_data.length ; i++){
-           data_HTML += `
-           <tr id=${all_data[i].questionId}>
-             <td>
-               ${all_data[i].votes.length} votes | ${all_data[i].comment.length} comments
-             </td>
-             <td>
-               <a href="questions.html?id=${all_data[i].questionId}">${all_data[i].title}</a>
-             </td>
-           </tr>
-           `
-         }
-         $('#body_table').append(data_HTML)
-       }
-     })
+      var questionId = $.url().param('id')
+      // console.log(questionId)
+      $.ajax({
+        url : 'http://localhost:3000/api/questions/'+questionId,
+        success : function(one_data){
+          console.log(one_data)
+          $('#vote_total').text(one_data.votes.length)
+          $('#content').text(one_data.content)
+        }
+      })
    </script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
