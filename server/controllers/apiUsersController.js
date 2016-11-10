@@ -41,6 +41,15 @@ let updateById = (req, res, next) => {
 }
 
 let deleteById = (req, res, next) => {
+  Users.remove({
+    _id: req.params.id
+  }, (err, deleted) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(deleted);
+    }
+  })
 
 }
 
