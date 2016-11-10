@@ -47,7 +47,7 @@ describe('Route get Question', function() {
 
 
 describe('Route update Question', function() {
-        let putId = 15
+        let putId = 16
         let newAuthor = faker.name.firstName()
         let newTitle = faker.internet.domainName()
         let newContent = `${faker.lorem.sentences()} ???`
@@ -70,7 +70,7 @@ describe('Route update Question', function() {
     })
     //
 describe('Route delete article', function() {
-    let delId = 15
+    let delId = 16
     it('expect to return delete message', function(done) {
         chai.request(urlApi)
             .delete(`/question/${delId}`)
