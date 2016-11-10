@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 
 var express = require('express');
 var path = require('path');
@@ -10,10 +10,10 @@ var bodyParser = require('body-parser');
 const cors = require('cors')
 var app = express();
 
-var routes_api_users = require('./routes/routes.api.users');
-var routes_api_questions = require('./routes/routes.api.questions');
-var routes_api_comments = require('./routes/routes.api.votes');
-var routes_api_votes = require('./routes/routes.api.votes');
+var routes_api_users = require('./routes/route.api.users');
+var routes_api_questions = require('./routes/route.api.questions');
+var routes_api_answers = require('./routes/route.api.answers');
+var routes_api_votes = require('./routes/route.api.votes');
 
 // mongoose
 const mongoose = require('mongoose')
