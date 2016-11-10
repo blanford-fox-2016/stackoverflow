@@ -89,6 +89,14 @@ module.exports = {
 
     },
     removeAllQuestion: function(req, res, next) {
+        Question.remove({}, function(err) {
+            if (err) {
+                console.log(err);
+                res.json({ message: `Error : ${err}` })
+            } else {
+                res.json({ message: `All question deleted succesfully` })
+            }
+        })
 
     }
 }
