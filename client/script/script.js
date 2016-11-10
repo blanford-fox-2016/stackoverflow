@@ -16,9 +16,11 @@ let list = () => {
   $.ajax({
     url: URL + 'questions',
     success: (data) => {
-      var html = data.map(datum => `
-        <h3> ${datum.title} </h3><br><p> ${datum.content}</p><br>  `)
-      console.log(data);
+      var html = data.map(datum =>
+        `<h3>${datum.title} </h3><br>
+        <p> ${datum.content}</p>
+        <button onClick=updatePost('${datum.question_id}') class='deleteQuestion btn btn-success'> Update </button>
+        <button onClick=deletePost('${datum.question_id}') class='updateQuestion btn btn-danger'> Delete </button>`)
       $('.question-summary').append(html)
     }
   })
@@ -35,11 +37,26 @@ let create = () => {
       content : $('#question-form').val()
     },
     success: (data) => {
+      //emptying the html
       $('.question-summary').html('')
       list()
+    }
+  })
+}
+
+let deletePost = (obj_id) => {
+  // how to get a class with the same id with this
+  //console.log(obj_id);
+  $.ajax({
+    url: URL + 'questions/' + obj_id,
+    type: 'delete',
+    success: (data) => {
       console.log(data);
-      // var newQustion = data.map(datum => `<h3> ${data.title} </h3> <br> <p> ${data.content} </p><br>`)
-      // $('.question-summary').append(data)
+      $('.question-summary').html('')
+      list()
+    },
+    error: (data) => {
+      console.log(data);
     }
   })
 }

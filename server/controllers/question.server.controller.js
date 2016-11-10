@@ -50,10 +50,11 @@ module.exports = {
 
   //Delete the question by its id
   delete: (req, res) => {
+    console.log(req.params.question_id);
     Question
       .findOneAndRemove({question_id : req.params.question_id})
       .then(question => res.json(question))
-      .err(err => res.json(err))
+      .catch(err => res.json(err))
   },
 
   // GET the question by its id
