@@ -70,16 +70,17 @@ console.log(req.params.id);
 let update = (req,res) => {
 
 console.log("ini update");
-
-  Question.findOneAndUpdate({postId:req.params.id},
+console.log(req.body);
+  Question.findByIdAndUpdate(req.body.id,
 
     {
       title:req.body.title,
-      content: req.body.content
+      question: req.body.question
     },(err,question) => {
     if (err) {
       res.status(404)
     }else {
+      console.log("nihh");
       console.log(question);
       res.json(question)
     }

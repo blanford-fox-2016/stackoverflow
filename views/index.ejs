@@ -74,6 +74,8 @@
                             </div>
                             <button type="button" class="btn btn-primary"  onclick="deleteQuestion(${data._id})">Delete</button>
                             <button type="button" class="btn btn-primary"  onclick="updateQuestion(${data._id})">Update</button>
+                          </div>
+                          <div id = "update${data._id}" >
                           </div>`
                         $("#show").prepend(resultHTML)
                       }
@@ -101,7 +103,8 @@
                                  </div>
                                  <button type="button" class="btn btn-primary"  onclick="deleteQuestion(${data[i]._id})">Delete</button>
                                  <button type="button" class="btn btn-primary"  onclick="updateQuestion(${data[i]._id})">Update</button>
-                               </div>`
+                               </div>
+                               <div id = "update${data[i]._id}" ></div>`
                            }
                           $("#show2").prepend(html)
                          }
@@ -126,26 +129,44 @@
                   // //-------------------------
                   // //update items
                   // //-----------------------------
-                  // function(){
-                  //   Question = {
-                  //     title : $('#title').val(),
-                  //     question  : $('#question').val()
-                  //   }
-                  //   updateCustomer(Question);//send data to create
-                  // }
-                  // function updateCustomer(id){
-                  //   alert(id);
-                  //   console.log(id+"aja");
-                  //   $.ajax({
-                  //     url         : "http://localhost:3000/api/customers/update/"+id,
-                  //     method      : 'put',
-                  //     contentType : 'application/x-www-form-urlencoded',
-                  //     data        : {'id':id},
-                  //     success     : function(data) {
-                  //       $(`#${id}`).remove();
-                  //     }
-                  //   })
-                  // }  //-------------------
+
+                  function updateQuestion(id){
+                    $(`#${id}`).hide();
+                    var html = `<div class="container" id ="update${id}" >
+                      <div class="form-group">
+                        <div class="form-group">
+                          <br>
+                          <label for="title">Title:</label>
+                          <input type="text" class="form-control" name="title" id ="titleupdate${id}">
+                        </div>
+                        <label for="exampleTextarea"> </label>
+                        <textarea class="form-control" name = "question" id ="questionupdate${id}" rows="3"></textarea>
+                      </div>
+                      <button type="button" class="btn btn-primary"  onclick= "update(${id})" >Submit</button>
+                    </div>`
+                    $(`#update${id}`).append(html);
+
+                  }  //-------------------
+                  function update(id){
+                    Question = {
+                      id     : id,
+                      title : $(`#titleupdate${id}`).val(),
+                      question  : $(`#questionupdate${id}`).val()
+                   }
+                    $.ajax({
+                      url         : "http://localhost:3000/api/question/"+id,
+                      method      : 'put',
+                      contentType : 'application/x-www-form-urlencoded',
+                      data        : Question,
+                      success     : function(data) {
+                        $(`#update${data._id}`).remove()
+                        deleteQuestion(data._id);
+                        sendQuestion(Question);
+                      }
+                    })
+                  }
+
+
         $(document).ready(function(){
           loadData()
         })
