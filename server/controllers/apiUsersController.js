@@ -11,7 +11,15 @@ let getAll = (req, res, next) => {
 }
 
 let getOneByUsername = (req, res, next) => {
-
+  Users.findOne({
+    username: req.params.username
+  }, (err, user) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(user);
+    }
+  })
 }
 
 let updateById = (req, res, next) => {
