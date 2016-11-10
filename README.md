@@ -63,8 +63,8 @@ url = " http://localhost://3000"
 | Endpoint              | HTTP   | Description
 |-----------------------|--------|------------
 | api/user              | GET    | Show all user
-| api/login             | POST   | User login
-| api/register          | POST   | Create new user
+| api/user/login        | POST   | User login
+| api/user/register          | POST   | Create new user
 | api/user/:id          | PUT    | Update user by id
 | api/user/:id          | DELETE | Delete user by id
 

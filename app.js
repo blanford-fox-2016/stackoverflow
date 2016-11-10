@@ -1,5 +1,7 @@
 'use strict'
-
+//==============
+// express ====
+//============
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -7,11 +9,21 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-const question = require('./routes/question');
-const routes = require('./routes/index');
-const users = require('./routes/users');
+//=============
+// paspport===
+//============
 
-const app = express();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+//=============
+// router =====
+//=============
+
+const question = require('./routes/router.question');
+const routes = require('./routes/index');
+const users = require('./routes/router.users');
+
 
 //==============
 // mongoose
@@ -22,8 +34,28 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/myDatabase')
 mongoose.Promise = global.Promise
 
+//====================
+//paspport mongoose===
+//====================
 
-// view engine setup
+const passportLocalMongoose = require('passport-local-mongoose');
+const User = require('./models/models.user');
+
+//static authenticate
+
+passport.use(new LocalStrategy(User.authenticate()));
+
+//static serialize and deserialize
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+const app = express();
+
+//=====================
+// view engine setup ==
+//=====================
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -35,12 +67,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//====================
-//routes
+// ====================
+// routes =============
 //=====================
+
 app.use('/', routes);
-app.use('/users', users);
+app.use('/api/user', users);
 app.use('/api/question',question);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

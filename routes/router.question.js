@@ -6,12 +6,12 @@ const Question = require('../controller/controller.question');
 
 /* GET home page. */
 
-router.get('/',Question.showAll);
+router.get('/', Question.showAll);
 
-router.put('/:id',Question.update);
+router.put('/:id', Question.update);
 
-router.post('/',Question.create);
+router.post('/', Question.create);
 
-router.delete('/:id',Question.deleteQuestion);
+router.delete('/:id', Question.deleteQuestion);
 
 module.exports = router ;

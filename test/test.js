@@ -11,27 +11,6 @@ const mongoose = require('mongoose');
 let server = "http://localhost:3000"
 chai.use(chaiHttp)
 
-describe('fitur testinng question', function() {
-
-  it('create new question',function(done){
-  let questionData = {
-     questionId:10,
-     userId:123,
-     question:"asalaja",
-     title:"coba",
-     answers:123,
-     votes:1 }
-     Question.create(questionData,(err,data) => {
-       data.userId.to.equal(123)
-       data.title.to.equal("coba")
-       done()
-     })
-  })
-
-});
-
-
-
 
 
 
@@ -39,8 +18,6 @@ describe('fitur testinng question', function() {
 clear data base
 add new dataa base
 */
-
-
 
 describe('testing endpoint question ', function() {
   // this.timeout(5000);
@@ -53,16 +30,13 @@ describe('testing endpoint question ', function() {
     .post('/api/question')
     .send({
       questionId:12,
-      userId:123,
       question:"asalaja",
-      title:"coba",
-      answers:123,
-      votes:1
+      title:"coba"
     })
     .end(function(err, res) {
-      console.log(res.body[0]);
+      console.log(res.body);
       res.body.should.have.property('_id')
-      res.body.title.should.equal('apa')
+      res.body.title.should.equal('coba')
       expect(res).to.have.status(200)
       expect(res).to.be.json
       done()

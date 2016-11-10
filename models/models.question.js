@@ -10,11 +10,8 @@ let Schema = mongoose.Schema
 
 let questionSchema = new Schema ({
   questionId : {type : Number, unique:true},
-  userId : String,
   question : String,
-  title : {type:String, min: 5, max: 20},
-  answers :String,
-  votes : String
+  title : {type:String, min: 5, max: 20}
 })
 
 questionSchema.plugin(autoIncrement.plugin, 'Question');
