@@ -13,6 +13,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const routes = require('./routes/index');
 const question = require('./routes/apiQuestions');
+const user = require('./routes/apiUsers')
 const auth = require('./routes/auth');
 
 const app = express();
@@ -44,6 +45,7 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/api/question', question);
 app.use('/auth', auth);
+app.use('/api/user', user);
 
 passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
