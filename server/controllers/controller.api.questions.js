@@ -76,10 +76,7 @@ let deleteQuestion = (req, res) => {
 */
 let seedQuestion = (req, res) => {
   // console.log('aaa',seeder);
-  Question.create([{
-    title       : "need help!",
-    content : "How to learn node.js?"
-  }], (err, seeder_data) => {
+  Question.create(seeder, (err, seeder_data) => {
     console.log('aaa', seeder_data)
     if(err) res.status(400).json({'error': err})
     if(!seeder_data) res.status(404).json({'message': 'Failed to seed'})
