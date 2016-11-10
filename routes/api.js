@@ -21,6 +21,7 @@ router.delete('/user', user_controller.removeAllUser)
 
 router.get('/question/seed', question_controller.seedQuestion)
 router.get('/question', question_controller.getAllQuestion)
+router.get('/question/:id', question_controller.getOneQuestion)
 router.post('/question', question_controller.createQuestion)
 router.put('/question/:id', question_controller.editQuestion)
 router.delete('/question/:id', question_controller.removeQuestion)

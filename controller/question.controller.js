@@ -53,6 +53,22 @@ module.exports = {
             }
         })
     },
+    getOneQuestion: function(req, res, next) {
+        Question.findOne({
+            questionId: req.params.id
+        }, function(err, data) {
+            if (err) {
+                console.log(err);
+                res.json({ message: `Error : ${err}` })
+            } else {
+                res.json({
+                    author: data.author,
+                    title: data.title,
+                    content: data.content
+                })
+            }
+        })
+    },
     editQuestion: function(req, res, next) {
         Question.findOneAndUpdate({
             questionId: req.params.id
