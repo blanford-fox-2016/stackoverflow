@@ -151,7 +151,7 @@
                             <div class="panel panel-default answer">
                             <div class="panel-heading">
                                 <button class="btn btn-warning" onclick="editAnswer('${data.answers[i]._id}')">Edit</button>
-                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[i]._id}')">Delete ${data.answers[i]._id}</button>
+                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[i]._id}')">Delete</button>
                             </div>
                                 <div class="panel-body">
                                     ${data.answers[i].answer}
@@ -197,7 +197,7 @@
                         <div class="panel panel-default answer">
                             <div class="panel-heading">
                                 <button class="btn btn-warning" onclick="editAnswer('${data.answers[data.answers.length - 1]._id}')">Edit</button>
-                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[data.answers.length - 1]._id}')">Delete ${data.answers[data.answers.length - 1]._id}</button>
+                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[data.answers.length - 1]._id}')">Delete</button>
                             </div>
                             <div class="panel-body">
                                 ${data.answers[data.answers.length - 1].answer}
@@ -228,20 +228,20 @@
     function editAnswer(id) {
         let questionId = $.url().param('id');
         $.ajax({
-            url: `http://localhost:3000/api/question/${questionId}/${id}`,
+            url: `http://localhost:3000/api/question/${questionId}/answer/${id}`,
             method: "get",
             contentType: 'application/x-www-form-urlencoded',
             success: function (data) {
                 console.log(data)
                 $('#formEditAnswer').modal('show');
-                $('textarea[name="answerEdit"]').val(data.answers[0].answer)
+                $('textarea[name="answerEdit"]').val(data.answer)
 
                 var temp = $("input[name='answerId']").val()
                 if ( typeof temp != "undefined") {
-                    $("input[name='answerId']").replaceWith(`<input type='hidden' name='answerId' value='${data.answers[0]._id}'>`)
+                    $("input[name='answerId']").replaceWith(`<input type='hidden' name='answerId' value='${data._id}'>`)
                 }
                 else {
-                    $("#formEditAnswer").append(`<input type='hidden' class='form-control' name='answerId' value='${data.answers[0]._id}'>`)
+                    $("#formEditAnswer").append(`<input type='hidden' class='form-control' name='answerId' value='${data._id}'>`)
                 }
             }
         })
@@ -254,7 +254,7 @@
         let answer = $('textarea[name="answerEdit"]').val()
 
         $.ajax({
-            url: `http://localhost:3000/api/question/answer/${questionId}/${answerId}`,
+            url: `http://localhost:3000/api/question/${questionId}/answer/${answerId}`,
             method: "put",
             contentType: 'application/x-www-form-urlencoded',
             data: {
@@ -263,7 +263,7 @@
             success: function (data) {
                 console.log(data)
                 let html = `
-                        <div id="rowAnswer${data.answers[data.answers.length - 1]._id}" class="row">
+                        <div id="rowAnswer${answerId}" class="row">
                             <div class="col-sm-1 text-center">
                                 <div><i class="glyphicon glyphicon-arrow-up"></i></div>
                                 <div>200</div>
@@ -275,18 +275,18 @@
                             <div class="col-sm-11">
                                 <div class="panel panel-default answer">
                                     <div class="panel-heading">
-                                        <button class="btn btn-warning" onclick="editAnswer('${data.answers[data.answers.length - 1]._id}')">Edit</button>
-                                        <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[data.answers.length - 1]._id}')">Delete</button>
+                                        <button class="btn btn-warning" onclick="editAnswer('${answerId}')">Edit</button>
+                                        <button class="btn btn-danger" onclick="deleteAnswer('${answerId}')">Delete</button>
                                     </div>
                                     <div class="panel-body">
-                                        ${data.answers[data.answers.length - 1].answer}
+                                        ${answer}
                                     </div>
                                 </div>
                             </div>
                         </div>
                                 `
 
-                $(`#rowAnswer${data.answers[data.answers.length - 1]._id}`).replaceWith(html)
+                $(`#rowAnswer${answerId}`).replaceWith(html)
                 $('textarea[name="answerEdit"]').val("")
                 $('#formEditAnswer').modal('hide');
             }

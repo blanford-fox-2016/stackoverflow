@@ -134,20 +134,28 @@ module.exports = {
         })
     },
 
-    editAnswer: function (req, res) {
+    viewAnswer: function (req, res) {
+        console.log("q", req.params.questionId)
+        console.log("a", req.params.id)
         Question.findOne({
-            questionId: req.params.questionId,
-            'answers._id': req.params.id
+            questionId: req.params.questionId
         }, function (err, data) {
-            console.log(data)
+            let answers = data.answers
+            let datum
+            for (let i in answers) {
+                if (answers[i].id === req.params.id) {
+                    datum = answers[i]
+                }
+            }
+            console.log(datum)
             if (err) res.json(err)
-            else res.json(data)
+            else res.json(datum)
         })
     },
 
     updateAnswer: function (req, res) {
         Question.findOneAndUpdate({
-            questionId: req.params.questionId,
+            // questionId: req.params.questionId,
             'answers._id': req.params.id
         }, {
             'answers.$.answer': req.body.answer
