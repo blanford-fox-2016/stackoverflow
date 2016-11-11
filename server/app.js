@@ -11,6 +11,7 @@ const session = require('express-session')
 const User = require('./models/user')
 
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 mongoose.connect(process.env.DATABASE)
 
 const passport = require('passport')

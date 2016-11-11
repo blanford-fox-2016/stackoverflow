@@ -15,9 +15,9 @@ chai.use(chaiHttp)
 //START TESTING
 
 //TESTING FOR USER
-describe("Test for User", function () {
+describe.only("Test for User", function () {
     //SET UP BEFORE TESTING USER
-    beforeEach(function (done) {
+    before(function (done) {
         chai.request(app)
             .get('/api/user/seed')
             .end(function (err, res) {
@@ -26,7 +26,7 @@ describe("Test for User", function () {
             })
     })
 
-    afterEach(function (done) {
+    after(function (done) {
         chai.request(app)
             .delete('/api/user')
             .end(function (err, res) {
@@ -74,6 +74,20 @@ describe("Test for User", function () {
         })
     })
 
+    describe("Test if login user working", function () {
+        it("Expect to return user session if can login", function (done) {
+            chai.request(app)
+                .post('/api/user/login')
+                .send({
+                    username: 'admin',
+                    password: 'admin'
+                })
+                .end(function (err, res) {
+                    expect(res).to.have.session
+                })
+        })
+    })
+
     describe("Test if delete user working", function () {
 
         it("Expect to return true if delete user working", function (done) {
@@ -101,16 +115,20 @@ describe("Test for User", function () {
                 email: 'update@gmail.com'
             }
 
-            User.findOne({}, {}, { sort: { 'userId' : -1 } }, function (err, data) {
+            User.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (err, data) {
                 chai.request(app)
                     .put(`/api/user/${data.userId}`)
                     .send(input)
                     .end(function (err, res) {
-                        expect(res).to.have.status(200)
-                        expect(res.body.name).to.equal(input.name)
-                        expect(res.body.username).to.equal(input.username)
-                        expect(res.body.email).to.equal(input.email)
-                        done()
+                        User.findOne({
+                            userId: data.userId
+                        }, function (err2, data2) {
+                            expect(res).to.have.status(200)
+                            expect(res.body.name).to.equal(data2.name)
+                            expect(res.body.username).to.equal(data2.username)
+                            expect(res.body.email).to.equal(data2.email)
+                            done()
+                        })
                     })
             })
         })
@@ -120,16 +138,31 @@ describe("Test for User", function () {
 //TESTING FOR QUESTION
 describe("Test for Question", function () {
 //     //SET UP BEFORE TESTING QUESTION
-    beforeEach(function (done) {
+
+
+    before(function (done) {
+        chai.request(app)
+            .get('/api/user/seed')
+            .end(function (err, res) {
+                console.log("User seeded")
+
+            })
+
         chai.request(app)
             .get('/api/question/seed')
             .end(function (err, res) {
-                console.log("Question seeded")
+                console.log("User and Question seeded")
                 done()
             })
     })
 
-    afterEach(function (done) {
+    after(function (done) {
+        chai.request(app)
+            .delete('/api/user')
+            .end(function (err, res) {
+                console.log("All user deleted")
+            })
+
         chai.request(app)
             .delete('/api/question')
             .end(function (err, res) {
@@ -168,7 +201,6 @@ describe("Test for Question", function () {
                     Question.findOne({
                         title: res.body.title
                     }, function (err, data) {
-                        console.log(">>>>>>>>>>>>", data)
                         expect(res).to.have.status(200)
                         expect(res.body.questionId).to.equal(data.questionId)
                         expect(res.body.title).to.equal(data.title)
@@ -202,9 +234,7 @@ describe("Test for Question", function () {
 
             let input = {
                 title: 'title update',
-                content: 'content update',
-                votes: [],
-                answer: []
+                content: 'content update'
             }
 
             Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
@@ -224,51 +254,55 @@ describe("Test for Question", function () {
     describe("Test if vote question working", function () {
 
         it("Expect to return vote that has been inserted", function (done) {
+            User.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (errUser, dataUser) {
+                let input = {
+                    id:dataUser._id
+                }
 
-            let input = {
-                userId: 1
-            }
+                Question.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (err, data) {
+                    chai.request(app)
+                        .put(`/api/question/vote/${data.questionId}`)
+                        .send(input)
+                        .end(function (err, res) {
 
-            Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
-                chai.request(app)
-                    .put(`/api/question/vote/${data.questionId}`)
-                    .send(input)
-                    .end(function (err, res) {
-
-                        Question.find(function (err2, data2) {
-                            console.log(data2)
-                            expect(res).to.have.status(200)
-                            expect(res.body.votes[res.body.votes.length - 1]).to.equal(input.userId)
-                            done()
+                            Question.findOne({
+                                _id: data._id
+                            } ,function (err2, data2) {
+                                expect(res).to.have.status(200)
+                                expect(res.body.votes[res.body.votes.length - 1]).to.exist
+                                // expect(res.body.votes[res.body.votes.length - 1]).to.equal(dataUser._id)
+                                done()
+                            })
                         })
-                    })
+                })
             })
         })
+
     })
 
     describe("Test if add answer working", function () {
 
         it("Expect to return answers that has been inserted", function (done) {
 
-            let input = {
-                createdBy: 1,
-                answer: "testing answer"
-            }
+            User.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (errUser, dataUser) {
+                let input = {
+                    id:dataUser._id,
+                    answer: "testing answer"
+                }
 
-            Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
-                chai.request(app)
-                    .put(`/api/question/answer/${data.questionId}`)
-                    .send(input)
-                    .end(function (err, res) {
+                Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
+                    chai.request(app)
+                        .put(`/api/question/answer/${data.questionId}`)
+                        .send(input)
+                        .end(function (err, res) {
 
-                        Question.find(function (err2, data2) {
-                            console.log(res.body)
-                            expect(res).to.have.status(200)
-                            expect(res.body.answers[res.body.answers.length - 1].answer).to.equal(input.answer)
-                            expect(res.body.answers[res.body.answers.length - 1].createdBy).to.equal(input.createdBy)
-                            done()
+                            Question.find(function (err2, data2) {
+                                expect(res).to.have.status(200)
+                                expect(res.body.answers[res.body.answers.length - 1].answer).to.equal(input.answer)
+                                done()
+                            })
                         })
-                    })
+                })
             })
         })
     })
@@ -277,24 +311,26 @@ describe("Test for Question", function () {
 
         it("Expect to return vote answer that has been inserted", function (done) {
 
-            let input = {
-                userId: 4
-            }
+            User.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (errUser, dataUser) {
+                let input = {
+                    id:dataUser._id
+                }
 
-            Question.findOne({}, {}, { sort: { 'questionId' : -1 } }, function (err, data) {
-                chai.request(app)
-                    .put(`/api/question/answer/vote/${data.questionId}`)
-                    .send(input)
-                    .end(function (err, res) {
+                Question.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (err, data) {
+                    chai.request(app)
+                        .put(`/api/question/answer/vote/${data.questionId}/${data.answers[data.answers.length - 1]._id}`)
+                        .send(input)
+                        .end(function (err, res) {
 
-                        Question.find(function (err2, data2) {
-                            console.log(res.body)
-                            console.log(data2[0].answers)
-                            expect(res).to.have.status(200)
-                            // expect(res.body.votes[res.body.votes.length - 1]).to.equal(input.userId)
-                            done()
+                            Question.findOne({
+                                _id: data._id
+                            } ,function (err2, data2) {
+                                expect(res).to.have.status(200)
+                                expect(res.body.answers[res.body.answers.length - 1].answerVotes).to.exist
+                                done()
+                            })
                         })
-                    })
+                })
             })
         })
     })

@@ -14,6 +14,6 @@ router.put('/vote/:questionId', questionController.addVoteQuestion)
 router.put('/answer/:questionId', questionController.addAnswer)
 router.put('/:questionId/answer/:id', questionController.updateAnswer)
 router.delete('/answer/:questionId/:id', questionController.deleteAnswer)
-router.put('/answer/vote/:questionId', questionController.voteAnswer)
+router.put('/answer/vote/:questionId/:id', questionController.voteAnswer)
 
 module.exports = router;

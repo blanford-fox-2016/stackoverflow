@@ -5,10 +5,10 @@ module.exports = {
     seedUser: function (req, res) {
         const dataUser = [
             {
-                name: 'name xyz',
-                username: 'username xyz',
-                password: 'passworda',
-                email: 'xyz@gmail.com',
+                name: 'admin',
+                username: 'admin',
+                password: 'admin',
+                email: 'admin@gmail.com',
             }
         ]
 
@@ -85,11 +85,6 @@ module.exports = {
     },
 
     loginUser: function (req, res) {
-        User.findOne({
-            username: req.body.username
-        }, function (err, data) {
-            if (err) res.json(err)
-            else res.json(data)
-        })
+
     }
 }

@@ -6,7 +6,13 @@ module.exports = {
             {
                 createdBy: '58242dc607c8741ccfc21206',
                 title: 'title a',
-                content: 'content a'
+                content: 'content a',
+                "answers" : [
+                    {
+                        "answer" : "addasd",
+                        "answerVotes" : []
+                    }
+                ]
             }
         ]
 
@@ -42,7 +48,7 @@ module.exports = {
             answer: []
         }
 
-        console.log(question)
+        // console.log(question)
 
         Question.create(question, function (err, data) {
             if (err) res.json(err)
@@ -82,11 +88,12 @@ module.exports = {
     },
 
     addVoteQuestion: function (req, res) {
+        console.log(req.body.id)
         Question.findOneAndUpdate({
             questionId: req.params.questionId
         }, {
             $push: {
-                votes: req.body.userId
+                votes: req.body.id
             }
         }, {
             new: true,
@@ -103,7 +110,7 @@ module.exports = {
         }, {
             $push: {
                 answers: {
-                    createdBy: req.body.createdBy,
+                    createdBy: req.body.id,
                     answer: req.body.answer
                 }
             }
@@ -171,10 +178,11 @@ module.exports = {
 
     voteAnswer: function (req, res) {
         Question.findOneAndUpdate({
-            questionId: req.params.questionId
+            questionId: req.params.questionId,
+            'answers._id': req.params.id
         }, {
             $push: {
-                answerVotes: req.body.userId
+                'answers.$.answerVotes': req.body.id
             }
         }, {
             new: true,

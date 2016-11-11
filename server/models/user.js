@@ -25,6 +25,8 @@ const User = new Schema({
             message: 'Wrong email format'
         }
     }
+}, {
+    timestamps: true
 })
 
 User.plugin(increment, {inc_field: 'userId'});

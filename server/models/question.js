@@ -39,6 +39,8 @@ const Question = new Schema({
             ]
         }
     ]
+}, {
+    timestamps: true
 })
 
 Question.plugin(incrementQuestion, {
