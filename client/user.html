@@ -131,9 +131,32 @@
                 }
 
                 rowOfUser.append(user.join(""))
+
+                let navLogin = `
+            <ul id="rightNavLogin" class="nav navbar-nav navbar-right">
+                <li id="userLogout"><a href="#"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+            </ul>`
+
+                let navNotLogin = `
+            <ul id="rightNavLogin" class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>`
+
+                if (Auth.getToken()) {
+                    $('#rightNavLogin').replaceWith(navLogin)
+                }
+                else {
+                    $('#rightNavLogin').replaceWith(navNotLogin)
+                }
             }
 
         })
+    })
+
+    $(document).on('click', 'li[id="userLogout"]', function () {
+        Auth.deauthenticateUser()
+        window.location.href = 'http://127.0.0.1:8080/login.html'
     })
 
     function deleteUser(userId) {
