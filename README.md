@@ -145,23 +145,22 @@ const User = new Schema({
 
 ### API Question
 
-| Endpoint                  | HTTP      | Description                       |
-| ----------                | -----     | ------------                      |
-| api/question/seed         | GET       | Create Dummy Question Data        |
-| api/question              | GET       | Get All Question                  |
-| api/question              | DELETE    | Delete All Question               |
-| api/question/:questionId  | DELETE    | Delete Question By questionId     |
-| api/question/:questionId  | PUT       | Update Question By questionId     |
+| Endpoint                                  | HTTP      | Description                       |
+| ----------                                | -----     | ------------                      |
+| api/question/seed                         | GET       | Create Dummy Question Data        |
+| api/question                              | GET       | Get All Question                  |
+| api/question/:questionId                  | GET       | Get All Question                  |
+| api/question/:questionId/answer/:id       | GET       | Get Answer By Id                  |
+| api/question                              | POST      | Add Question                      |
+| api/question                              | DELETE    | Delete All Question               |
+| api/question/:questionId                  | DELETE    | Delete Question By questionId     |
+| api/question/answer/:questionId/:id       | DELETE    | Delete Answer                     |
+| api/question/:questionId                  | PUT       | Update Question By questionId     |
+| api/question/vote/:questionId             | PUT       | Vote Question                     |
+| api/question/answer/:questionId           | PUT       | Add Answer                        |
+| api/question/:questionId/answer/:id       | PUT       | Update Answer                     |
+| api/question/answer/vote/:questionId/:id  | PUT       | Vote Answer                       |
 
-### API Answer
-
-| Endpoint                  | HTTP      | Description                 |
-| ----------                | -----     | ------------                |
-| api/answer/seed           | GET       | Create Dummy Answer Data    |
-| api/answer                | GET       | Get All Answer              |
-| api/answer                | DELETE    | Delete All Answer           |
-| api/answer/:questionId    | DELETE    | Delete Answer By answerId   |
-| api/answer/:questionId    | PUT       | Update Answer By answerId   |
 
 ## Client
 
