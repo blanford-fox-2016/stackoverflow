@@ -15,6 +15,7 @@ console.log(req.body);
     Question.create({
       questionId : Date.now(),
       question : req.body.question,
+      image :req.body.image,
       title : req.body.title
     }, (err,data) => {
       if (err) {
@@ -71,10 +72,12 @@ let update = (req,res) => {
 
 console.log("ini update");
 console.log(req.body);
+
   Question.findByIdAndUpdate(req.body.id,
 
     {
       title:req.body.title,
+      image:req.body.image,
       question: req.body.question
     },(err,question) => {
     if (err) {

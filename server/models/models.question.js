@@ -9,9 +9,12 @@ autoIncrement.initialize(connection);
 let Schema = mongoose.Schema
 
 let questionSchema = new Schema ({
+
   questionId : {type : Number, unique:true},
   question : String,
+  image :String,
   title : {type:String, min: 5, max: 20}
+
 })
 
 questionSchema.plugin(autoIncrement.plugin, 'Question');

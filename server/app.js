@@ -8,7 +8,41 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const multer = require('multer');
+const app = express();
+//=================
+// multer ========
+//===============
 
+  var storage = multer.diskStorage({
+      destination: function(req, file, callback) {
+          callback(null, 'public/uploads');
+      },
+      filename: function(req, file, callback) {
+          console.log(file);
+          callback(null, file.fieldname + '-' + Date.now());
+      }
+  });
+
+  var upload = multer({
+      storage: storage
+  }).single('userPhoto');
+
+  app.use('/', express.static('public'))
+
+  app.get('/', function(req, res) {
+      res.sendFile(__dirname + "../client/index.html");
+  });
+
+  app.post('/api/photo', function(req, res) {
+      upload(req, res, function(err) {
+          if (err) {
+              return res.send("Error uploading file.");
+          }
+          res.send(`${req.file.filename}`);
+      });
+  });
 //=============
 // paspport===
 //============
@@ -50,7 +84,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const app = express();
+
 
 //=====================
 // view engine setup ==
@@ -66,7 +100,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors())
 // ====================
 // routes =============
 //=====================
