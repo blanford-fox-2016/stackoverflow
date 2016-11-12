@@ -50,14 +50,14 @@ Question.plugin(incrementQuestion, {
 
 Question.pre('find', function (next) {
     this.populate('createdBy', 'name')
-    // this.populate('answers.createdBy', 'name')
+    this.populate('answers.$.createdBy', 'name')
     next()
 })
 
-Question.pre('findOne', function (next) {
-    // this.populate('createdBy', 'name')
-    // this.populate('answers.createdBy', 'name')
-    next()
-})
+// Question.pre('findOne', function (next) {
+//     this.populate('createdBy', 'name')
+//     this.populate('answers.createdBy', 'name')
+//     next()
+// })
 
 module.exports = mongoose.model('Question', Question)

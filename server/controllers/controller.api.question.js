@@ -110,7 +110,7 @@ module.exports = {
         }, {
             $push: {
                 answers: {
-                    createdBy: req.body.id,
+                    createdBy: req.body.user,
                     answer: req.body.answer
                 }
             }

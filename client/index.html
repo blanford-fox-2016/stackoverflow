@@ -25,9 +25,8 @@
                 <li><a href="#">Question</a></li>
                 <li><a href="user.html">User</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <ul id="rightNavLogin" class="nav navbar-nav navbar-right">
+
             </ul>
         </div>
     </div>
@@ -127,13 +126,16 @@
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="tokenScript.js"></script>
 <script>
     <!--GET ALL QUESTION-->
     $(document).ready(function () {
         var rowOfQuestion = $('#rowOfQuestion')
+
         $.ajax({
             url: "http://localhost:3000/api/question",
             success: function (data) {
+
                 let question = []
                 for (var i = 0; i < data.length; i++) {
                     question.push(`
@@ -167,8 +169,26 @@
                 }
 
                 rowOfQuestion.append(question.join(""))
-            }
 
+                let navLogin = `
+            <ul id="rightNavLogin" class="nav navbar-nav navbar-right">
+                <li id="userLogout"><a href="#"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+            </ul>`
+
+                let navNotLogin = `
+            <ul id="rightNavLogin" class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>`
+
+                if (Auth.getToken()) {
+                    $('#rightNavLogin').replaceWith(navLogin)
+                }
+                else {
+                    $('#rightNavLogin').replaceWith(navNotLogin)
+                }
+
+            }
         })
     })
 
@@ -183,10 +203,12 @@
             method: "post",
             contentType: 'application/x-www-form-urlencoded',
             data: {
+                user: Auth.getToken(),
                 title: title,
                 content: content
             },
             success: function (data) {
+
                 let html = `
                         <div id="rowQuestion${data.questionId}" class="row">
                             <hr>
@@ -222,6 +244,11 @@
                 $('#formQuestion').modal('hide');
             }
         })
+    })
+    
+    $(document).on('click', 'li[id="userLogout"]', function () {
+        localStorage.removeItem('token')
+        window.location.href = 'http://127.0.0.1:8080/login.html'
     })
 
 
@@ -316,6 +343,8 @@
             }
         })
     });
+
+
 
 </script>
 
