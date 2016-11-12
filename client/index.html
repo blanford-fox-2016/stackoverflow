@@ -22,7 +22,6 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="#">Question</a></li>
                 <li><a href="user.html">User</a></li>
             </ul>
             <ul id="rightNavLogin" class="nav navbar-nav navbar-right">
@@ -131,6 +130,8 @@
     <!--GET ALL QUESTION-->
     $(document).ready(function () {
         var rowOfQuestion = $('#rowOfQuestion')
+
+        if (!Auth.getToken()) window.location.href = 'http://127.0.0.1:8080/login.html'
 
         $.ajax({
             url: "http://localhost:3000/api/question",
@@ -247,7 +248,7 @@
     })
     
     $(document).on('click', 'li[id="userLogout"]', function () {
-        localStorage.removeItem('token')
+        Auth.deauthenticateUser()
         window.location.href = 'http://127.0.0.1:8080/login.html'
     })
 

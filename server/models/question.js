@@ -50,6 +50,7 @@ Question.plugin(incrementQuestion, {
 
 Question.pre('find', function (next) {
     this.populate('createdBy', 'name')
+    this.populate('votes', 'name')
     this.populate('answers.$.createdBy', 'name')
     next()
 })

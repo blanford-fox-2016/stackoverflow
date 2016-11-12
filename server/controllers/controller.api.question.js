@@ -88,12 +88,11 @@ module.exports = {
     },
 
     addVoteQuestion: function (req, res) {
-        console.log(req.body.id)
         Question.findOneAndUpdate({
-            questionId: req.params.questionId
+            _id: req.params.questionId
         }, {
             $push: {
-                votes: req.body.id
+                votes: req.body.user
             }
         }, {
             new: true,
@@ -178,11 +177,11 @@ module.exports = {
 
     voteAnswer: function (req, res) {
         Question.findOneAndUpdate({
-            questionId: req.params.questionId,
+            _id: req.params.questionId,
             'answers._id': req.params.id
         }, {
             $push: {
-                'answers.$.answerVotes': req.body.id
+                'answers.$.answerVotes': req.body.user
             }
         }, {
             new: true,

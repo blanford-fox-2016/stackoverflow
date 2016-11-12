@@ -22,12 +22,10 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="#">Question</a></li>
                 <li><a href="user.html">User</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <ul id="rightNavLogin" class="nav navbar-nav navbar-right">
+
             </ul>
         </div>
     </div>
@@ -106,10 +104,13 @@
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="tokenScript.js"></script>
 <script>
 
     <!--GET ALL QUESTION-->
     $(document).ready(function () {
+        if (!Auth.getToken()) window.location.href = 'http://127.0.0.1:8080/login.html'
+
         var rowOfUser = $('#rowOfUser')
         $.ajax({
             url: "http://localhost:3000/api/user",

@@ -53,12 +53,10 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="#">Question</a></li>
                 <li><a href="user.html">User</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <ul id="rightNavLogin" class="nav navbar-nav navbar-right">
+
             </ul>
         </div>
     </div>
@@ -105,8 +103,10 @@
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/purl/purl.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="tokenScript.js"></script>
 <script>
     $(document).ready(function () {
+        if (!Auth.getToken()) window.location.href = 'http://127.0.0.1:8080/login.html'
         let questionId = $.url().param('id');
         let rowOfQuestion = $('#rowOfQuestion')
         let rowOfAnswer = $('#rowOfAnswer')
@@ -118,12 +118,10 @@
                     <h3 class="col-sm-11 col-sm-offset-1">${data.title}</h3>
                     <hr class="col-sm-12">
                     <div class="col-sm-1 text-center">
-                        <div><i class="glyphicon glyphicon-arrow-up"></i></div>
-                        <div>${data.votes.length}</div>
-                        <div><i class="glyphicon glyphicon-arrow-down"></i></div>
-                        <br>
-                        <div><i class="glyphicon glyphicon-star"></i></div>
-                        <div>100</div>
+                        <div>
+                            <button id="${data._id}" name="voteQuestion" class="btn btn-success">Votes</button>
+                        </div>
+                        <div id="votesQuestionTotal">${data.votes.length}</div>
                     </div>
                     <div class="col-sm-11">
                         <div class="panel panel-default answer">
@@ -140,12 +138,10 @@
                     answer.push(`
                     <div id="rowAnswer${data.answers[i]._id}" class="row">
                         <div class="col-sm-1 text-center">
-                            <div><i class="glyphicon glyphicon-arrow-up"></i></div>
-                            <div>200</div>
-                            <div><i class="glyphicon glyphicon-arrow-down"></i></div>
-                            <br>
-                            <div><i class="glyphicon glyphicon-star"></i></div>
-                            <div>100</div>
+                            <div>
+                                <button id="${data._id}#${data.answers[i]._id}#${i}" class="btn btn-success" name="voteAnswer">Votes</button>
+                            </div>
+                            <div id="voteAnswerTotal${i}">${data.answers[i].answerVotes.length}</div>
                         </div>
                         <div class="col-sm-11">
                             <div class="panel panel-default answer">
@@ -168,7 +164,45 @@
         })
     })
 
-    //    CREATE QUESTION
+    $(document).on('click', 'button[name="voteQuestion"]', function () {
+
+        $.ajax({
+            url: `http://localhost:3000/api/question/vote/${this.id}`,
+            method: "put",
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                user: Auth.getToken()
+            },
+            success: function (data) {
+
+                let html = `<div id="votesQuestionTotal">${data.votes.length}</div>`
+                $('#votesQuestionTotal').replaceWith(html)
+            }
+        })
+    })
+
+    $(document).on('click', 'button[name="voteAnswer"]', function () {
+        let dataId = this.id.split("#")
+        let questionId = dataId[0]
+        let answerId = dataId[1]
+        let idx = dataId[2]
+        $.ajax({
+            url: `http://localhost:3000/api/question/answer/vote/${questionId}/${answerId}`,
+            method: "put",
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                user: Auth.getToken()
+            },
+            success: function (data) {
+
+                console.log(data)
+                let html = `<div id="voteAnswerTotal${idx}">${data.answers[idx].answerVotes.length}</div>`
+                $(`#voteAnswerTotal${idx}`).replaceWith(html)
+            }
+        })
+    })
+
+    //    CREATE ANSWER
     $(document).on('click', 'button[id="submitAnswer"]', function (e) {
         e.preventDefault()
         let questionId = $.url().param('id');
@@ -184,28 +218,25 @@
             success: function (data) {
                 console.log(data)
                 let html = `
-                <div id="rowAnswer${data.answers[data.answers.length - 1]._id}" class="row">
-                    <div class="col-sm-1 text-center">
-                        <div><i class="glyphicon glyphicon-arrow-up"></i></div>
-                        <div>200</div>
-                        <div><i class="glyphicon glyphicon-arrow-down"></i></div>
-                        <br>
-                        <div><i class="glyphicon glyphicon-star"></i></div>
-                        <div>100</div>
-                    </div>
-                    <div class="col-sm-11">
-                        <div class="panel panel-default answer">
-                            <div class="panel-heading">
-                                <button class="btn btn-warning" onclick="editAnswer('${data.answers[data.answers.length - 1]._id}')">Edit</button>
-                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[data.answers.length - 1]._id}')">Delete</button>
+                    <div id="rowAnswer${data.answers[i]._id}" class="row">
+                        <div class="col-sm-1 text-center">
+                            <div>
+                                <button id="${data._id}#${data.answers[i]._id}" class="btn btn-success" name="voteAnswer">Votes</button>
                             </div>
-                            <div class="panel-body">
-                                ${data.answers[data.answers.length - 1].answer}
+                            <div>${data.answers[i].answerVotes.length}</div>
+                        </div>
+                        <div class="col-sm-11">
+                            <div class="panel panel-default answer">
+                            <div class="panel-heading">
+                                <button class="btn btn-warning" onclick="editAnswer('${data.answers[i]._id}')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[i]._id}')">Delete</button>
+                            </div>
+                                <div class="panel-body">
+                                    ${data.answers[i].answer}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                                `
+                    </div>`
 
                 $('#rowOfAnswer:last').append(html)
                 $('textarea[name="answer"]').val("")
