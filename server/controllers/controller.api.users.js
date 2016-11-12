@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
     seedUser: function (req, res) {
@@ -84,7 +85,22 @@ module.exports = {
         })
     },
 
-    loginUser: function (req, res) {
+    loginUser: function (req, res, next) {
 
+        passport.authenticate('local', {
+
+        }, (err, user, info) => {
+            if (err) return next(err)
+            if (!user) return res.status(401).json({ status: 'error', code: 'Sign in failed.' })
+
+            // return res.json('test');
+            return res.status(200).json({
+                token: jwt.sign({
+                    username: user.username,
+                    name: user.name
+                }, process.env.SESSION_SECRET)
+            })
+        })(req, res, next)
     }
+
 }
