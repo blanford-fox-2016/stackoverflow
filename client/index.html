@@ -131,7 +131,7 @@
     $(document).ready(function () {
         var rowOfQuestion = $('#rowOfQuestion')
 
-        if (!Auth.getToken()) window.location.href = 'http://127.0.0.1:8080/login.html'
+        if (!Auth.getToken() || typeof Auth.getToken() == "undefined") window.location.href = 'http://127.0.0.1:8080/login.html'
 
         $.ajax({
             url: "http://localhost:3000/api/question",

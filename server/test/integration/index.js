@@ -15,7 +15,7 @@ chai.use(chaiHttp)
 //START TESTING
 
 //TESTING FOR USER
-describe.only("Test for User", function () {
+describe("Test for User", function () {
     //SET UP BEFORE TESTING USER
     before(function (done) {
         chai.request(app)
@@ -42,7 +42,7 @@ describe.only("Test for User", function () {
                 .get('/api/user')
                 .end(function (err, res) {
                     expect(res).to.have.status(200)
-                    expect(res.body[0].name).to.equal('name xyz')
+                    expect(res.body[0].name).to.equal('admin')
                     done()
                 })
         })
@@ -84,6 +84,7 @@ describe.only("Test for User", function () {
                 })
                 .end(function (err, res) {
                     expect(res).to.have.session
+                    done()
                 })
         })
     })
@@ -136,7 +137,7 @@ describe.only("Test for User", function () {
 })
 
 //TESTING FOR QUESTION
-describe("Test for Question", function () {
+describe.only("Test for Question", function () {
 //     //SET UP BEFORE TESTING QUESTION
 
 
@@ -253,7 +254,7 @@ describe("Test for Question", function () {
 
     describe("Test if vote question working", function () {
 
-        it("Expect to return vote that has been inserted", function (done) {
+        it.only("Expect to return vote that has been inserted", function (done) {
             User.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (errUser, dataUser) {
                 let input = {
                     id:dataUser._id
@@ -261,7 +262,7 @@ describe("Test for Question", function () {
 
                 Question.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (err, data) {
                     chai.request(app)
-                        .put(`/api/question/vote/${data.questionId}`)
+                        .put(`/api/question/vote/${data._id}`)
                         .send(input)
                         .end(function (err, res) {
 
@@ -318,7 +319,7 @@ describe("Test for Question", function () {
 
                 Question.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function (err, data) {
                     chai.request(app)
-                        .put(`/api/question/answer/vote/${data.questionId}/${data.answers[data.answers.length - 1]._id}`)
+                        .put(`/api/question/answer/vote/${data._id}/${data.answers[data.answers.length - 1]._id}`)
                         .send(input)
                         .end(function (err, res) {
 

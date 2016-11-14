@@ -89,10 +89,11 @@ module.exports = {
 
         passport.authenticate('local', {
 
-        }, (err, user, info) => {
-
+        }, function (err, user, info) {
+            console.log(user)
             if (err) return res.json(err)
-            else return res.json(user)
+            else res.json(user)
+
 
             // return res.status(200).json({
             //     token: jwt.sign({
