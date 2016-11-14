@@ -146,7 +146,7 @@
                         <div class="col-sm-11">
                             <div class="panel panel-default answer">
                             <div class="panel-heading">
-                                <button class="btn btn-warning" onclick="editAnswer('${data.answers[i]._id}')">Edit</button>
+                                <button class="btn btn-warning" onclick="editAnswer('${i}#${data.answers[i]._id}')">Edit</button>
                                 <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[i]._id}')">Delete</button>
                             </div>
                                 <div class="panel-body">
@@ -239,27 +239,27 @@
                 answer: answer
             },
             success: function (data) {
-                console.log(data)
                 let html = `
-                    <div id="rowAnswer${data.answers[i]._id}" class="row">
+                    <div id="rowAnswer${data.answers[data.answers.length - 1]._id}" class="row">
                         <div class="col-sm-1 text-center">
                             <div>
-                                <button id="${data._id}#${data.answers[i]._id}" class="btn btn-success" name="voteAnswer">Votes</button>
+                                <button id="${data._id}#${data.answers[data.answers.length - 1]._id}#${data.answers.length - 1}" class="btn btn-success" name="voteAnswer">Votes</button>
                             </div>
-                            <div>${data.answers[i].answerVotes.length}</div>
+                            <div id="voteAnswerTotal${data.answers.length - 1}">${data.answers[data.answers.length - 1].answerVotes.length}</div>
                         </div>
                         <div class="col-sm-11">
                             <div class="panel panel-default answer">
                             <div class="panel-heading">
-                                <button class="btn btn-warning" onclick="editAnswer('${data.answers[i]._id}')">Edit</button>
-                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[i]._id}')">Delete</button>
+                                <button class="btn btn-warning" onclick="editAnswer('${data.answers.length - 1}#${data.answers[data.answers.length - 1]._id}')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[data.answers.length - 1]._id}')">Delete</button>
                             </div>
                                 <div class="panel-body">
-                                    ${data.answers[i].answer}
+                                    ${data.answers[data.answers.length - 1].answer}
                                 </div>
                             </div>
                         </div>
-                    </div>`
+                    </div>
+                            `
 
                 $('#rowOfAnswer:last').append(html)
                 $('textarea[name="answer"]').val("")
@@ -280,22 +280,27 @@
     }
 
     function editAnswer(id) {
+        let val = id.split("#")
+        let idx = val[0]
+        let answerId = val[1]
         let questionId = $.url().param('id');
         $.ajax({
-            url: `http://localhost:3000/api/question/${questionId}/answer/${id}`,
+            url: `http://localhost:3000/api/question/${questionId}/answer/${answerId}`,
             method: "get",
             contentType: 'application/x-www-form-urlencoded',
             success: function (data) {
-                console.log(data)
+
                 $('#formEditAnswer').modal('show');
                 $('textarea[name="answerEdit"]').val(data.answer)
 
                 var temp = $("input[name='answerId']").val()
                 if ( typeof temp != "undefined") {
                     $("input[name='answerId']").replaceWith(`<input type='hidden' name='answerId' value='${data._id}'>`)
+                    $("input[name='idx']").replaceWith(`<input type='hidden' name='idx' value='${idx}'>`)
                 }
                 else {
                     $("#formEditAnswer").append(`<input type='hidden' class='form-control' name='answerId' value='${data._id}'>`)
+                    $("#formEditAnswer").append(`<input type='hidden' class='form-control' name='idx' value='${idx}'>`)
                 }
             }
         })
@@ -306,6 +311,7 @@
         let questionId = $.url().param('id');
         let answerId = $('input[name="answerId"]').val()
         let answer = $('textarea[name="answerEdit"]').val()
+        let idx = $('input[name="idx"]').val()
 
         $.ajax({
             url: `http://localhost:3000/api/question/${questionId}/answer/${answerId}`,
@@ -317,27 +323,25 @@
             success: function (data) {
                 console.log(data)
                 let html = `
-                        <div id="rowAnswer${answerId}" class="row">
-                            <div class="col-sm-1 text-center">
-                                <div><i class="glyphicon glyphicon-arrow-up"></i></div>
-                                <div>200</div>
-                                <div><i class="glyphicon glyphicon-arrow-down"></i></div>
-                                <br>
-                                <div><i class="glyphicon glyphicon-star"></i></div>
-                                <div>100</div>
+                        <div id="rowAnswer${data.answers[idx]._id}" class="row">
+                        <div class="col-sm-1 text-center">
+                            <div>
+                                <button id="${data._id}#${data.answers[idx]._id}#${idx}" class="btn btn-success" name="voteAnswer">Votes</button>
                             </div>
-                            <div class="col-sm-11">
-                                <div class="panel panel-default answer">
-                                    <div class="panel-heading">
-                                        <button class="btn btn-warning" onclick="editAnswer('${answerId}')">Edit</button>
-                                        <button class="btn btn-danger" onclick="deleteAnswer('${answerId}')">Delete</button>
-                                    </div>
-                                    <div class="panel-body">
-                                        ${answer}
-                                    </div>
+                            <div id="voteAnswerTotal${idx}">${data.answers[idx].answerVotes.length}</div>
+                        </div>
+                        <div class="col-sm-11">
+                            <div class="panel panel-default answer">
+                            <div class="panel-heading">
+                                <button class="btn btn-warning" onclick="editAnswer('${idx}#${data.answers[idx]._id}')">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteAnswer('${data.answers[idx]._id}')">Delete</button>
+                            </div>
+                                <div class="panel-body">
+                                    ${data.answers[idx].answer}
                                 </div>
                             </div>
                         </div>
+                    </div>
                                 `
 
                 $(`#rowAnswer${answerId}`).replaceWith(html)

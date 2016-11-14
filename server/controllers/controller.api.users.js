@@ -36,8 +36,8 @@ module.exports = {
     },
 
     localRegisterUser: function (req, res) {
+        console.log(req.body)
         User.register(new User({
-            userId: req.body.userId,
             name: req.body.name,
             username: req.body.username,
             email: req.body.email
