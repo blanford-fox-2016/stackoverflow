@@ -35,7 +35,7 @@ before(function(done){
 describe('Add a new comment in 1 question', function(){
   it('it should add new comment in 1 question', function(done){
     chai.request(url)
-      .post('/api/questions/101/comments/')
+      .post('/api/questions/103/comments/')
       .send(new_comment)
       .end(function(err, res){
         console.log(res.body.comment.length);
@@ -56,7 +56,7 @@ describe('Add a new comment in 1 question', function(){
 describe.skip('Updated a specific comment based on commentId', function(){
   it('it should update a specific comment', function(done){
     chai.request(url)
-      .put('/api/questions/101/comments/3')
+      .put('/api/questions/103/comments/3')
       .send(edit_comment)
       .end(function(err, res){
         console.log(res.body.comment);
@@ -77,7 +77,7 @@ describe.skip('Updated a specific comment based on commentId', function(){
 describe('Deleted a specific comment based on commentId', function(){
   it('it should delete a specific comment', function(done){
     chai.request(url)
-      .delete('/api/questions/101/comments/4')
+      .delete('/api/questions/103/comments/4')
       .end(function(err, res){
         console.log(res.body);
         res.should.be.json

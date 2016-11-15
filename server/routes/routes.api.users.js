@@ -9,8 +9,11 @@ router.get('/', controller.allUsers)
 /* Process New User. */
 router.post('/', controller.addUser);
 
+/* Process Register Local User. */
+router.post('/register_local', controller.registerLocalUser);
+
 /* Process Login User. */
-// router.post('/login', controller.addUser);
+router.post('/login', controller.loginUser);
 
 /* Process Edit a User. */
 router.put('/:id', controller.editUser);

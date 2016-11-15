@@ -52,7 +52,7 @@ describe('Add a new question into database', function(){
   ** must be in format JSON
   ** respond content body should be same with the select data (GET)
 */
-describe.skip('Select all questions with comments', function(){
+describe('Select all questions with comments', function(){
   it('it should select all questions with comments', function(done){
     chai.request(url)
       .get('/api/questions')
@@ -75,7 +75,7 @@ describe.skip('Select all questions with comments', function(){
   ** must be in format JSON
   ** respond content body should be same with the select data (GET)
 */
-describe.skip('Select 1 question with comments', function(){
+describe('Select 1 question with comments', function(){
   it('it should select 1 question with comments', function(done){
     chai.request(url)
       .get('/api/questions/1')
@@ -98,7 +98,7 @@ describe.skip('Select 1 question with comments', function(){
   ** must be in format JSON
   ** respond content body should be same with the content value that sent (PUT)
 */
-describe.skip('Updated a specific question based on questionId', function(){
+describe('Updated a specific question based on questionId', function(){
   it('it should update a specific question', function(done){
     chai.request(url)
       .put('/api/questions/1')
@@ -121,7 +121,7 @@ describe.skip('Updated a specific question based on questionId', function(){
   ** must be in format JSON
   ** respond content body should be same with the content value that deleted (DELETE)
 */
-describe.skip('Deleted a specific question based on questionId', function(){
+describe('Deleted a specific question based on questionId', function(){
   it('it should delete a specific question', function(done){
     chai.request(url)
       .delete('/api/questions/' + 1)

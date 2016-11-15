@@ -1,6 +1,7 @@
 'use strict'
 const passport = require('passport')
 const User = require('../models/models.api.users')
+const jwt = require('jsonwebtoken')
 
 /*
   * @api {get} /api/users
@@ -91,9 +92,62 @@ let deleteUser = (req, res) => {
   })
 }
 
+/*
+  * @api {POST} /api/users/register_local
+  * @api purpose to register a user
+  * @apiName registerLocalUser
+  * @apiGroup users
+  *
+  * @apiSuccess register a user
+*/
+let registerLocalUser = (req, res) => {
+  User.register(new User({
+    username : req.body.username
+  }), req.body.password,
+  function(err, new_user) => {
+    if(err) res.status(400).json({'error': 'Error: ${err}'})
+    if(!new_user) res.status(404).json({'message': 'Failed to register a user'})
+
+    passport.authenticate('local')(req, res, function () {
+        req.session.save(function (err) {
+            if (err) res.json(err)
+            else res.json(new_user)
+        })
+    })
+  })
+}
+
+/*
+  * @api {POST} /api/users/login
+  * @api purpose to login a user
+  * @apiName apiSuccess
+  * @apiGroup users
+  *
+  * @apiSuccess login a user
+*/
+let loginUser = (req, res) => {
+  passport.authenticate('local',
+  {},
+  function (err, user, info) {
+      console.log(user)
+      if(err){
+        return res.json(err)
+      }else {
+        return res.status(200).json({
+          token: jwt.sign({
+              username: user.username
+          }, 'secret')
+        })
+      }
+
+  })(req, res, next)
+}
+
 module.exports = {
   allUsers   : allUsers,
   addUser    : addUser,
   editUser   : editUser,
-  deleteUser  : deleteUser
+  deleteUser : deleteUser,
+  registerLocalUser : registerLocalUser,
+  loginUser  : loginUser
 }
