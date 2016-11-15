@@ -1,16 +1,22 @@
 require('dotenv').config()
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 const cors = require('cors')
-var app = express();
+const app = express();
 
-var routes_api_users = require('./routes/routes.api.users');
-var routes_api_questions = require('./routes/routes.api.questions');
+const routes_api_users = require('./routes/routes.api.users');
+const routes_api_questions = require('./routes/routes.api.questions');
+
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+const jwt = require('jsonwebtoken')
+
+const User = require('./models/models.api.users')
 
 // mongoose
 const mongoose = require('mongoose')
@@ -22,7 +28,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -31,6 +36,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()))
+
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 app.use('/api/users', routes_api_users);
 app.use('/api/questions', routes_api_questions);

@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken')
 */
 let allUsers = (req, res) => {
   User.find({}, (err, users) => {
-    if(err) res.status(400).json({'error': 'Error: ${err}'})
+    if(err) res.status(400).json({'error': `Error: ${err}`})
     if(!users) res.status(404).json({'message': 'Failed to get all users'})
     console.log(`get all users`);
     res.status(200).json(users)
@@ -28,7 +28,7 @@ let allUsers = (req, res) => {
   *
   * @apiSuccess add new user's username {String}
 */
-let addUser = (req, res) => {
+let addUser = (req, res, next) => {
   console.log(`ini masuk`);
   console.log(req.body);
   User.register({
@@ -100,20 +100,34 @@ let deleteUser = (req, res) => {
   *
   * @apiSuccess register a user
 */
-let registerLocalUser = (req, res) => {
+let registerLocalUser = (req, res, next) => {
+  console.log(`register`);
+  console.log(req.body);
+  
   User.register(new User({
     username : req.body.username
-  }), req.body.password,
-  function(err, new_user) => {
-    if(err) res.status(400).json({'error': 'Error: ${err}'})
+  }),
+  req.body.password,
+  (err, new_user) => {
+    if(err) res.status(400).json({'error': `Register Error: ${err}`})
     if(!new_user) res.status(404).json({'message': 'Failed to register a user'})
 
-    passport.authenticate('local')(req, res, function () {
-        req.session.save(function (err) {
-            if (err) res.json(err)
-            else res.json(new_user)
-        })
-    })
+    // passport.authenticate('local', {
+    //   successRedirect: '/',
+    //   successFlash: true,
+    //   failureRedirect: '/register',
+    //   failureFlash: true
+    // }, (err, user, info) => {
+    //   if(err) return res.status(400).json({'error': 'Login Error: ${err}'})
+    //   if(!user) return res.status(404).json({'message': 'Register succeded but sign in falied'})
+    //
+    //   return res.status(200).json({
+    //     token: jwt.sign({
+    //       sub: user._id,
+    //       username: user.username
+    //     }, 'secret')
+    //   })
+    // })(req, res, next)
   })
 }
 
@@ -125,17 +139,18 @@ let registerLocalUser = (req, res) => {
   *
   * @apiSuccess login a user
 */
-let loginUser = (req, res) => {
+let loginUser = (req, res, next) => {
   passport.authenticate('local',
   {},
-  function (err, user, info) {
+  (err, user, info) => {
       console.log(user)
       if(err){
         return res.json(err)
       }else {
         return res.status(200).json({
           token: jwt.sign({
-              username: user.username
+            sub: user._id,
+            username: user.username
           }, 'secret')
         })
       }
