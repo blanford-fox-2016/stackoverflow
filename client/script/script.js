@@ -8,7 +8,6 @@ $('document').ready(function(){
   form_new_question()
 
   add_question()
-
 })
 
 function show_all(){
