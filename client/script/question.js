@@ -125,10 +125,9 @@ function delete_comment(id){
 }
 
 function checkAuthComment(data){
-  // ${checkAuthComment(all_comments.comment[i])}
-  // `<div class="glyphicon glyphicon-remove btn btn-danger btn-sm pull-right" onclick="delete_comment('${all_comments.comment[i].commentId}')"></div>
-  //
-  // <div class="glyphicon glyphicon-pencil btn btn-warning btn-sm pull-right" onclick="edit_comment('${all_comments.comment[i].commentId}')"></div>`
+  return (Auth.getUser().sub === data.author) ? `<div class="glyphicon glyphicon-remove btn btn-danger btn-sm pull-right" onclick="delete_comment('${data.commentId}')"></div>
+
+  <div class="glyphicon glyphicon-pencil btn btn-warning btn-sm pull-right" onclick="edit_comment('${data.commentId}')"></div>` : ''
 }
 
 function showAllComments(){
@@ -142,9 +141,6 @@ function showAllComments(){
           all_comments_HTML += `
           <div class="panel panel-default" id="comment_${all_comments.comment[i].commentId}">
             ${checkAuthComment(all_comments.comment[i])}
-            <div class="glyphicon glyphicon-remove btn btn-danger btn-sm pull-right" onclick="delete_comment('${all_comments.comment[i].commentId}')"></div>
-
-            <div class="glyphicon glyphicon-pencil btn btn-warning btn-sm pull-right" onclick="edit_comment('${all_comments.comment[i].commentId}')"></div>
             <div class="panel-body">
               <span>${all_comments.comment[i].content}</span>
             </div>
