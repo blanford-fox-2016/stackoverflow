@@ -33,6 +33,11 @@ function processLogout(){
   window.location = 'index.html'
 }
 
+function checkAuthQuestion(data){
+  return (Auth.getUser().sub === data.author) ? `<button type="button" class="btn btn-warning" onclick="submitEditButton('${data.questionId}')">Edit</button>
+  <button type="button" class="btn btn-danger" onclick="submitDeleteButton('${data.questionId}')">Delete</button>` : ''
+}
+
 function show_all(){
   $.ajax({
     url : 'http://localhost:3000/api/questions',
@@ -49,8 +54,7 @@ function show_all(){
             <a href="questions.html?questid=${all_data[i].questionId}">${all_data[i].title}</a>
           </td>
           <td>
-            <button type="button" class="btn btn-warning" onclick="submitEditButton('${all_data[i].questionId}')">Edit</button>
-            <button type="button" class="btn btn-danger" onclick="submitDeleteButton('${all_data[i].questionId}')">Delete</button>
+            ${checkAuthQuestion(all_data[i])}
           </td>
         </tr>
         `
@@ -97,8 +101,7 @@ function add_question(){
                <a href="questions.html?questid=${new_data.questionId}">${new_data.title}</a>
             </td>
             <td>
-              <button type="button" class="btn btn-warning" onclick="submitEditButton('${new_data.questionId}')">Edit</button>
-              <button type="button" class="btn btn-danger"onclick="submitDeleteButton('${new_data.questionId}')">Delete</button>
+              ${checkAuthQuestion(new_data)}
             </td>
           </tr>`
           $('#body_table').prepend(appendHTML)

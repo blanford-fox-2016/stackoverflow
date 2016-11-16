@@ -119,7 +119,8 @@ let addComment = (req, res) => {
       $push : {
         comment : {
           commentId : one_data.comment.length+1,
-          content : req.body.content
+          content : req.body.content,
+          author: req.body.author
         }
       }
     }, {
