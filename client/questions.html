@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <!-- Latest compiled and minified CSS -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
- <!-- Optional theme -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
 
   <title>Document</title>
 </head>
@@ -31,25 +27,28 @@
       <div class="col-sm-11">
         <h4 id="title"></h1>
       </div>
-      <!-- votes -->
-      <div class="col-sm-1">
-        <a class="glyphicon glyphicon-chevron-up" id="up_vote" style="width:25px; cursor:pointer;"></a>
+      <div class="row">
+        <!-- votes -->
+        <div class="col-sm-1">
+          <button type="button" class="glyphicon glyphicon-chevron-up btn-sm" id="up_vote"></button>
 
-        <span id="vote_total"></span>
+          <span id="vote_total" class="btn-lg"></span>
 
-        <a class="glyphicon glyphicon-chevron-down" id="down_vote" style="width:25px; cursor:pointer;"></a>
-      </div>
-      <!-- end votes -->
+          <button type="button" class="glyphicon glyphicon-chevron-down btn-sm" id="down_vote"></button>
+        </div>
+        <!-- end votes -->
 
-      <!-- content -->
-      <div class="col-sm-11">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <span id="content"></span>
+        <!-- content -->
+        <div class="col-sm-11">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <span id="content"></span>
+            </div>
           </div>
         </div>
+        <!-- end content -->
       </div>
-    <!-- end content -->
+
     <div class="col-sm-1"></div>
     <div class="col-sm-11">
       <!-- input comment -->
@@ -65,21 +64,8 @@
 
   </div>
 </body>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="./lib/jquery/dist/jquery.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/purl/2.3.1/purl.js"></script>
-   <script>
-      var questionId = $.url().param('id')
-      // console.log(questionId)
-      $.ajax({
-        url : 'http://localhost:3000/api/questions/'+questionId,
-        success : function(one_data){
-          console.log(one_data)
-          $('#title').text(one_data.title)
-          $('#vote_total').text(one_data.votes.length)
-          $('#content').text(one_data.content)
-        }
-      })
-   </script>
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src ="script/question.js"></script>
 </html>
