@@ -23,7 +23,7 @@ function show_all(){
             ${all_data[i].votes.length} votes | ${all_data[i].comment.length} comments
           </td>
           <td>
-            <a href="questions.html?id=${all_data[i].questionId}">${all_data[i].title}</a>
+            <a href="questions.html?questid=${all_data[i].questionId}">${all_data[i].title}</a>
           </td>
           <td>
             <button type="button" class="btn btn-warning" onclick="submitEditButton('${all_data[i].questionId}')">Edit</button>
@@ -69,7 +69,7 @@ function add_question(){
                ${new_data.votes.length} votes | ${new_data.comment.length} comments
             </td>
             <td>
-               <a href="questions.html?id=${new_data.questionId}">${new_data.title}</a>
+               <a href="questions.html?questid=${new_data.questionId}">${new_data.title}</a>
             </td>
             <td>
               <button type="button" class="btn btn-warning" onclick="submitEditButton('${new_data.questionId}')">Edit</button>
@@ -135,7 +135,7 @@ function submitUpdateButton(id){
                ${new_edited.votes.length} votes | ${new_edited.comment.length} comments
             </td>
             <td>
-               <a href="questions.html?id=${new_edited.questionId}">${new_edited.title}</a>
+               <a href="questions.html?questid=${new_edited.questionId}">${new_edited.title}</a>
             </td>
             <td>
               <button type="button" class="btn btn-warning" onclick="submitEditButton('${new_edited.questionId}')">Edit</button>

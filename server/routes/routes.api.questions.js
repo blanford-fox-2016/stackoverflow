@@ -33,6 +33,9 @@ router.delete('/:questid', controller.deleteQuestion);
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // /* Process New comment. */
 router.post('/:questid/comments/', controller.addComment);
+
+// /* Get a comment. */
+router.get('/:questid/comments/:commentid', controller.showComment);
 //
 // /* Process Edit a comment. */
 router.put('/:questid/comments/:commentid', controller.editComment);

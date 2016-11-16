@@ -23,24 +23,21 @@
     <!-- end navbar -->
 
     <div class="container">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-11">
-        <h4 id="title"></h1>
-      </div>
       <div class="row">
         <!-- votes -->
         <div class="col-sm-1">
-          <button type="button" class="glyphicon glyphicon-chevron-up btn-sm" id="up_vote"></button>
+          <button type="button" class="btn glyphicon glyphicon-chevron-up btn-sm" id="up_vote"></button>
 
           <span id="vote_total" class="btn-lg"></span>
 
-          <button type="button" class="glyphicon glyphicon-chevron-down btn-sm" id="down_vote"></button>
+          <button type="button" class="btn glyphicon glyphicon-chevron-down btn-sm" id="down_vote"></button>
         </div>
         <!-- end votes -->
 
         <!-- content -->
         <div class="col-sm-11">
           <div class="panel panel-default">
+            <div class="panel-heading" id="title"></div>
             <div class="panel-body">
               <span id="content"></span>
             </div>
@@ -49,18 +46,29 @@
         <!-- end content -->
       </div>
 
-    <div class="col-sm-1"></div>
-    <div class="col-sm-11">
-      <!-- input comment -->
-      <form id="form_new_comment" method="post">
-        <div class="form-group">
-          <label for="content">Input your comment :</label>
-          <textarea class="form-control" id="content" style="resize:none;"></textarea>
+      <div class="row">
+        <!-- show comment -->
+        <div class="col-sm-1"></div>
+        <div class="col-sm-11">
+          <div  id="show_comments"></div>
         </div>
-        <button type="button" class="btn btn-success" id="btn_add">Submit</button>
-      </form>
-      <!-- end input comment -->
-    </div>
+        <!-- end show comment -->
+      </div>
+
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-11">
+          <!-- input comment -->
+          <form id="form_new_comment" method="post">
+            <div class="form-group">
+              <label for="content">Input your comment :</label>
+              <textarea class="form-control" id="content" style="resize:none;"></textarea>
+            </div>
+            <button type="button" class="btn btn-default" id="btn_add_comment">Comment</button>
+          </form>
+          <!-- end input comment -->
+        </div>
+      </div>
 
   </div>
 </body>

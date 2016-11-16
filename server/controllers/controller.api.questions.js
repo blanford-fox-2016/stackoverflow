@@ -122,36 +122,36 @@ let addComment = (req, res) => {
         res.json(err)
       }else{
           console.log(new_comment);
-          res.json(new_comment)
+          res.json(new_comment.comment[new_comment.comment.length-1])
       }
     })
   })
 }
 
 let editComment = (req, res) => {
-  Question.findOneAndUpdate({
-    "questionId" : req.params.questid,
-    "comment.commentId" : req.params.commentid
-  }, {
-    // $set : {
-    //   comment : {
-    //     commentId : req.params.commentid,
-    //     content : req.body.content
-    //   }
-    //   // "comment.content" : req.body.content
-    // }
-    'comment.$.content' : req.body.content
-  }, {
-    new: true
-  },(err, new_comment) => {
-    if (err) {
-      console.log(err);
-      res.json(err)
-    }else{
-        console.log(new_comment);
-        res.json(new_comment)
-    }
-  })
+  // Question.findOneAndUpdate({
+  //   "questionId" : req.params.questid,
+  //   "comment.commentId" : req.params.commentid
+  // }, {
+  //   // $set : {
+  //   //   comment : {
+  //   //     commentId : req.params.commentid,
+  //   //     content : req.body.content
+  //   //   }
+  //   //   // "comment.content" : req.body.content
+  //   // }
+  //   'comment.$.content' : req.body.content
+  // }, {
+  //   new: true
+  // },(err, new_comment) => {
+  //   if (err) {
+  //     console.log(err);
+  //     res.json(err)
+  //   }else{
+  //       console.log(new_comment);
+  //       res.json(new_comment)
+  //   }
+  // })
 }
 
 let deleteComment = (req, res) => {
@@ -167,7 +167,17 @@ let deleteComment = (req, res) => {
   }, {
     new: true
   }, (err, deleted_data) => {
-    res.json({message : "deleted"})
+    // console.log(req.params.commentid);
+    res.json({message : "deleted", id: req.params.commentid})
+  })
+}
+
+let showComment = (req, res) => {
+  Question.findOne({
+    "questionId" : req.params.questid,
+    "comment.commentId" : req.params.commentid
+  }, (err, get_one_data) => {
+    console.log(get_one_data);
   })
 }
 
@@ -181,7 +191,8 @@ module.exports = {
   deleteAllQuestion,
   addComment,
   editComment,
-  deleteComment
+  deleteComment,
+  showComment
 }
 /*
 addVote : addVote,
