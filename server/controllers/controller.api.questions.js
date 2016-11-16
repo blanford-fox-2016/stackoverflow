@@ -206,6 +206,21 @@ let showComment = (req, res) => {
   })
 }
 
+let createdCommentBy = (req, res) => {
+  Question.findOne({
+    "questionId" : req.params.questid
+  }, (err, get_one_data) => {
+    console.log(get_one_data);
+    // for (var i = 0; i < get_one_data.comment.length; i++) {
+    //   if(get_one_data.comment[i].commentId === Number(req.params.commentid)){
+    //     console.log(get_one_data.comment[i].author);
+    //     get_one_data.comment[i].populate('author').exec((err, data)=> {
+    //       console.log(data);
+    //     })
+    //   }
+    // }
+  }).populate('comment.author')
+}
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // Vote's Controller
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -268,6 +283,7 @@ let getCountVote = (req, res) => {
   })
 }
 
+
 module.exports = {
   showAllQuestion,
   addQuestion,
@@ -282,7 +298,8 @@ module.exports = {
   showComment,
   addVote,
   deleteVote,
-  getCountVote
+  getCountVote,
+  createdCommentBy
 }
 /*
 addVote : addVote,

@@ -130,6 +130,10 @@ function checkAuthComment(data){
   <div class="glyphicon glyphicon-pencil btn btn-warning btn-sm pull-right" onclick="edit_comment('${data.commentId}')"></div>` : ''
 }
 
+function addCreatedBy(data){
+  `<span>${data.author}</span>`
+}
+
 function showAllComments(){
   $.ajax({
     url: 'http://localhost:3000/api/questions/'+questionId,
@@ -143,6 +147,9 @@ function showAllComments(){
             ${checkAuthComment(all_comments.comment[i])}
             <div class="panel-body">
               <span>${all_comments.comment[i].content}</span>
+            </div>
+            <div class="panel-footer">
+              <span>${all_comments.comment[i].author}</span>
             </div>
           </div>
           `

@@ -37,6 +37,11 @@ router.post('/:questid/comments/', controller.addComment);
 // /* Get a comment. */
 router.get('/:questid/comments/:commentid', controller.showComment);
 //
+// createdCommentBy
+
+// /* Get createdCommentBy. */
+router.get('/:questid/comments/:commentid/author', controller.createdCommentBy);
+
 // /* Process Edit a comment. */
 router.put('/:questid/comments/:commentid', controller.editComment);
 //
