@@ -1,5 +1,17 @@
 const questionId = $.url().param('questid')
 const URL = 'http://localhost:3000/api/questions/'+questionId+'/comments/'
+const Auth = {
+  getToken: () => {
+    return localStorage.getItem('token')
+  },
+  getUser: () => {
+    let token = Auth.getToken()
+    if (!token) return {}
+    else {
+      return jwt_decode(token)
+    }
+  }
+}
 
 $(document).ready(function(){
   showQuestion()
