@@ -25,6 +25,8 @@ function edit_comment(id){
       console.log(get_one_data);
       $('#form_new_comment #content').val(get_one_data.content)
       $('#form_new_comment #id').val(get_one_data.commentId)
+
+      //hide btn add & show btn update
       $('#btn_add_comment').hide()
       $('#btn_update_comment').show()
     }
@@ -55,6 +57,12 @@ function process_edit_comment(){
 
       $(`#comment_${edited_data.commentId}`).replaceWith(edited_data_HTML)
       $('#form_new_comment #content').val("")
+
+
+      //hide btn update & show btn add
+      $('#btn_add_comment').show()
+      $('#btn_update_comment').hide()
+      $('#form_new_comment #id').val("")
     }
   })
 }
