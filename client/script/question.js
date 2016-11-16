@@ -17,14 +17,14 @@ $(document).ready(function(){
 
 function edit_comment(id){
   $.ajax({
-    url: 'http://localhost:3000/api/questions/'+questionId,
+    url: URL+id,
     success: function(get_one_data){
       console.log(get_one_data);
     }
   })
 }
 
-function processedit_comment(id){
+function process_edit_comment(id){
   $.ajax({
     url: URL+id,
     method: "PUT",

@@ -174,10 +174,17 @@ let deleteComment = (req, res) => {
 
 let showComment = (req, res) => {
   Question.findOne({
-    "questionId" : req.params.questid,
-    "comment.commentId" : req.params.commentid
+    "questionId" : req.params.questid
   }, (err, get_one_data) => {
-    console.log(get_one_data);
+    // console.log(get_one_data.comment);
+    // console.log(typeof req.params.commentid);
+    for (var i = 0; i < get_one_data.comment.length; i++) {
+      // console.log(typeof get_one_data.comment[i].commentId);
+      if(get_one_data.comment[i].commentId === Number(req.params.commentid)){
+        console.log(get_one_data.comment[i]);
+        res.status(200).json(get_one_data.comment[i])
+      }
+    }
   })
 }
 
