@@ -47,9 +47,12 @@ router.delete('/:questid/comments/:commentid', controller.deleteComment);
 // // votes
 // // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // /* Process New vote. */
-// router.post('/:questid/comments/', controller.addVote);
+router.post('/:questid/votes/', controller.addVote);
 //
 // /* Process Delete a vote. */
-// router.delete('/:questid/comments/:commentid', controller.deleteVote);
+router.delete('/:questid/votes', controller.deleteVote);
+
+// /* Process Delete a vote. */
+router.get('/:questid/votes', controller.getCountVote);
 
 module.exports = router;

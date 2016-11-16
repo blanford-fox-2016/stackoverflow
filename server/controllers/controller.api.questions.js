@@ -4,6 +4,10 @@ const Question = require('../models/models.api.questions')
 
 const seeder = require('../config/seeder.api.questions')
 
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// Question's Controller
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 let showAllQuestion = (req, res) => {
   Question
     .find({}, (err, all_data) => {
@@ -98,6 +102,10 @@ let deleteAllQuestion = (req, res) => {
   // Question.resetSequence()
   // Question.db.db.dropCollection('questions', (err) => {console.log(err);})
 }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// Comment's Controller
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 let addComment = (req, res) => {
   Question.findOne({
@@ -197,6 +205,68 @@ let showComment = (req, res) => {
   })
 }
 
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// Vote's Controller
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+let addVote = (req, res) => {
+  console.log(req.params.questid);
+  Question.findOne({
+    questionId : req.params.questid
+  }, (err, one_data) => {
+    // console.log(one_data.votes.length);
+    Question.findOneAndUpdate({
+      questionId : req.params.questid
+    }, {
+      $push : {
+        votes : one_data.votes.length+1
+      }
+    }, {
+      new: true
+    }, (err, new_vote) => {
+      if (err) {
+        console.log(err);
+        res.json(err)
+      }else{
+          console.log(new_vote);
+          res.json(new_vote)
+      }
+    })
+  })
+}
+
+let deleteVote = (req, res) => {
+  Question.findOne({
+    questionId : req.params.questid
+  }, (err, one_data) => {
+    Question.findOneAndUpdate({
+      "questionId" : req.params.questid
+    }, {
+      $pull : {
+        votes : one_data.votes.length
+      }
+    }, {
+      new: true
+    }, (err, deleted_data) => {
+      if (err) {
+        console.log(err);
+        res.json(err)
+      }else{
+          console.log(deleted_data);
+          res.json(deleted_data)
+      }
+    })
+  })
+}
+
+let getCountVote = (req, res) => {
+  Question.findOne({
+    questionId : req.params.questid
+  }, (err, one_data) => {
+    res.json({vote_total: one_data.votes.length})
+  })
+}
+
 module.exports = {
   showAllQuestion,
   addQuestion,
@@ -208,7 +278,10 @@ module.exports = {
   addComment,
   editComment,
   deleteComment,
-  showComment
+  showComment,
+  addVote,
+  deleteVote,
+  getCountVote
 }
 /*
 addVote : addVote,

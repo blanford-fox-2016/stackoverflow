@@ -13,10 +13,44 @@ $(document).ready(function(){
     processNewComment()
   })
 
-
   //process show all comments
   showAllComments()
+
+  //votes events listener
+  //up-vote
+  $('#up_vote').on('click', function(e){
+    e.preventDefault()
+    processUpVote()
+  })
+  //down_vote
+  $('#down_vote').on('click', function(e){
+    e.preventDefault()
+    processDownVote()
+  })
 })
+
+function processUpVote(){
+  $.post({
+    url: 'http://localhost:3000/api/questions/'+questionId+'/votes',
+    success: function(one_data){
+      console.log(one_data);
+      $('#vote_total').text(one_data.votes.length)
+      $('#up_vote').prop("disabled", "true")
+    }
+  })
+}
+
+function processDownVote(){
+  $.post({
+    url: 'http://localhost:3000/api/questions/'+questionId+'/votes',
+    method: "DELETE",
+    success: function(one_data){
+      console.log(one_data);
+      $('#vote_total').text(one_data.votes.length)
+      $('#down_vote').prop("disabled", "true")
+    }
+  })
+}
 
 function edit_comment(id){
   $.ajax({

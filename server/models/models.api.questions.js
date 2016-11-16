@@ -35,10 +35,7 @@ let QuestionSchema = new Schema({
         ref   : 'Users'
       }
   }],
-  votes : [{
-    type  : Schema.Types.ObjectId,
-    ref   : 'Users'
-    }]
+  votes : []
 })
 
 QuestionSchema.plugin(increment, {
