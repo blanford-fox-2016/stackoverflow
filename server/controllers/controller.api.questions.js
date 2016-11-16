@@ -25,7 +25,7 @@ let addQuestion = (req, res) => {
     // questionId : 1,
     title: req.body.title,
     content: req.body.content,
-    // author : req.user._id,
+    author : req.body.author,
     comment : [],
     votes : []
   }, (err, new_data) => {

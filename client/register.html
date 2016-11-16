@@ -16,16 +16,16 @@
           <a class="navbar-brand" href="#">QA - stackoverflow</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.html">Login</a></li>
-          <li><a href="register.html">Register</a></li>
+          <li><a href="index.html">Login</a></li>
+          <li class="active"><a href="register.html">Register</a></li>
         </ul>
       </div>
     </nav>
   <!-- navbar -->
 
-  <!-- login -->
+  <!-- register -->
   <div class="container">
-    <form id="form_login">
+    <form id="form_register" method="post" action="http://localhost:3000/api/users">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username">
@@ -35,17 +35,17 @@
         <input type="password" class="form-control" id="password">
       </div>
       <div class="form-group">
-        <button type="button" id="btn_login" class="btn btn-lg btn-default">Login</button>
+        <button type="button" id="btn_register" class="btn btn-lg btn-default">Register</button>
       </div>
     </form>
   </div>
-  <!-- end login -->
+  <!-- end register -->
 
 </body>
   <script src="./lib/jquery/dist/jquery.min.js"></script>
   <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="./lib/jwt-decode/build/jwt-decode.min.js"></script>
-  <script src="./script/login.js"></script>
+  <script src="./script/register.js"></script>
   <script>
     if (localStorage.getItem('token')) window.location = 'home.html'
   </script>

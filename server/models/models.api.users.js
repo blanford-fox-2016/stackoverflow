@@ -11,12 +11,7 @@ let UsersSchema = new Schema({
     type      : String,
     required  : true
   },
-  password : {
-    type      : String,
-    required  : true,
-    lowercase : true,
-    trim      : true
-  },
+  password : String,
   up_vote: Boolean,
   down_vote: Boolean
 },{

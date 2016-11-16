@@ -20,36 +20,6 @@ let allUsers = (req, res) => {
   })
 }
 
-/*
-  * @api {post} /api/users
-  * @api purpose post new user
-  * @apiName addUser
-  * @apiGroup users
-  *
-  * @apiSuccess add new user's username {String}
-*/
-let addUser = (req, res, next) => {
-  console.log(`ini masuk`);
-  console.log(req.body);
-  User.register({
-    userId   : 1,
-    username : req.body.username
-    // arcticle id add here
-  }, req.body.password, (err, new_user) => {
-    console.log(`test`);
-    if(err) res.status(400).json({'error': 'Error: ${err}'})
-    if(!new_user) res.status(404).json({'message': 'Failed to add new user'})
-
-    passport.authenticate('local')(req, res, () => {
-        if (err) {
-          return next(err)
-        }else{
-          res.status(200).json(new_user)// nanti jwt di lempar
-        }
-
-    })
-  })
-}
 
 /*
   * @api {put} /api/users/:id
@@ -61,7 +31,7 @@ let addUser = (req, res, next) => {
 */
 let editUser = (req, res) => {
   User.findOneAndUpdate({
-    userId : req.params.id
+    _id : req.params.id
   }, req.body, {
     new: true
   }, (err, updated_user) => {
@@ -83,7 +53,7 @@ let editUser = (req, res) => {
 let deleteUser = (req, res) => {
   console.log(`params: ${req.params.id}`);
   User.findOneAndRemove({
-    userId : req.params.id
+    _id : req.params.id
   }, (err, deleted_user) => {
     if(err) res.status(400).json({'error': 'Error: ${err}'})
     if(!deleted_user) res.status(404).json({'message': 'Failed to delete user'})
@@ -103,7 +73,7 @@ let deleteUser = (req, res) => {
 let registerLocalUser = (req, res, next) => {
   console.log(`register`);
   console.log(req.body);
-  
+
   User.register(new User({
     username : req.body.username
   }),
@@ -112,22 +82,22 @@ let registerLocalUser = (req, res, next) => {
     if(err) res.status(400).json({'error': `Register Error: ${err}`})
     if(!new_user) res.status(404).json({'message': 'Failed to register a user'})
 
-    // passport.authenticate('local', {
-    //   successRedirect: '/',
-    //   successFlash: true,
-    //   failureRedirect: '/register',
-    //   failureFlash: true
-    // }, (err, user, info) => {
-    //   if(err) return res.status(400).json({'error': 'Login Error: ${err}'})
-    //   if(!user) return res.status(404).json({'message': 'Register succeded but sign in falied'})
-    //
-    //   return res.status(200).json({
-    //     token: jwt.sign({
-    //       sub: user._id,
-    //       username: user.username
-    //     }, 'secret')
-    //   })
-    // })(req, res, next)
+    passport.authenticate('local', {
+      successRedirect: '/',
+      successFlash: true,
+      failureRedirect: '/register',
+      failureFlash: true
+    }, (err, user, info) => {
+      if(err) return res.status(400).json({'error': 'Login Error: ${err}'})
+      if(!user) return res.status(404).json({'message': 'Register succeded but sign in falied'})
+
+      return res.status(200).json({
+        token: jwt.sign({
+          sub: user._id,
+          username: user.username
+        }, 'secret')
+      })
+    })(req, res, next)
   })
 }
 
@@ -160,7 +130,6 @@ let loginUser = (req, res, next) => {
 
 module.exports = {
   allUsers   : allUsers,
-  addUser    : addUser,
   editUser   : editUser,
   deleteUser : deleteUser,
   registerLocalUser : registerLocalUser,

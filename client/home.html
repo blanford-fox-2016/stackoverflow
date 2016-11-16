@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
+
+  <title>QA - stackoverflow</title>
+</head>
+<body>
+  <!-- navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">QA - stackoverheart</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="#" id="logout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- end navbar -->
+
+    <div class="container">
+      <button type="button" id="show_form_add" class="btn btn-warning">Ask Question</button>
+      <button type="button" id="show_form_hide" class="btn btn-warning">Hide</button>
+      <form id="form_new_question" method="post">
+        <div class="form-group">
+          <label for="title">Title :</label>
+          <input type="text" id="title" class="form-control">
+        </div>
+         <div class="form-group">
+           <label for="content">Input your question :</label>
+           <textarea class="form-control" id="content" style="resize:none;"></textarea>
+         </div>
+         <button type="button" class="btn btn-success" id="btn_add">Submit</button>
+         <button type="button" class="btn btn-warning" id="btn_update">Update</button>
+     </form>
+
+      <!-- table list questions -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="col-sm-4">Info</th>
+            <th class="col-sm-4">Name</th>
+            <th class="col-sm-4">Action</th>
+          </tr>
+        </thead>
+        <tbody id="body_table"></tbody>
+      </table>
+      <!-- end table list questions -->
+
+    </div>
+</body>
+  <script src="./lib/jquery/dist/jquery.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./lib/jwt-decode/build/jwt-decode.min.js"></script>
+  <script src ="script/home.js"></script>
+  <script>
+    if (!localStorage.getItem('token')) window.location = 'index.html'
+  </script>
+</html>

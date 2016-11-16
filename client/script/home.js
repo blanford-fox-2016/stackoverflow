@@ -1,3 +1,16 @@
+const Auth = {
+  getToken: () => {
+    return localStorage.getItem('token')
+  },
+  getUser: () => {
+    let token = Auth.getToken()
+    if (!token) return {}
+    else {
+      return jwt_decode(token)
+    }
+  }
+}
+
 $('document').ready(function(){
   $('#form_new_question').hide()
   $('#show_form_hide').hide()
@@ -8,7 +21,17 @@ $('document').ready(function(){
   form_new_question()
 
   add_question()
+
+  $('#logout').on('click', function(e){
+    e.preventDefault()
+    processLogout()
+  })
 })
+
+function processLogout(){
+  localStorage.removeItem('token')
+  window.location = 'index.html'
+}
 
 function show_all(){
   $.ajax({
@@ -54,13 +77,15 @@ function form_new_question(){
 }
 
 function add_question(){
+  console.log(Auth.getUser());
   $('#btn_add').on('click', function(e){
     e.preventDefault()
     $.post({
       url         : 'http://localhost:3000/api/questions',
       data        : {
         title   : $('#title').val(),
-        content : $('#content').val()
+        content : $('#content').val(),
+        author  : Auth.getUser().sub
       },
       success : function(new_data){
         let appendHTML = `
