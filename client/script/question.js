@@ -4,6 +4,9 @@ const URL = 'http://localhost:3000/api/questions/'+questionId+'/comments/'
 $(document).ready(function(){
   showQuestion()
 
+  //hide update button
+  $('#btn_update_comment').hide()
+
   //process add comment
   $('#btn_add_comment').on('click', function(e){
     e.preventDefault()
@@ -20,17 +23,38 @@ function edit_comment(id){
     url: URL+id,
     success: function(get_one_data){
       console.log(get_one_data);
+      $('#form_new_comment #content').val(get_one_data.content)
+      $('#form_new_comment #id').val(get_one_data.commentId)
+      $('#btn_add_comment').hide()
+      $('#btn_update_comment').show()
     }
   })
 }
 
-function process_edit_comment(id){
+function process_edit_comment(){
+  var new_comment = $('#form_new_comment #content').val()
+  var commentId = $('#form_new_comment #id').val()
   $.ajax({
-    url: URL+id,
+    url: URL+commentId,
     method: "PUT",
+    data: {
+      content: new_comment
+    },
     success: function(edited_data){
       console.log(edited_data);
-      $('#form_new_comment #content').val('lol')
+      var edited_data_HTML = `
+      <div class="panel panel-default" id="comment_${edited_data.commentId}">
+        <div class="glyphicon glyphicon-remove btn btn-danger btn-sm pull-right" onclick="delete_comment('${edited_data.commentId}')"></div>
+
+        <div class="glyphicon glyphicon-pencil btn btn-warning btn-sm pull-right" onclick="edit_comment('${edited_data.commentId}')"></div>
+        <div class="panel-body">
+          <span>${edited_data.content}</span>
+        </div>
+      </div>`
+
+
+      $(`#comment_${edited_data.commentId}`).replaceWith(edited_data_HTML)
+      $('#form_new_comment #content').val("")
     }
   })
 }

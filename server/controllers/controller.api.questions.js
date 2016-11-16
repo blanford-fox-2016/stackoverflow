@@ -129,29 +129,33 @@ let addComment = (req, res) => {
 }
 
 let editComment = (req, res) => {
-  // Question.findOneAndUpdate({
-  //   "questionId" : req.params.questid,
-  //   "comment.commentId" : req.params.commentid
-  // }, {
-  //   // $set : {
-  //   //   comment : {
-  //   //     commentId : req.params.commentid,
-  //   //     content : req.body.content
-  //   //   }
-  //   //   // "comment.content" : req.body.content
-  //   // }
-  //   'comment.$.content' : req.body.content
-  // }, {
-  //   new: true
-  // },(err, new_comment) => {
-  //   if (err) {
-  //     console.log(err);
-  //     res.json(err)
-  //   }else{
-  //       console.log(new_comment);
-  //       res.json(new_comment)
-  //   }
-  // })
+  Question.findOneAndUpdate({
+    "questionId" : req.params.questid,
+    "comment.commentId" : req.params.commentid
+  }, {
+    // $set : {
+    //   comment : {
+    //     commentId : req.params.commentid,
+    //     content : req.body.content
+    //   }
+    //   // "comment.content" : req.body.content
+    // }
+    'comment.$.content' : req.body.content
+  }, {
+    new: true
+  },(err, new_comment) => {
+    if (err) {
+      console.log(err);
+      res.json(err)
+    }else{
+      for (var i = 0; i < new_comment.comment.length; i++) {
+        if(new_comment.comment[i].commentId === Number(req.params.commentid)){
+          console.log(new_comment.comment[i]);
+          res.status(200).json(new_comment.comment[i])
+        }
+      }
+    }
+  })
 }
 
 let deleteComment = (req, res) => {
@@ -167,8 +171,13 @@ let deleteComment = (req, res) => {
   }, {
     new: true
   }, (err, deleted_data) => {
-    // console.log(req.params.commentid);
-    res.json({message : "deleted", id: req.params.commentid})
+    if (err) {
+      console.log(err);
+      res.json(err)
+    }else{
+        console.log(deleted_data);
+        res.json({message : "deleted", id: req.params.commentid})
+    }
   })
 }
 
