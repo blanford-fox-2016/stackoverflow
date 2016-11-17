@@ -95,7 +95,7 @@ let registerLocalUser = (req, res, next) => {
         token: jwt.sign({
           sub: user._id,
           username: user.username
-        }, 'secret')
+        }, 'secret', { expiresIn: '1h' })
       })
     })(req, res, next)
   })
@@ -121,7 +121,7 @@ let loginUser = (req, res, next) => {
           token: jwt.sign({
             sub: user._id,
             username: user.username
-          }, 'secret')
+          }, 'secret', { expiresIn: '1h' })
         })
       }
 
