@@ -264,28 +264,24 @@ let addVote = (req, res) => {
 }
 
 let deleteVote = (req, res) => {
-  Question.findOne({
-    questionId : req.params.questid
-  }, (err, one_data) => {
-    Question.findOneAndUpdate({
-      "questionId" : req.params.questid
-    }, {
-      $pull : {
-        votes : {
-          counter: one_data.votes.length
-        }
+  Question.findOneAndUpdate({
+    "questionId" : req.params.questid
+  }, {
+    $pull : {
+      votes : {
+        author: req.body.user_id
       }
-    }, {
-      new: true
-    }, (err, deleted_data) => {
-      if (err) {
-        console.log(err);
-        res.json(err)
-      }else{
-          console.log(deleted_data);
-          res.json(deleted_data)
-      }
-    })
+    }
+  }, {
+    new: true
+  }, (err, deleted_data) => {
+    if (err) {
+      console.log(err);
+      res.json(err)
+    }else{
+        console.log(deleted_data);
+        res.json(deleted_data)
+    }
   })
 }
 

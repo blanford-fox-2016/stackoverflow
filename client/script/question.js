@@ -160,7 +160,6 @@ function showAllComments(){
   $.ajax({
     url: 'http://localhost:3000/api/questions/'+questionId,
     success: function(all_comments){
-      console.log(all_comments.comment);
       if(all_comments.comment.length > 0){
         var all_comments_HTML = ''
         for (var i = 0; i < all_comments.comment.length; i++) {
@@ -205,7 +204,7 @@ function processNewComment(){
 }
 
 function showQuestion(){
-  console.log(Auth.getUser().sub)
+  console.log(Auth.getUser())
   $.ajax({
     url : 'http://localhost:3000/api/questions/'+questionId,
     success : function(one_data){
@@ -216,7 +215,12 @@ function showQuestion(){
       $('#vote_total').text(one_data.votes.length)
       for (var i = 0; i < one_data.votes.length; i++) {
         if(one_data.votes[i].author == Auth.getUser().sub){
+          console.log(`ada`);
           $('#up_vote').prop("disabled", "true")
+          $('#down_vote').removeAttr("disabled")
+        }else{
+          $('#up_vote').removeAttr("disabled")
+          $('#down_vote').prop("disabled", "true")
         }
       }
       if(one_data.votes.length === 0){
