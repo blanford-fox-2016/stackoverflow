@@ -39,7 +39,18 @@ $(document).ready(function(){
     e.preventDefault()
     processDownVote()
   })
+
+  //process logout
+  $('#logout').on('click', function(e){
+    e.preventDefault()
+    processLogout()
+  })
 })
+
+function processLogout(){
+  localStorage.removeItem('token')
+  window.location = 'index.html'
+}
 
 function processUpVote(){
   $.post({
