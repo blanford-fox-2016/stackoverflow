@@ -149,18 +149,16 @@ function showAllComments(){
   $.ajax({
     url: 'http://localhost:3000/api/questions/'+questionId,
     success: function(all_comments){
-      // console.log(all_comments.comment);
-      if(all_comments.comment.length > 1){
+      console.log(all_comments.comment);
+      if(all_comments.comment.length > 0){
         var all_comments_HTML = ''
         for (var i = 0; i < all_comments.comment.length; i++) {
+          console.log(i);
           all_comments_HTML += `
           <div class="panel panel-default" id="comment_${all_comments.comment[i].commentId}">
             ${checkAuthComment(all_comments.comment[i])}
             <div class="panel-body">
               <span>${all_comments.comment[i].content}</span>
-            </div>
-            <div class="panel-footer">
-              <span>${all_comments.comment[i].author}</span>
             </div>
           </div>
           `

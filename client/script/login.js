@@ -35,7 +35,7 @@ function processLogin(){
         window.location = 'home.html'
       }else{
         alert('input salah')
-        window.location = 'index.html'
+        // window.location = 'index.html'
         localStorage.removeItem('token')
       }
     }
