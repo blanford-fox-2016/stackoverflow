@@ -226,16 +226,19 @@ let createdCommentBy = (req, res) => {
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 let addVote = (req, res) => {
-  console.log(req.params.questid);
+  // console.log(req.params.questid);
+  // console.log(req.body);
   Question.findOne({
     questionId : req.params.questid
   }, (err, one_data) => {
-    // console.log(one_data.votes.length);
     Question.findOneAndUpdate({
       questionId : req.params.questid
     }, {
       $push : {
-        votes : one_data.votes.length+1
+        votes : {
+          author: req.body.user_id,
+          counter: one_data.votes.length+1
+        }
       }
     }, {
       new: true
@@ -244,8 +247,17 @@ let addVote = (req, res) => {
         console.log(err);
         res.json(err)
       }else{
-          console.log(new_vote);
-          res.json(new_vote)
+          // console.log(new_vote.votes);
+          var votes_count = new_vote.votes.length
+          for (var i = 0; i < new_vote.votes.length; i++) {
+            if(new_vote.votes[i].author == req.body.user_id){
+              console.log(`masuk`);
+              res.json({
+                votes_count: votes_count,
+                up_vote: true
+              })
+            }
+          }
       }
     })
   })
@@ -259,7 +271,9 @@ let deleteVote = (req, res) => {
       "questionId" : req.params.questid
     }, {
       $pull : {
-        votes : one_data.votes.length
+        votes : {
+          counter: one_data.votes.length
+        }
       }
     }, {
       new: true

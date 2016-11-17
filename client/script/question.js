@@ -53,12 +53,19 @@ function processLogout(){
 }
 
 function processUpVote(){
+  // console.log(Auth.getUser());
   $.post({
     url: 'http://localhost:3000/api/questions/'+questionId+'/votes',
-    success: function(one_data){
-      console.log(one_data);
-      $('#vote_total').text(one_data.votes.length)
+    data: {
+      user_id : Auth.getUser().sub
+    }, success: function(clicked_vote){
+      console.log(clicked_vote);
+      $('#vote_total').text(clicked_vote.votes_count)
       $('#up_vote').prop("disabled", "true")
+      $('#down_vote').removeAttr("disabled")
+      // if(clicked_vote.votes_count === 1){
+      //   $('#down_vote').prop("disabled", "true")
+      // }
     }
   })
 }
@@ -67,9 +74,13 @@ function processDownVote(){
   $.post({
     url: 'http://localhost:3000/api/questions/'+questionId+'/votes',
     method: "DELETE",
-    success: function(one_data){
+    data: {
+      user_id : Auth.getUser().sub
+    },success: function(one_data){
       console.log(one_data);
+      console.log(`down`);
       $('#vote_total').text(one_data.votes.length)
+      $('#up_vote').removeAttr("disabled")
       $('#down_vote').prop("disabled", "true")
     }
   })
@@ -153,7 +164,6 @@ function showAllComments(){
       if(all_comments.comment.length > 0){
         var all_comments_HTML = ''
         for (var i = 0; i < all_comments.comment.length; i++) {
-          console.log(i);
           all_comments_HTML += `
           <div class="panel panel-default" id="comment_${all_comments.comment[i].commentId}">
             ${checkAuthComment(all_comments.comment[i])}
@@ -195,14 +205,23 @@ function processNewComment(){
 }
 
 function showQuestion(){
-  // console.log(questionId)
+  console.log(Auth.getUser().sub)
   $.ajax({
     url : 'http://localhost:3000/api/questions/'+questionId,
     success : function(one_data){
-      console.log(one_data)
+      console.log('11111',one_data)
       $('#title').text(one_data.title)
-      $('#vote_total').text(one_data.votes.length)
       $('#content').text(one_data.content)
+
+      $('#vote_total').text(one_data.votes.length)
+      for (var i = 0; i < one_data.votes.length; i++) {
+        if(one_data.votes[i].author == Auth.getUser().sub){
+          $('#up_vote').prop("disabled", "true")
+        }
+      }
+      if(one_data.votes.length === 0){
+        $('#down_vote').prop("disabled", "true")
+      }
     }
   })
 }
